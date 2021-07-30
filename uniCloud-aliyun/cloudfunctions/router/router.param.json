@@ -1,0 +1,10 @@
+// 本地运行参数模板
+// 登录成功后，记得把返回的token填写到下方的uni_id_token里，这样才能访问kh目录下的函数
+{	"uni_id_token":"",
+	//"$url":"user/pub/login",
+	"$url":"template/db_api/pub/selects_test_1",
+	"data":{
+		"username":"admin",
+		"password":"123456"
+	}
+}

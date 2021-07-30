@@ -1,0 +1,102 @@
+@charset "UTF-8";
+.grid-text.data-v-4fbda4b8 {
+  font-size: 28rpx;
+  margin-top: 4rpx;
+  color: #909399;
+}
+.badge-icon.data-v-4fbda4b8 {
+  position: absolute;
+  width: 40rpx;
+  height: 40rpx;
+}
+.swiper.data-v-4fbda4b8 {
+  height: 480rpx;
+}
+.indicator-dots.data-v-4fbda4b8 {
+  margin-top: 40rpx;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+          justify-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+}
+.indicator-dots-item.data-v-4fbda4b8 {
+  background-color: #909399;
+  height: 6px;
+  width: 6px;
+  border-radius: 10px;
+  margin: 0 3px;
+}
+.indicator-dots-active.data-v-4fbda4b8 {
+  background-color: #2979ff;
+}
+/* start--演示页面使用的统一样式--start */
+.u-demo.data-v-4fbda4b8 {
+  padding: 50rpx 40rpx;
+}
+.u-demo-wrap.data-v-4fbda4b8 {
+  border-width: 1px;
+  border-color: #ddd;
+  border-style: dashed;
+  background-color: #fafafa;
+  padding: 40rpx 20rpx;
+  border-radius: 6px;
+}
+.u-demo-area.data-v-4fbda4b8 {
+  text-align: center;
+}
+.u-no-demo-here.data-v-4fbda4b8 {
+  color: #909399;
+  font-size: 26rpx;
+}
+.u-demo-result-line.data-v-4fbda4b8 {
+  border-width: 1px;
+  border-color: #ddd;
+  border-style: dashed;
+  padding: 10rpx 40rpx;
+  margin-top: 30rpx;
+  border-radius: 5px;
+  background-color: #f0f0f0;
+  color: #606266;
+  font-size: 32rpx;
+  word-break: break-word;
+  display: inline-block;
+  text-align: left;
+}
+.u-demo-title.data-v-4fbda4b8,
+.u-config-title.data-v-4fbda4b8 {
+  text-align: center;
+  font-size: 32rpx;
+  font-weight: bold;
+  margin-bottom: 40rpx;
+}
+.u-config-item.data-v-4fbda4b8 {
+  margin-top: 50rpx;
+}
+.u-config-title.data-v-4fbda4b8 {
+  margin-top: 40rpx;
+  padding-bottom: 10rpx;
+}
+.u-item-title.data-v-4fbda4b8 {
+  position: relative;
+  font-size: 28rpx;
+  padding-left: 8px;
+  line-height: 1;
+  margin-bottom: 22rpx;
+}
+.u-item-title.data-v-4fbda4b8:after {
+  position: absolute;
+  width: 4px;
+  top: -1px;
+  height: 16px;
+  content: '';
+  left: 0;
+  border-radius: 10px;
+  background-color: #606266;
+}
+/* end--演示页面使用的统一样式--end */
+

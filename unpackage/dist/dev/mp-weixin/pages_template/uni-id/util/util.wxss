@@ -1,0 +1,29 @@
+.content.data-v-7b2791d4 {
+  padding: 15px;
+}
+.content input.data-v-7b2791d4 {
+  height: 46px;
+  border: solid 1px #DDDDDD;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  padding: 0px 15px;
+}
+.content button.data-v-7b2791d4 {
+  margin-bottom: 15px;
+}
+.content navigator.data-v-7b2791d4 {
+  display: inline-block;
+  color: #007AFF;
+  border-bottom: solid 1px #007AFF;
+  font-size: 16px;
+  line-height: 24px;
+  margin-bottom: 15px;
+}
+.tips.data-v-7b2791d4 {
+  text-align: center;
+  line-height: 20px;
+  font-size: 14px;
+  color: #999999;
+  margin-bottom: 20px;
+}
+

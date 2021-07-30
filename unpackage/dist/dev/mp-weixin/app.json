@@ -1,0 +1,86 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/index/search",
+    "pages/issue/index",
+    "pages/issue/time",
+    "pages/mine/index",
+    "pages/mine/info",
+    "pages/login/index/index",
+    "pages/login/register/register",
+    "pages/login/forget/forget",
+    "pages/error/404/404",
+    "pages/login/agreement/agreement",
+    "pages/u-avatar-cropper/u-avatar-cropper",
+    "pages/tutorial/tutorial",
+    "pages/tutorial/reply",
+    "pages/recommend/recommend"
+  ],
+  "subPackages": [
+    {
+      "root": "pages_template",
+      "pages": [
+        "db-test/db-test",
+        "db-test/list/list",
+        "uni-id/index/index",
+        "uni-id/password/password",
+        "uni-id/mobile/mobile",
+        "uni-id/univerify/univerify",
+        "uni-id/weixin/weixin",
+        "uni-id/alipay/alipay",
+        "uni-id/util/util",
+        "uni-id/email/email",
+        "uni-id/login/index/index",
+        "uni-id/login/register/register",
+        "uni-id/login/forget/forget",
+        "components-dynamic/index/index",
+        "components-dynamic/vk-u-notice-bar/vk-u-notice-bar",
+        "components-dynamic/vk-u-swiper/vk-u-swiper",
+        "components-dynamic/vk-u-grid-button/vk-u-grid-button",
+        "components-dynamic/vk-u-goods-sku-popup/vk-u-goods-sku-popup",
+        "vuex/vuex",
+        "openapi/weixin/weixin",
+        "openapi/weixin/msgSecCheck/msgSecCheck",
+        "openapi/weixin/imgSecCheck/imgSecCheck",
+        "openapi/weixin/sendMessage/sendMessage",
+        "openapi/baidu/baidu"
+      ]
+    }
+  ],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarBackgroundColor": "#FFFFFF"
+  },
+  "tabBar": {
+    "color": "#909399",
+    "selectedColor": "#303133",
+    "backgroundColor": "#FFFFFF",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "iconPath": "static/img/index.png",
+        "selectedIconPath": "static/img/index-select.png",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/recommend/recommend",
+        "iconPath": "static/img/more.png",
+        "selectedIconPath": "static/img/more-select.png",
+        "text": "ta说"
+      },
+      {
+        "pagePath": "pages/mine/index",
+        "iconPath": "static/img/mine.png",
+        "selectedIconPath": "static/img/mine-select.png",
+        "text": "我的"
+      }
+    ]
+  },
+  "permission": {
+    "scope.userLocation": {
+      "desc": "获取您的位置"
+    }
+  },
+  "usingComponents": {}
+}

@@ -1,0 +1,33 @@
+@charset "UTF-8";
+page.data-v-a2539316 {
+  background-color: #f8f8fa;
+  min-height: 100vh;
+}
+/* list 开始 */
+.vk-list-view.data-v-a2539316 {
+  background-color: #f8f8fa;
+}
+.vk-list-view .list-view.data-v-a2539316 {
+  padding: 0rpx 0rpx 20rpx 0rpx;
+}
+.vk-list-view .list-search.data-v-a2539316 {
+  background-color: #FFFFFF;
+  padding: 20rpx 30rpx;
+}
+.vk-list-view .list-head-desc-text.data-v-a2539316 {
+  font-size: 28rpx;
+  color: #999;
+  padding: 20rpx 30rpx 0rpx 30rpx;
+  padding-bottom: 0;
+  line-height: 52rpx;
+  width: 100%;
+}
+.vk-list-view .list-head-text-num.data-v-a2539316 {
+  font-weight: bold;
+  color: black;
+  font-size: 26rpx;
+  margin-left: 10rpx;
+  margin-right: 10rpx;
+}
+/* list 结束 */
+

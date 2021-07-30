@@ -1,0 +1,73 @@
+@charset "UTF-8";
+.item.data-v-147a8dd6 {
+  margin: 30rpx 0;
+}
+.app.data-v-147a8dd6 {
+  padding: 30rpx;
+}
+/* start--演示页面使用的统一样式--start */
+.u-demo.data-v-147a8dd6 {
+  padding: 50rpx 40rpx;
+}
+.u-demo-wrap.data-v-147a8dd6 {
+  border-width: 1px;
+  border-color: #ddd;
+  border-style: dashed;
+  background-color: #fafafa;
+  padding: 40rpx 20rpx;
+  border-radius: 6px;
+}
+.u-demo-area.data-v-147a8dd6 {
+  text-align: center;
+}
+.u-no-demo-here.data-v-147a8dd6 {
+  color: #909399;
+  font-size: 26rpx;
+}
+.u-demo-result-line.data-v-147a8dd6 {
+  border-width: 1px;
+  border-color: #ddd;
+  border-style: dashed;
+  padding: 10rpx 40rpx;
+  margin-top: 30rpx;
+  border-radius: 5px;
+  background-color: #f0f0f0;
+  color: #606266;
+  font-size: 32rpx;
+  word-break: break-word;
+  display: inline-block;
+  text-align: left;
+}
+.u-demo-title.data-v-147a8dd6,
+.u-config-title.data-v-147a8dd6 {
+  text-align: center;
+  font-size: 32rpx;
+  font-weight: bold;
+  margin-bottom: 40rpx;
+}
+.u-config-item.data-v-147a8dd6 {
+  margin-top: 50rpx;
+}
+.u-config-title.data-v-147a8dd6 {
+  margin-top: 40rpx;
+  padding-bottom: 10rpx;
+}
+.u-item-title.data-v-147a8dd6 {
+  position: relative;
+  font-size: 28rpx;
+  padding-left: 8px;
+  line-height: 1;
+  margin-bottom: 22rpx;
+}
+.u-item-title.data-v-147a8dd6:after {
+  position: absolute;
+  width: 4px;
+  top: -1px;
+  height: 16px;
+  content: '';
+  left: 0;
+  border-radius: 10px;
+  background-color: #606266;
+}
+/* end--演示页面使用的统一样式--end */
+

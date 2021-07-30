@@ -1,0 +1,9 @@
+{
+  "usingComponents": {
+    "u-search": "/node-modules/uview-ui/components/u-search/u-search",
+    "u-empty": "/node-modules/uview-ui/components/u-empty/u-empty",
+    "content-list": "/components/contentList/contentList",
+    "u-loadmore": "/node-modules/uview-ui/components/u-loadmore/u-loadmore",
+    "u-back-top": "/node-modules/uview-ui/components/u-back-top/u-back-top"
+  }
+}

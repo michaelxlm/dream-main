@@ -1,0 +1,12 @@
+.content.data-v-4ec517f8 {
+  padding: 30rpx;
+}
+.content button.data-v-4ec517f8 {
+  margin-bottom: 30rpx;
+}
+.tips.data-v-4ec517f8 {
+  font-size: 28rpx;
+  color: #999999;
+  margin-bottom: 32rpx;
+}
+

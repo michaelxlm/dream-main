@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "动态数据组件 - 图文导航",
+  "usingComponents": {
+    "u-toast": "/node-modules/uview-ui/components/u-toast/u-toast",
+    "vk-u-grid-button": "/uni_modules/vk-unicloud/components/vk-u-grid-button/vk-u-grid-button",
+    "u-subsection": "/node-modules/uview-ui/components/u-subsection/u-subsection"
+  }
+}

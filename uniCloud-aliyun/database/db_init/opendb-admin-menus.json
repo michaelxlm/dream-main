@@ -1,0 +1,5 @@
+{"_id":"sys-role-manage","_add_time":1596416400000,"comment":"1个角色可以分配多个权限和菜单","enable":true,"icon":"el-icon-user","menu_id":"sys-role-manage","name":"角色管理","parent_id":"sys-admin","sort":2,"url":"/pages_plugs/system/role/list"}
+{"_id":"sys-permission-manage","_add_time":1596416400000,"comment":"1个权限可以匹配多个云函数","enable":true,"icon":"vk-icon-lock","menu_id":"sys-permission-manage","name":"权限管理","parent_id":"sys-admin","sort":3,"url":"/pages_plugs/system/permission/list"}
+{"_id":"sys-admin","_add_time":1596416400000,"comment":"系统内置","enable":true,"icon":"el-icon-s-tools","menu_id":"sys-admin","name":"用户角色权限","sort":100,"url":""}
+{"_id":"sys-menus-manage","_add_time":1596416400000,"comment":"控制admin左侧菜单的显示和隐藏","enable":true,"icon":"el-icon-tickets","menu_id":"sys-menus-manage","name":"菜单管理","parent_id":"sys-admin","sort":4,"url":"/pages_plugs/system/menu/list"}
+{"_id":"sys-user-manage","_add_time":1596416400000,"comment":"1个角色可以分配多个角色","enable":true,"icon":"el-icon-s-custom","menu_id":"sys-user-manage","name":"用户管理","parent_id":"sys-admin","sort":1,"url":"/pages_plugs/system/user/list"}

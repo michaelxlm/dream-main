@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "找回密码",
+  "usingComponents": {
+    "u-input": "/node-modules/uview-ui/components/u-input/u-input",
+    "vk-u-verification-code": "/uni_modules/vk-unicloud/components/vk-u-verification-code/vk-u-verification-code",
+    "u-button": "/node-modules/uview-ui/components/u-button/u-button"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "动态数据组件 - 图片轮播",
+  "usingComponents": {
+    "u-toast": "/node-modules/uview-ui/components/u-toast/u-toast",
+    "vk-u-swiper": "/uni_modules/vk-unicloud/components/vk-u-swiper/vk-u-swiper",
+    "u-subsection": "/node-modules/uview-ui/components/u-subsection/u-subsection"
+  }
+}

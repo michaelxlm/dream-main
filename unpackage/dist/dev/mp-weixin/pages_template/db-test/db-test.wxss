@@ -1,0 +1,24 @@
+
+.app {
+	padding: 15px;
+}
+.app input {
+	height: 46px;
+	border: solid 1px #DDDDDD;
+	border-radius: 5px;
+	margin-bottom: 15px;
+	padding: 0px 15px;
+}
+.app button {
+	margin-bottom: 15px;
+	font-size: 32rpx;
+}
+.app navigator {
+	display: inline-block;
+	color: #007AFF;
+	border-bottom: solid 1px #007AFF;
+	font-size: 16px;
+	line-height: 24px;
+	margin-bottom: 15px;
+}
+

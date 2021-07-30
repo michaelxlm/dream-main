@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "动态数据组件 - 公告",
+  "usingComponents": {
+    "u-toast": "/node-modules/uview-ui/components/u-toast/u-toast",
+    "vk-u-notice-bar": "/uni_modules/vk-unicloud/components/vk-u-notice-bar/vk-u-notice-bar",
+    "u-subsection": "/node-modules/uview-ui/components/u-subsection/u-subsection"
+  }
+}

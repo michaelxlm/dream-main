@@ -1,0 +1,590 @@
+/*每个页面公共css */
+
+@import "uview-ui/index.scss";
+/* uni.scss */
+@import "uview-ui/theme.scss";
+$u-white: #ffffff;
+$u-black: #000000;
+.time_card{
+	 @extend .u-p-28;
+	 &_detail{
+		 color: $u-black;
+		  @extend .u-p-t-10;
+		   @extend .u-p-b-10;
+		 @extend .u-font-40;
+	 }
+	 &_other{
+		  @extend .u-flex;
+		  @extend .u-flex-nowrap;
+		  @extend .u-row-left;
+		  view{
+			  &:nth-child(1){
+				   color: $u-main-color;
+				  @extend .u-font-lg;
+			  }
+			  &:nth-child(2){
+				  @extend .u-m-l-10;
+				  color: $u-type-info-dark;
+				  @extend .u-font-xs;
+			  }
+			  &:nth-child(3){
+				   @extend .u-m-l-10;
+				  color: $u-type-info-disabled;
+				  @extend .u-font-xs;
+			  }
+		  }
+	 }
+}
+.inlineBlock {
+  display: inline-block;
+}
+.floatRight{
+	float: right;
+}
+/* 去掉外边距 */
+.clearMargin {
+  margin: 0;
+}
+
+/* 去掉内边距 */
+.clearPadding {
+  margin: 0;
+}
+
+/* 去掉背景 */
+.clearBackground {
+  background: none;
+}
+
+/* 隐藏 */
+.noShow {
+  display: none;
+}
+
+/* 表单部分样式 */
+.mainForm {
+  @extend .u-p-t-10;
+  @extend .u-p-b-10;
+  @extend .u-m-l-72;
+  @extend .u-m-r-72;
+
+  .u-form-item {
+    @extend .u-p-t-14;
+    @extend .u-p-b-14;
+    @extend .u-p-l-24;
+    @extend .u-p-r-24;
+    @extend .u-m-32;
+    border-radius: 40rpx;
+    -webkit-box-shadow: 0 0 60rpx 0 rgba(43, 86, 112, 0.1);
+    box-shadow: 0 0 60rpx 0 rgba(43, 86, 112, 0.1);
+
+    &:after {
+      @extend .noShow;
+    }
+  }
+
+  .u-btn--success {
+    @extend .u-m-t-32;
+    @extend .u-m-b-32;
+    @extend .u-m-l-20;
+    @extend .u-m-r-20;
+    @extend .u-font-xl;
+    line-height: 100rpx;
+    height: 100rpx;
+    font-size: 36rpx;
+  }
+  u-collapse{
+  }
+}
+
+/* 头部 logo */
+.headerLogo {
+  @extend .u-m-t-40;
+  @extend .u-m-b-40;
+  @extend .u-flex;
+  @extend .u-row-center;
+
+  .u-image {
+    box-shadow: 0rpx 0rpx 60rpx 0rpx rgba(0, 0, 0, 0.1);
+  }
+}
+
+.boxShadow {
+  box-shadow: 0rpx 0rpx 10rpx 0rpx rgba(0, 0, 0, 0.1);
+}
+
+rich-text {
+  line-height: 40rpx;
+  letter-spacing: 2rpx;
+}
+
+/* 底部 */
+.footer {
+  @extend .u-flex;
+  @extend .u-row-center;
+  @extend .u-m-t-20;
+  color: rgba(0, 0, 0, 0.7);
+  @extend .u-text-center;
+  @extend .u-font-lg;
+  height: 40rpx;
+  line-height: 40rpx;
+
+  .center-line {
+    @extend .u-font-sm;
+    @extend .u-m-l-15;
+    @extend .u-m-r-15;
+  }
+}
+
+/* 图片列表样式 */
+.pre-box {
+  @extend .u-flex;
+  @extend .u-flex-wrap;
+  @extend .u-row-between;
+
+  .pre-item {
+    flex: 0 0 48.5%;
+    border-radius: 10rpx;
+    height: 140rpx;
+    overflow: hidden;
+    position: relative;
+    margin-bottom: 20rpx;
+  }
+}
+
+.buttonLine {
+  @extend .u-font-md;
+  @extend .u-p-30;
+  line-height: 40rpx;
+  letter-spacing: 2rpx;
+  font-weight: bolder;
+}
+
+/* 魔方 */
+.Rubik {
+  @extend .u-flex;
+  @extend .u-text-center;
+  @extend .u-border;
+  @extend .u-m-20;
+  height: 200rpx;
+
+  .leftItem {
+    @extend .u-border-right;
+    @extend .u-flex-6;
+    line-height: 200rpx;
+  }
+
+  .rightItem {
+    @extend .u-flex-6;
+
+    .rightItemTop {
+      @extend .u-border-bottom;
+      line-height: 100rpx;
+    }
+
+    .rightItemBottom {
+      line-height: 100rpx;
+    }
+  }
+}
+/* 卡片列表样式 */
+.u-card{
+	.u-card-body {
+		@extend .u-flex;
+		@extend .u-col-top;
+		.u-avatar{
+			@extend .u-flex-1;
+		}
+		.content{
+			@extend .u-flex-11;
+			@extend .u-p-l-24;
+			.nickname {
+				@extend .u-line-1;
+				@extend .u-font-26;
+			}
+			.text {
+				@extend .u-font-24;
+				@extend .u-line-2;
+				@extend .u-font-xl;
+				@extend .u-m-b-20;
+				color:$u-main-color;
+			}
+		}
+		.contentDate{
+			@extend .u-flex-11;
+			@extend .u-p-l-24;
+			.mainText{
+				line-height: 45rpx;
+			}
+		}
+	}
+}
+/* 图片列表样式 */
+@mixin photoAlbumBlock($value: 1) {
+  @extend .u-flex;
+  @extend .u-row-left;
+  @extend .u-col-center;
+  @extend .u-flex-wrap;
+  .photoItem, .addPhotoItem {
+    @if $value== 1 { @extend .u-flex-3; @extend .u-m-b-25; @extend .u-text-center;}
+    @else if $value== 9  { @extend .u-flex-4; @extend .u-m-b-25; }
+    @else if $value== 4  { @extend .u-flex-6; @extend .u-m-b-25; }
+    @else { @extend .u-flex-3; @extend .u-m-b-25; }
+	
+  }
+  .photoItem {
+	  .imgView{
+		  position: relative;
+		  display: inline-block;
+		  @if $value== 1 {
+			  height: 160rpx;
+			  width: 160rpx;
+		  }
+		  @else if $value== 9  {
+			  height: 160rpx;
+			  width: 160rpx;
+		  }
+		  @else if $value== 4  {
+			  height: 160rpx;
+			  width: 160rpx;
+		  }
+		  @else {
+			  height: 160rpx;
+			  width: 160rpx;
+		  }
+		  
+		  .u-icon {
+		    border-radius: 100%;
+		    color: $u-white;
+		    overflow: hidden;
+		    position: absolute;
+		    font-size: 24rpx;
+		    top: 10rpx;
+		    right: 10rpx;
+		  }
+	  }
+  }
+  .addPhotoItem {
+
+  }
+}
+/* 宫格图片样式 --1：添加；9，4：根据图片数量展示*/
+.photoAlbum-9 {
+  @include photoAlbumBlock(9);
+}
+.photoAlbum-4 {
+  @include photoAlbumBlock(4);
+}
+.photoAlbum-1 {
+  @include photoAlbumBlock(1);
+}
+.issureForm{
+	@extend .u-p-l-32;
+	@extend .u-p-r-32;
+	.u-form-item--right__content__slot{
+		 @extend .u-row-right;
+	}
+}
+/* 内容详情页样式 */
+.detailCompontent{
+	padding-bottom: 100rpx;
+	.comment {
+		display: flex;
+		padding: 30rpx;
+	
+		.right {
+			flex: 1;
+			padding-left: 20rpx;
+			font-size: 30rpx;
+	
+			.top {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				margin-bottom: 10rpx;
+	
+				.name {
+					color: #5677fc;
+				}
+	
+				.like {
+					display: flex;
+					align-items: center;
+					color: #9a9a9a;
+					font-size: 26rpx;
+	
+					.num {
+						margin-right: 4rpx;
+						color: #9a9a9a;
+					}
+				}
+	
+				.highlight {
+					color: #5677fc;
+	
+					.num {
+						color: #5677fc;
+					}
+				}
+			}
+	
+			.content {
+				margin-bottom: 10rpx;
+			}
+	
+			.reply-box {
+				background-color: rgb(242, 242, 242);
+				border-radius: 12rpx;
+	
+				.item {
+					padding: 20rpx;
+					border-bottom: solid 2rpx $u-border-color;
+	
+					.username {
+						font-size: 24rpx;
+						color: #999999;
+					}
+				}
+	
+				.all-reply {
+					padding: 20rpx;
+					display: flex;
+					color: #5677fc;
+					align-items: center;
+	
+					.more {
+						margin-left: 6rpx;
+					}
+				}
+			}
+	
+			.bottom {
+				margin-top: 20rpx;
+				display: flex;
+				font-size: 24rpx;
+				color: #9a9a9a;
+	
+				.replyButton {
+					color: #5677fc;
+					margin-left: 10rpx;
+				}
+			}
+		}
+	}
+	.commentReply {
+		padding: 30rpx;
+		font-size: 32rpx;
+		.top {
+			display: flex;
+			justify-content: space-between;
+		}
+	
+		.left {
+			display: flex;
+	
+			.heart-photo {
+				image {
+					width: 64rpx;
+					height: 64rpx;
+					border-radius: 50%;
+					background-color: #f2f2f2;
+				}
+			}
+	
+			.user-info {
+				margin-left: 10rpx;
+	
+				.name {
+					color: #5677fc;
+					font-size: 28rpx;
+					margin-bottom: 4rpx;
+				}
+				.date{
+					display: flex;
+					font-size: 22rpx;
+					color: #9a9a9a;
+					.replyButton {
+						color: #5677fc;
+						margin-left: 10rpx;
+					}
+				}
+			}
+		}
+	
+		.right {
+			display: flex;
+			font-size: 20rpx;
+			align-items: center;
+			color: #9a9a9a;
+	
+			.like {
+				margin-left: 6rpx;
+			}
+	
+			.num {
+				font-size: 26rpx;
+				color: #9a9a9a;
+			}
+		}
+	
+		.highlight {
+			color: #5677fc;
+	
+			.num {
+				color: #5677fc;
+			}
+		}
+	}
+	
+	.all-reply {
+		margin-top: 10rpx;
+		padding-top: 20rpx;
+		background-color: #ffffff;
+	
+		.all-reply-top {
+			margin-left: 20rpx;
+			padding-left: 20rpx;
+			border-left: solid 4rpx #5677fc;
+			font-size: 30rpx;
+			font-weight: bold;
+		}
+	
+		.item {
+			border-bottom: solid 2rpx $u-border-color;
+		}
+	
+		.reply {
+			padding: 20rpx;
+			background-color: rgb(242, 242, 242);
+			border-radius: 12rpx;
+			margin: 10rpx 0;
+	
+			.username {
+				font-size: 24rpx;
+				color: #7a7a7a;
+			}
+		}
+	}
+	.contentView{
+		@extend .u-p-l-32;
+		@extend .u-p-r-32;
+		.header{
+			@extend .u-flex;
+			@extend .u-col-top;
+			@extend .u-m-b-32;
+			.u-avatar{
+				@extend .u-flex-1;
+			}
+			.author{
+				@extend .u-flex-10;
+				@extend .u-p-l-24;
+				@extend .u-line-1;
+				@extend .u-font-26;
+			}
+			.attention{
+				@extend .u-flex-1;
+				text-align: right;
+			}
+		}
+	}
+	.operatingButtonView{
+		@extend .u-flex;
+		@extend .u-row-between;
+		@extend .u-flex-nowrap;
+		@extend .u-col-center;
+		.buttonItem{
+			@extend .u-text-center;
+			@extend .u-font-32;
+			@extend .u-border;
+			@extend .u-m-16;
+			@extend .u-p-t-20;
+			@extend .u-p-b-20;
+			@extend .u-p-l-32;
+			@extend .u-p-r-32;
+			&:after{
+				border-radius: 80rpx;
+			}
+		}
+	}
+	.operationNavigation{
+		position: fixed;
+		left: 0;
+		bottom: 0;
+		right: 0;
+		width: 100%;
+		height: 96rpx;
+		line-height: 96rpx;
+		background-color: $u-white;
+		@extend .u-flex;
+		@extend .u-col-center;
+		@extend .u-flex-nowrap;
+		.issureComment{
+			@extend .u-flex-7;
+			@extend .u-p-l-32;
+			@extend .u-p-r-32;
+			.u-input{
+				@extend .u-p-l-16;
+				border-radius: 20rpx;
+				background-color: $u-bg-color;
+			}
+		}
+		.operationButton{
+			@extend .u-flex-5;
+			@extend .u-flex;
+			@extend .u-col-center;
+			@extend .u-flex-nowrap;
+			.operationItem{
+				@extend .u-text-center;
+				@extend .u-flex-4;
+				@extend .u-relative;
+				.uicon-chat{
+					
+				}
+			}
+		}
+		
+	}
+	// 添加评论框
+	.addCommentPopup{
+		@extend .u-flex;
+		@extend .u-col-center;
+		@extend .u-flex-nowrap;
+		@extend .u-p-20;
+		.issureCommentText{
+			@extend .u-flex-10;
+			.u-input{
+				@extend .u-p-10;
+				background-color: $u-type-info-light;
+			}
+		}
+		
+		.issureCommentButton{
+			@extend .u-flex-2;
+			@extend .u-text-center;
+		}
+	}
+}
+/* 搜索头部 开始 */
+	.vk-search-view {
+		.list-search {
+			@extend .u-p-l-32;
+			@extend .u-p-r-32;
+		}
+		.list-head-desc-text {
+			@extend .u-m-t-20;
+			background-color: #f8f8fa;
+			font-size: 28rpx;
+			color: #999;
+			padding: 20rpx 30rpx 0rpx 30rpx;
+			padding-bottom: 0;
+			line-height: 52rpx;
+			width: 100%;
+			text{
+				font-weight: bold;
+				color: black;
+				font-size: 26rpx;
+				margin-left: 10rpx;
+				margin-right: 10rpx;
+			}
+		}
+	}

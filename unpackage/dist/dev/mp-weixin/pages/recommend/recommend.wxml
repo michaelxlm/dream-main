@@ -1,0 +1,1 @@
+<view><content-list vue-id="1d68f946-1" list="{{data.list}}" bind:__l="__l"></content-list><u-back-top vue-id="1d68f946-2" scrollTop="{{scrollTop}}" z-index="{{999}}" bind:__l="__l"></u-back-top></view>
