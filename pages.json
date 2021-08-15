@@ -45,7 +45,7 @@
 				"enablePullDownRefresh": false
 			}
 
-		}, 
+		},
 		{
 			"path": "pages/tutorial/reply",
 			"style": {
@@ -54,15 +54,14 @@
 			}
 		},
 		{
-            "path" : "pages/recommend/recommend",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-    ],
+			"path": "pages/recommend/recommend",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+
+		}
+	],
 	"subPackages": [{
 		"root": "pages_template",
 		"pages": [{
@@ -168,7 +167,8 @@
 	}],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
-		"navigationBarBackgroundColor": "#FFFFFF"
+		"navigationBarBackgroundColor": "#FFFFFF",
+		"onReachBottomDistance": 150
 	},
 	"tabBar": {
 		"color": "#909399",
@@ -180,7 +180,7 @@
 				"iconPath": "static/img/index.png",
 				"selectedIconPath": "static/img/index-select.png",
 				"text": "首页"
-			},{
+			}, {
 				"pagePath": "pages/recommend/recommend",
 				"iconPath": "static/img/more.png",
 				"selectedIconPath": "static/img/more-select.png",
@@ -195,12 +195,12 @@
 		]
 	},
 	"rightWindow": {
-	  "path": "responsive/right-window.vue",
-	  "style": {
-	    "width": "calc(100vw - 450px)"
-	  },
-	  "matchMedia": {
-	    "minWidth": 768
-	  }
+		"path": "responsive/right-window.vue",
+		"style": {
+			"width": "calc(100vw - 450px)"
+		},
+		"matchMedia": {
+			"minWidth": 768
+		}
 	}
 }

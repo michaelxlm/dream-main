@@ -28,8 +28,17 @@ module.exports = {
 		let dataJson = data || {}
 		let dbName = data.dbName
 		dataJson.uid = uid; //用户id
+		dataJson.originalParamContext = {
+			os: context.OS, //客户端操作系统，返回值：android、ios    等
+			platform: context.PLATFORM, //运行平台，返回值为 mp-weixin、app-plus等
+			appid: context.APPID, // manifest.json中配置的appid
+			clientIP: context.CLIENTIP, // 客户端ip信息
+			clientUA: context.CLIENTUA, // 客户端user-agent
+			deviceId: context.DEVICEID, // 客户端标识，新增于HBuilderX 3.1.0，同uni-app客户端getSystemInfo接口获取的deviceId
+			spaceInfo: context.SPACEINFO, // 当前环境信息 {spaceId:'xxx',provider:'tencent'}
+		}; //用户id
 		// 开启事务
-		delete data.dbName
+		delete dataJson.dbName
 		const transaction = await vk.baseDao.startTransaction();
 		try {
 			let addRes = await vk.baseDao.add({

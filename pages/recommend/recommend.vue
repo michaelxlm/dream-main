@@ -18,10 +18,10 @@
 				},
 				// 表单请求数据
 				form1: {
-					where: {
+					whereJson: {
 						status: 0,
 					},
-					sortRule: [],
+					sortArr: [],
 					pageIndex: 1, //当前页码
 					pageSize: 10, //每页显示数量
 				},
@@ -95,7 +95,7 @@
 				that.getList()
 			},
 			getList(obj = {}) {
-				that.form1.sortRule = that.recommendSettingList.length > 0 ? that.recommendSettingList[0].sortRule : [{
+				that.form1.sortArr = that.recommendSettingList.length > 0 ? that.recommendSettingList[0].sortArr : [{
 					name: 'recommendNumber',
 					type: 'desc'
 				}]

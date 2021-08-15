@@ -18,16 +18,14 @@ module.exports = {
 			db,
 			_
 		} = util;
-		let {
-			uid
-		} = data;
 		let res = {
 			code: 0,
 			msg: 'ok'
 		};
 		let {
 			dbName,
-			where
+			where,
+			foreignDB
 		} = data;
 
 		let sortArr = [];
@@ -38,33 +36,11 @@ module.exports = {
 		res = await vk.baseDao.selects({
 			dbName: dbName,
 			getCount: false,
+			fieldJson: fieldJson||{},
 			whereJson: whereJson,
-			foreignDB: [{
-					dbName: "uni-id-users",
-					localKey: "uid",
-					foreignKey: "_id",
-					as: "author",
-					whereJson: {
-						status: 0,
-					},
-					limit: 1
-				},
-				{
-					dbName: "time_like",
-					localKey: "_id",
-					foreignKey: "time_id",
-					whereJson: {
-						uid: uid,
-						status: 0,
-					},
-					as: "isLikeMine",
-					sortArr: [{
-						"name": "_add_time",
-						"type": "desc"
-					}],
-					limit: 1
-				}
-			]
+			sortArr: sortArr,
+			treeProps:treeProps,
+			foreignDB: foreignDB,
 		});
 		let endTime = new Date().getTime();
 		res.runTime = (endTime - startTime);

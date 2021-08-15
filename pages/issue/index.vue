@@ -47,10 +47,20 @@
 				options: {},
 				tagSelectShow: false,
 				issureForm: {
+					dbName:'tw',
 					need_user_info: false, // 如果云函数用不到 `userInfo`，则传false可以加快接口相应速度
 					text: '', //描述
 					imageList: [],
+					status: 0,
 					tags: [], //标签列表
+					isComments: true, //是否允许评论
+					commentNumber: true, //是否允许评论
+					heatNumber: 0, //热度值
+					trampleNumber: 0, // 踩得数量
+					historyNumber: 0, //浏览量
+					loveNumber: 0, //喜欢数
+					collectNumber: 0, //收藏数
+					recommendNumber: 0, //推荐数
 				},
 				scrollTop: 0,
 			}
@@ -176,13 +186,13 @@
 			submitFunc() {
 				console.log(that.issureForm)
 				vk.callFunction({
-					url: 'client/wordImg/kh/add',
+					url: 'client/general/kh/add',
 					title: '请求中...',
 					data: that.issureForm,
 					success(res) {
 						console.log(res)
-						if (!vk.pubfn.isNull(res.id)) {
-							vk.navigateTo('/pages/tutorial/tutorial?id=' + res.id)
+						if (!vk.pubfn.isNull(res.addRes)) {
+							vk.navigateTo('/pages/tutorial/tutorial?id=' + res.addRes)
 						}
 					}
 				});

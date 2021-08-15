@@ -3,7 +3,6 @@
   "enablePullDownRefresh": false,
   "usingComponents": {
     "u-avatar": "/node-modules/uview-ui/components/u-avatar/u-avatar",
-    "u-button": "/node-modules/uview-ui/components/u-button/u-button",
     "u-parse": "/node-modules/uview-ui/components/u-parse/u-parse",
     "u-image": "/node-modules/uview-ui/components/u-image/u-image",
     "u-gap": "/node-modules/uview-ui/components/u-gap/u-gap",

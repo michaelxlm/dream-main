@@ -158,12 +158,12 @@
 					url: 'client/comment/kh/findById',
 					title: '请求中...',
 					data: {
-						where: {
+						whereJson: {
 							_id: that.options.parent_comment_id,
 							tw_id: that.options.wid,
 							status: 0
 						},
-						sortRule: [{
+						sortArr: [{
 							"name": "_add_time",
 							"type": "desc"
 						}]
@@ -217,13 +217,13 @@
 					url: 'client/comment/kh/getReplyList',
 					title: '请求中...',
 					data: {
-						where: {
+						whereJson: {
 							comment_parent_status: true,
 							parent_comment_id: that.options.parent_comment_id,
 							tw_id: that.options.wid,
 							status: 0
 						},
-						sortRule: [{
+						sortArr: [{
 							"name": "_add_time",
 							"type": "desc"
 						}],

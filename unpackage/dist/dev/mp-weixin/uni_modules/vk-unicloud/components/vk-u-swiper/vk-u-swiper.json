@@ -1,7 +1,7 @@
 {
+  "component": true,
   "usingComponents": {
     "u-swiper": "/node-modules/uview-ui/components/u-swiper/u-swiper",
     "u-image": "/node-modules/uview-ui/components/u-image/u-image"
-  },
-  "component": true
+  }
 }

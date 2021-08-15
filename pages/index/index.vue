@@ -19,7 +19,7 @@
 			<!-- <u-tabs :list="tabSortList" :is-scroll="false" active-color="#2979ff" :current="tabCurrent" name="title"
 				@change="tabChange">
 			</u-tabs> -->
-			<timeList :list="data.list"></timeList>
+			<contentList :list="data.list"></contentList>
 			<uni-fab :pattern="{
 				color:'#3c3e49',
 				selectedColor:'#007AFF',
@@ -51,23 +51,30 @@
 			return {
 				sessionKey: "",
 				nowTime: {},
-				url: 'client/time/kh/getList',
+				url: 'client/general/pub/getList',
 				data: {
 					list: [], // 列表数据
 					hasMore: false, // 是否还能加载下一页
 				},
 				// 表单请求数据
 				form1: {
-					where: {
+					dbName:'tw',
+					whereJson: {
 						status: 0,
 					},
-					sortRule: [{
+					sortArr: [{
 						name: '_add_time',
 						type: 'desc'
 					}],
+					fieldJson: {
+						text: true,
+						uid: true, //用户id
+						status: true, // 0-正常
+						heatNumber: true, //热度值
+						_add_time: true, //创建时间  
+					},
 					pageIndex: 1, //当前页码
 					pageSize: 10, //每页显示数量
-					mineShow: false, //是否展示个人信息
 				},
 				componentsDynamic: {},
 				tabCurrent: 0, //排序
@@ -202,7 +209,7 @@
 			},
 			// 获取数据
 			getList(obj = {}) {
-				that.form1.sortRule = that.tabSortList.length > 0 ? that.tabSortList[that.tabCurrent].sortRule : [{
+				that.form1.sortArr = that.tabSortList.length > 0 ? that.tabSortList[that.tabCurrent].sortArr : [{
 					name: '_add_time',
 					type: 'desc'
 				}]
@@ -220,7 +227,7 @@
 					that.getList();
 				}
 			},
-			pageTo(path) {
+			pageTo(path) {		
 				clearInterval(setIntervalTime)
 				vk.navigateTo(path);
 			},

@@ -182,7 +182,7 @@
 					url: 'client/time/pub/findById',
 					title: '请求中...',
 					data: {
-						where: {
+						whereJson: {
 							_id: that.options.id,
 							status: 0
 						}

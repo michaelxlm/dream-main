@@ -18,13 +18,14 @@
 						</view>
 					</view>
 				</view>
-				<view class="attention">
-					<!-- 关注 -->
+				<!-- 关注 -->
+				<!-- <view class="attention">
+					
 					<u-button v-if="vk.pubfn.isNotNull(attentionStatusName)" shape="circle" @click="attentionFunc()"
 						:plain="false" :hair-line="false">
 						{{attentionStatusName}}
 					</u-button>
-				</view>
+				</view> -->
 			</view>
 			<!-- 描述 -->
 			<u-parse :html="tutorialData.text"></u-parse>
@@ -66,7 +67,7 @@
 						</view>
 						<view class="all-reply" @tap="toAllReply(commentItem._id)"
 							v-if="commentItem.replyList != undefined">
-							共{{ commentItem.commentNumber }}条回复
+							共{{ commentItem.commentNumber || 0 }}条回复
 							<u-icon class="more" name="arrow-right" :size="26"></u-icon>
 						</view>
 					</view>
@@ -96,12 +97,12 @@
 				<view class="operationItem" @click="gotoCommentFunc()">
 					<!-- 评论锚点 -->
 					<u-icon name="chat" color="#2979ff" size="48"></u-icon>
-					<u-badge :count="comment.total" :offset='[10,10]'></u-badge>
+					<u-badge :count="comment.total || 0" :offset='[10,10]'></u-badge>
 				</view>
 				<view class="operationItem" @click="likeTWFunc()">
 					<!-- 点赞 -->
 					<u-icon :name="!likeStatus?'thumb-up':'thumb-up-fill'" color="#2979ff" size="48"></u-icon>
-					<u-badge :count="tutorialData.loveNumber" :offset='[10,10]'></u-badge>
+					<u-badge :count="tutorialData.loveNumber || 0" :offset='[10,10]'></u-badge>
 				</view>
 				<view class="operationItem" @click="shareTWFunc()">
 					<!-- 分享 -->
@@ -120,12 +121,17 @@
 	export default {
 		data() {
 			return {
+				dbName: 'tw',
 				wid: '', //图文id
 				tutorialData: {},
 				commentList: [], //评论列表
 				comment: {
-					total: 5,
+					total: 0,
 					loadMoreStatus: false,
+					pagination: {
+						pageIndex: 1,
+						pageSize: 10
+					}
 				},
 				likeStatus: false, //是否点赞
 				addCommentPopup: {
@@ -156,6 +162,7 @@
 			that = this;
 			vk = that.vk;
 			that.options = options;
+			console.log('onLoad')
 			if (vk.pubfn.isNotNull(options.id)) {
 				that.init(options);
 			} else {
@@ -183,7 +190,15 @@
 			}, 1000);
 		},
 		// 监听 - 页面触底部
-		onReachBottom(options) {},
+		onReachBottom(options) {
+			console.log(options)
+			console.log('监听 - 页面触底部')
+			if (that.comment.hasMore) {
+				that.comment.pagination.pageIndex += 1
+				that.getComment('more')
+			}
+
+		},
 		// 监听 - 窗口尺寸变化(仅限:App、微信小程序)
 		onResize() {
 
@@ -198,27 +213,54 @@
 			init(options) {
 				that.wid = options.id
 				vk.callFunction({
-					url: 'client/general/pub/findById',
+					url: 'client/general/pub/getList',
 					title: '请求中...',
 					data: {
-						dbName:"tw",
-						where: {
+						dbName: that.dbName,
+						whereJson: {
 							_id: that.wid,
 							status: 0
-						}
+						},
+						foreignDB: [{
+								dbName: "uni-id-users",
+								localKey: "uid",
+								foreignKey: "_id",
+								as: "author",
+								whereJson: {
+									status: 0,
+								},
+								limit: 1
+							},
+							{
+								dbName: "tw_like",
+								localKey: "_id",
+								foreignKey: "tw_id",
+								whereJson: {
+									uid: that.userInfo._id,
+									status: 0,
+								},
+								as: "isLikeMine",
+								sortArr: [{
+									"name": "_add_time",
+									"type": "desc"
+								}],
+								limit: 1
+							}
+						]
+
 					},
 					success(res) {
 						if (vk.pubfn.isNotNull(res.rows)) {
 							that.tutorialData = res.rows[0]
 							if (vk.pubfn.isNotNull(that.tutorialData.isLikeMine._id)) {
 								that.likeStatus = true
-							} else{
+							} else {
 								that.likeStatus = false
 							}
 						}
 					}
 				});
-				that.getComment();
+				that.getComment('init');
 			},
 			// 跳转到全部回复
 			toAllReply(id) {
@@ -231,9 +273,10 @@
 			// 点赞
 			getLike(comment_id) {
 				vk.callFunction({
-					url: 'client/comment/kh/addLove',
+					url: 'client/general/kh/addLove',
 					title: '请求中...',
 					data: {
+						dbName: that.dbName + '_like',
 						tw_id: that.wid, //图文ID
 						comment_id: comment_id, //描述
 					},
@@ -248,9 +291,10 @@
 			// 取消点赞
 			delLike(comment_id, comment_like_id) {
 				vk.callFunction({
-					url: 'client/comment/kh/delLove',
+					url: 'client/general/kh/delLove',
 					title: '请求中...',
 					data: {
+						dbName: that.dbName,
 						comment_like_id: comment_like_id, //图文ID
 						comment_id: comment_id, //描述
 					},
@@ -263,23 +307,71 @@
 				});
 			},
 			// 获评论列表
-			getComment() {
+			getComment(ele) {
+				if (ele === 'init') {
+					that.commentList = [];
+					that.comment.pagination.pageIndex = 1
+				}
 				vk.callFunction({
-					url: 'client/comment/kh/getList',
+					url: 'client/general/pub/getList',
 					title: '请求中...',
 					data: {
-						where: {
+						dbName: that.dbName + '_comment',
+						pageIndex: that.comment.pagination.pageIndex,
+						pageSize: that.comment.pagination.pageSize,
+						whereJson: {
 							tw_id: that.wid,
-							status: 0
-						}
+							status: 0,
+							comment_parent_status: false
+						},
+						sortArr: [{
+							"name": "_add_time",
+							"type": "desc"
+						}],
+						treeProps: {
+							id: "_id", // 唯一标识字段，默认为 _id
+							parent_id: "parent_comment_id", // 父级标识字段，默认为 parent_id
+							children: "replyList", // 自定义返回的下级字段名，默认为 children
+							level: 1, // 查询返回的树的最大层级。超过设定层级的节点不会返回。默认10级，最大20，最小1
+							limit: 2, // 每一级最大返回的数据。
+							total:true,	
+							getCount: true,
+							whereJson: {
+								status: 0
+							}
+						},
+						foreignDB: [{
+								dbName: "uni-id-users",
+								localKey: "uid",
+								foreignKey: "_id",
+								as: "author",
+								limit: 1
+							},
+							{
+								dbName: "tw_comment_like",
+								localKey: "_id",
+								foreignKey: "comment_id",
+								whereJson: {
+									uid: that.userInfo._id,
+									status: 0,
+								},
+								as: "isLikeList",
+								sortArr: [{
+									"name": "_add_time",
+									"type": "desc"
+								}],
+								limit: 1
+							}
+						]
 					},
 					success(res) {
 						console.log(res)
 						if (vk.pubfn.isNotNull(res.rows)) {
-							that.commentList = res.rows
-							that.comment.hasMore = res.hasMore
-							that.comment.total = res.total
-						} else {}
+							that.commentList = that.commentList.concat(res.rows)
+						}
+						that.comment.hasMore = res.hasMore || false
+						that.comment.total = res.total || 0
+						that.comment.pagination = res.pagination
 					}
 				});
 			},
@@ -297,8 +389,8 @@
 			},
 			//提交评论
 			replyCommentSubmitFunc() {
-				console.log('client/comment/kh/add')
 				let params = {
+					dbName: that.dbName + '_comment',
 					tw_id: that.wid, //图文ID
 					commentText: that.addCommentPopup.replyText || '', //描述
 					comment_reply_status: false,
@@ -315,12 +407,13 @@
 					params.parent_comment_id = '';
 				}
 				vk.callFunction({
-					url: 'client/comment/kh/add',
+					url: 'client/general/kh/add',
 					title: '请求中...',
 					data: params,
 					success(res) {
 						console.log(res)
 						if (Number(res.code) === 0) {
+							that.getComment('init');
 							that.addCommentPopupClose()
 						}
 					}
@@ -348,9 +441,10 @@
 			likeTWFunc() {
 				if (!that.likeStatus) {
 					vk.callFunction({
-						url: 'client/wordImg/kh/addLove',
+						url: 'client/general/kh/addLove',
 						title: '请求中...',
 						data: {
+							dbName: that.dbName + '_like',
 							tw_id: that.wid, //图文ID
 						},
 						success(res) {
@@ -364,9 +458,10 @@
 					console.log(that.tutorialData)
 					console.log(that.tutorialData.isLikeMine)
 					vk.callFunction({
-						url: 'client/wordImg/kh/delLove',
+						url: 'client/general/kh/delLove',
 						title: '请求中...',
 						data: {
+							dbName: that.dbName + '_like',
 							tw_id: that.wid, //图文ID
 							like_id: that.tutorialData.isLikeMine._id, //图文点赞ID
 						},
@@ -392,6 +487,10 @@
 		computed: {
 			tabbar() {
 				return this.vk.getVuex('$app.config.tabbar') || []
+			},
+			userInfo() {
+				console.log('userInfo')
+				return this.vk.getVuex('$user.userInfo') || {}
 			},
 			attentionStatusName() {
 				return this.tutorialData.attentionStatus ? this.$t('tutorial.attentioned') : this.$t(

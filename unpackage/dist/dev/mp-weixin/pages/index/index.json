@@ -1,6 +1,6 @@
 {
   "usingComponents": {
-    "time-list": "/components/timeList/timeList",
+    "content-list": "/components/contentList/contentList",
     "uni-fab": "/uni_modules/uni-fab/components/uni-fab/uni-fab",
     "u-button": "/node-modules/uview-ui/components/u-button/u-button",
     "u-back-top": "/node-modules/uview-ui/components/u-back-top/u-back-top"
