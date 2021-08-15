@@ -1,0 +1,24 @@
+{
+  "setting": {},
+  "condition": {
+    "plugin": {
+      "list": []
+    },
+    "game": {
+      "list": []
+    },
+    "gamePlugin": {
+      "list": []
+    },
+    "miniprogram": {
+      "list": [
+        {
+          "name": "pages/tutorial/tutorial",
+          "pathName": "pages/tutorial/tutorial",
+          "query": "id=6117bb7ce55c2c0001ddc124",
+          "scene": null
+        }
+      ]
+    }
+  }
+}
