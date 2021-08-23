@@ -11,7 +11,7 @@
 	export default {
 		data() {
 			return {
-				url: 'client/wordImg/pub/getList',
+				url: 'client/general/pub/getList',
 				data: {
 					list: [], // 列表数据
 					hasMore: false, // 是否还能加载下一页

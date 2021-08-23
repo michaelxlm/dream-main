@@ -13,8 +13,7 @@ image {
 }
 view,
 text {
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
 }
 .u-font-xs, .time_card_other view:nth-child(2), .time_card_other view:nth-child(3) {
   font-size: 22rpx;
@@ -1344,7 +1343,7 @@ text {
 .u-m-b-32, .mainForm .u-btn--success, .detailCompontent .contentView .header {
   margin-bottom: 32rpx !important;
 }
-.u-p-b-32 {
+.u-p-b-32, .detailCompontent .contentView {
   padding-bottom: 32rpx !important;
 }
 .u-margin-bottom-32 {
@@ -3117,8 +3116,7 @@ page {
   left: 0;
   top: 0;
   pointer-events: none;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
   -webkit-transform-origin: 0 0;
   transform-origin: 0 0;
   width: 199.8%;
@@ -3286,6 +3284,13 @@ u-dropdown {
 
 
 /* uni.scss */
+.noStyleButtom {
+  padding: 0;
+  background: none;
+}
+.noStyleButtom::after {
+  display: none;
+}
 .time_card_detail {
   color: #000000;
 }
@@ -3323,7 +3328,6 @@ u-dropdown {
 /* 表单部分样式 */
 .mainForm .u-form-item {
   border-radius: 40rpx;
-  -webkit-box-shadow: 0 0 60rpx 0 rgba(43, 86, 112, 0.1);
   box-shadow: 0 0 60rpx 0 rgba(43, 86, 112, 0.1);
 }
 .mainForm .u-btn--success {
@@ -3333,12 +3337,10 @@ u-dropdown {
 }
 /* 头部 logo */
 .headerLogo .u-image {
-  -webkit-box-shadow: 0rpx 0rpx 60rpx 0rpx rgba(0, 0, 0, 0.1);
-          box-shadow: 0rpx 0rpx 60rpx 0rpx rgba(0, 0, 0, 0.1);
+  box-shadow: 0rpx 0rpx 60rpx 0rpx rgba(0, 0, 0, 0.1);
 }
 .boxShadow {
-  -webkit-box-shadow: 0rpx 0rpx 10rpx 0rpx rgba(0, 0, 0, 0.1);
-          box-shadow: 0rpx 0rpx 10rpx 0rpx rgba(0, 0, 0, 0.1);
+  box-shadow: 0rpx 0rpx 10rpx 0rpx rgba(0, 0, 0, 0.1);
 }
 rich-text {
   line-height: 40rpx;

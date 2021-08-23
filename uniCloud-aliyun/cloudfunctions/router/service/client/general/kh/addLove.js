@@ -24,6 +24,13 @@ module.exports = {
 		let {
 			context
 		} = originalParam
+		let {
+			mainDBname,
+			dbName,
+			from, //点赞类型
+			comment_id, //评论iD
+			tw_id, //当前的图文ID
+		} = data;
 		console.log(uid)
 		console.log(userInfo)
 		// 业务逻辑开始-----------------------------------------------------------
@@ -32,7 +39,9 @@ module.exports = {
 		const transaction = await vk.baseDao.startTransaction();
 		try {
 			let dataJson = {}
-			dataJson.time_id = data.time_id; //图文ID
+			dataJson.comment_id = comment_id; //评论ID
+			dataJson.from = from; //点赞类型
+			dataJson.tw_id = tw_id; //图文ID
 			dataJson.uid = uid; //用户id
 			dataJson.originalParam = {
 				os: context.OS, //客户端操作系统，返回值：android、ios    等
@@ -40,23 +49,25 @@ module.exports = {
 				appid: context.APPID, // manifest.json中配置的appid
 				clientIP: context.CLIENTIP, // 客户端ip信息
 				clientUA: context.CLIENTUA, // 客户端user-agent
-				deviceId: context.DEVICEID, // 客户端标识，新增于HBuilderX 3.1.0，同uni-app客户端getSystemInfo接口获取的deviceId
+				deviceId: context
+					.DEVICEID, // 客户端标识，新增于HBuilderX 3.1.0，同uni-app客户端getSystemInfo接口获取的deviceId
 				spaceInf: context.SPACEINFO, // 当前环境信息 {spaceId:'xxx',provider:'tencent'}
 			}
 			dataJson.status = 0; // 0-正常
 			// 业务逻辑开始-----------------------------------------------------------
-			let money = 100;
+			let parent_id = '';
+			parent_id = from === 'comment' ? comment_id : tw_id
 			// 添加到点赞表
 			let update1Res = await vk.baseDao.add({
 				db: transaction,
-				dbName: "time_like",
+				dbName: dbName + "_like",
 				dataJson: dataJson
 			});
 			console.log(update1Res)
 			// 用户总点赞数量增加1
 			let timeUse = await vk.baseDao.findByWhereJson({
 				db: transaction,
-				dbName: "time_user", // 表名
+				dbName: mainDBname + "_user", // 表名
 				whereJson: { // 条件
 					uid: uid,
 				}
@@ -65,7 +76,7 @@ module.exports = {
 			if (vk.pubfn.isNull(timeUse)) {
 				let update2Res = await vk.baseDao.add({
 					db: transaction,
-					dbName: "time_user",
+					dbName: mainDBname + "_user",
 					dataJson: {
 						uid: uid,
 						loveNumber: 1
@@ -77,7 +88,7 @@ module.exports = {
 					whereJson: { // 条件
 						uid: uid,
 					},
-					dbName: "time_user",
+					dbName: mainDBname + "_user",
 					dataJson: {
 						loveNumber: _.inc(1)
 					},
@@ -88,8 +99,8 @@ module.exports = {
 			// 总点赞数量增加1
 			let update4Res = await vk.baseDao.updateById({
 				db: transaction,
-				id: data.time_id,
-				dbName: "time",
+				id: parent_id,
+				dbName: dbName,
 				dataJson: {
 					loveNumber: _.inc(1)
 				},
@@ -97,16 +108,16 @@ module.exports = {
 			//验证是否当前是否已经被删除
 			const endRes = await vk.baseDao.findById({
 				db: transaction,
-				dbName: 'time',
-				id: data.time_id
+				dbName: dbName,
+				id: parent_id
 			});
 			console.log(endRes)
 			if (endRes.status == 1) { //状态为1则图文删除
 				transaction.rollback(-100);
 				return {
 					code: -1,
-					msg: "当前图文已被删除",
-					id: data.comment_id
+					msg: "当前内容已被删除",
+					id: parent_id
 				}
 			} else {
 				// 提交事物
@@ -115,6 +126,7 @@ module.exports = {
 				return {
 					code: 0,
 					msg: "点赞成功",
+					id: update1Res
 				}
 			}
 		} catch (err) {

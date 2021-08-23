@@ -33,6 +33,9 @@ module.exports = {
 		let {
 			pageIndex,
 			pageSize,
+			getCount,
+			getOne,
+			getMain,
 			searchvalue,
 			searchname,
 			sortArr,
@@ -57,6 +60,12 @@ module.exports = {
 		let foreignDBData = [];
 		if (foreignDB) foreignDBData = foreignDB;
 		let whereJsonData = {};
+		let getCountData = false;
+		getCountData = getCount ? true : false
+		let getOneData = false;
+		getOneData = getOne ? true : false
+		let getMainData = false;
+		getMainData = getMain ? true : false
 		if (searchvalue) {
 			// 查询searchvalue开头的数据
 			try {
@@ -82,8 +91,10 @@ module.exports = {
 			}
 		}
 		res = await vk.baseDao.selects({
+			getOne: getOneData, // 只返回第一条数据
+			getMain: getMainData, // 直接返回数据库查询到的数据（不带code,rows等参数）
 			dbName: dbName,
-			getCount: true,
+			getCount: getCountData,
 			pageIndex: pageIndexData,
 			pageSize: pageSizeData,
 			fieldJson: fieldJsonData,

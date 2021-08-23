@@ -35,7 +35,7 @@
 		data() {
 			// 页面数据变量
 			return {
-				url: "client/wordImg/pub/getList", // 获取list数据的云函数请求路径
+				url: 'client/general/pub/getList', // 获取list数据的云函数请求路径
 				// init请求返回的数据
 				data: {
 					list: [], // 列表数据
@@ -44,8 +44,21 @@
 				},
 				// 表单请求数据
 				form1: {
-					addTime: "",
-					endTime: "",
+					dbName:'tw',
+					whereJson: {
+						status: 0,
+					},
+					sortArr: [{
+						name: '_add_time',
+						type: 'desc'
+					}],
+					fieldJson: {
+						text: true,
+						uid: true, //用户id
+						status: true, // 0-正常
+						heatNumber: true, //热度值
+						_add_time: true, //创建时间  
+					},
 					searchvalue: "",
 					pageIndex: 1, //当前页码
 					pageSize: 10, //每页显示数量

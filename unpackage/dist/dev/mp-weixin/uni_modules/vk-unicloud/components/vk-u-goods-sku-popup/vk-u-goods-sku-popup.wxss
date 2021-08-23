@@ -57,8 +57,7 @@
 .vk-u-goods-sku-popup .layer .specification-wrapper.data-v-4f48708d {
   width: 100%;
   padding: 30rpx 25rpx;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
 }
 .vk-u-goods-sku-popup .layer .specification-wrapper .specification-wrapper-content.data-v-4f48708d {
   width: 100%;
@@ -98,8 +97,7 @@
   -webkit-flex: 1;
           flex: 1;
   padding: 0 35rpx 0 28rpx;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
   display: -webkit-box;
   display: -webkit-flex;
   display: flex;
@@ -165,8 +163,7 @@
   color: #333333;
   margin-right: 20rpx;
   border: 2rpx solid #f4f4f4;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
 }
 .vk-u-goods-sku-popup .layer .specification-wrapper .specification-wrapper-content .specification-content .specification-item .item-wrapper .item-content.actived.data-v-4f48708d {
   border-color: #fe560a;
@@ -207,8 +204,7 @@
   -webkit-justify-content: space-between;
           justify-content: space-between;
   padding: 0 26rpx;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
 }
 .vk-u-goods-sku-popup .layer .btn-wrapper .layer-btn.data-v-4f48708d {
   width: 335rpx;

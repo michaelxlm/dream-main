@@ -40,7 +40,7 @@
 			</view>
 		</view>
 		<view v-if="vk.pubfn.isNotNull(commentList)">
-			<u-gap height="20" bg-color="#bbb"></u-gap>
+			<u-gap height="10" bg-color="#ececec"></u-gap>
 			<!-- 评论列表 -->
 			<view class="comment" v-for="(commentItem, index) in commentList" :key="commentItem._id">
 				<u-avatar v-if="vk.pubfn.isNotNull(tutorialData.author)" :src="tutorialData.author.avatar" :size="64">
@@ -104,9 +104,11 @@
 					<u-icon :name="!likeStatus?'thumb-up':'thumb-up-fill'" color="#2979ff" size="48"></u-icon>
 					<u-badge :count="tutorialData.loveNumber || 0" :offset='[10,10]'></u-badge>
 				</view>
-				<view class="operationItem" @click="shareTWFunc()">
+				<view class="operationItem">
 					<!-- 分享 -->
-					<u-icon name="zhuanfa" color="#2979ff" size="48"></u-icon>
+					<button :hair-line="false" open-type="share" class="noStyleButtom">
+						<u-icon name="zhuanfa" color="#2979ff" size="48"></u-icon>
+					</button>
 				</view>
 			</view>
 		</view>
@@ -118,6 +120,7 @@
 <script>
 	var that; // 当前页面对象
 	var vk; // vk依赖
+	import config from '@/app.config.js'
 	export default {
 		data() {
 			return {
@@ -165,6 +168,7 @@
 			console.log('onLoad')
 			if (vk.pubfn.isNotNull(options.id)) {
 				that.init(options);
+				that.getComment('init');
 			} else {
 				vk.navigateTo('/pages/error/404/404')
 			}
@@ -178,6 +182,8 @@
 			uni.setNavigationBarTitle({
 				title: this.$t('tutorial.title')
 			});
+			console.log(that.$u.mpShare)
+			that.getComment('init');
 		},
 		// 监听 - 页面每次【隐藏时】执行(如：返回)
 		onHide() {
@@ -217,6 +223,7 @@
 					title: '请求中...',
 					data: {
 						dbName: that.dbName,
+						getOne: true,
 						whereJson: {
 							_id: that.wid,
 							status: 0
@@ -251,7 +258,9 @@
 					},
 					success(res) {
 						if (vk.pubfn.isNotNull(res.rows)) {
-							that.tutorialData = res.rows[0]
+							that.tutorialData = res.rows
+							that.$u.mpShare.title = that.tutorialData.text;
+							that.$u.mpShare.imageUrl = config.imageShareUrl
 							if (vk.pubfn.isNotNull(that.tutorialData.isLikeMine._id)) {
 								that.likeStatus = true
 							} else {
@@ -260,7 +269,6 @@
 						}
 					}
 				});
-				that.getComment('init');
 			},
 			// 跳转到全部回复
 			toAllReply(id) {
@@ -270,46 +278,52 @@
 			attentionFunc() {
 
 			},
-			// 点赞
+			// 评论点赞
 			getLike(comment_id) {
 				vk.callFunction({
 					url: 'client/general/kh/addLove',
 					title: '请求中...',
 					data: {
-						dbName: that.dbName + '_like',
+						mainDBname: that.dbName,
+						dbName: that.dbName + '_comment',
 						tw_id: that.wid, //图文ID
+						from: 'comment',
 						comment_id: comment_id, //描述
 					},
 					success(res) {
 						console.log(res)
 						if (!vk.pubfn.isNull(res.id)) {
-							this.commentList[index].likeNum++;
+							that.getComment('init');
 						}
+						vk.toast(res.msg, "none");
 					}
 				});
 			},
-			// 取消点赞
+			// 取消评论点赞
 			delLike(comment_id, comment_like_id) {
 				vk.callFunction({
 					url: 'client/general/kh/delLove',
 					title: '请求中...',
 					data: {
-						dbName: that.dbName,
-						comment_like_id: comment_like_id, //图文ID
+						mainDBname: that.dbName,
+						dbName: that.dbName + '_comment',
+						tw_id: that.wid, //图文ID
+						from: 'comment',
 						comment_id: comment_id, //描述
+						like_id: comment_like_id
 					},
 					success(res) {
 						console.log(res)
 						if (!vk.pubfn.isNull(res.id)) {
-							this.commentList[index].likeNum--;
+							that.getComment('init');
 						}
+						vk.toast(res.msg, "none");
 					}
 				});
 			},
 			// 获评论列表
 			getComment(ele) {
 				if (ele === 'init') {
-					that.commentList = [];
 					that.comment.pagination.pageIndex = 1
 				}
 				vk.callFunction({
@@ -319,6 +333,7 @@
 						dbName: that.dbName + '_comment',
 						pageIndex: that.comment.pagination.pageIndex,
 						pageSize: that.comment.pagination.pageSize,
+						getCount: true,
 						whereJson: {
 							tw_id: that.wid,
 							status: 0,
@@ -334,11 +349,15 @@
 							children: "replyList", // 自定义返回的下级字段名，默认为 children
 							level: 1, // 查询返回的树的最大层级。超过设定层级的节点不会返回。默认10级，最大20，最小1
 							limit: 2, // 每一级最大返回的数据。
-							total:true,	
-							getCount: true,
 							whereJson: {
-								status: 0
-							}
+								status: 0,
+								comment_parent_status: true,
+								tw_id: that.wid,
+							},
+							sortArr: [{
+								"name": "_add_time",
+								"type": "desc"
+							}],
 						},
 						foreignDB: [{
 								dbName: "uni-id-users",
@@ -366,6 +385,9 @@
 					},
 					success(res) {
 						console.log(res)
+						if (ele === 'init') {
+							that.commentList = [];
+						}
 						if (vk.pubfn.isNotNull(res.rows)) {
 							that.commentList = that.commentList.concat(res.rows)
 						}
@@ -395,6 +417,7 @@
 					commentText: that.addCommentPopup.replyText || '', //描述
 					comment_reply_status: false,
 					reply_uid: '',
+					status: 0,
 					reply_comment_id: '',
 				}
 				if (vk.pubfn.isNotNull(that.addCommentPopup.commentItem)) {
@@ -444,39 +467,41 @@
 						url: 'client/general/kh/addLove',
 						title: '请求中...',
 						data: {
-							dbName: that.dbName + '_like',
+							mainDBname: that.dbName,
+							dbName: that.dbName,
 							tw_id: that.wid, //图文ID
+							from: 'tw',
+							comment_id: '', //描述
 						},
 						success(res) {
-							if (res.code === 0) {
-								that.likeStatus = true
-								that.tutorialData.loveNumber += 1
+							console.log(res)
+							if (!vk.pubfn.isNull(res.id)) {
+								that.init(that.options);
 							}
+							vk.toast(res.msg, "none");
 						}
 					});
 				} else {
-					console.log(that.tutorialData)
-					console.log(that.tutorialData.isLikeMine)
 					vk.callFunction({
 						url: 'client/general/kh/delLove',
 						title: '请求中...',
 						data: {
-							dbName: that.dbName + '_like',
+							mainDBname: that.dbName,
+							dbName: that.dbName,
 							tw_id: that.wid, //图文ID
-							like_id: that.tutorialData.isLikeMine._id, //图文点赞ID
+							from: 'tw',
+							comment_id: '', //评论ID
+							like_id: that.tutorialData.isLikeMine._id
 						},
 						success(res) {
-							if (res.code === 0) {
-								that.likeStatus = false
-								that.tutorialData.loveNumber -= 1
+							console.log(res)
+							if (!vk.pubfn.isNull(res.id)) {
+								that.init(that.options);
 							}
+							vk.toast(res.msg, "none");
 						}
 					});
 				}
-			},
-			// 分享图文
-			shareTWFunc() {
-				that.collectStatus = !that.collectStatus
 			}
 		},
 		// 过滤器

@@ -5,6 +5,13 @@
 @import "uview-ui/theme.scss";
 $u-white: #ffffff;
 $u-black: #000000;
+.noStyleButtom{
+	padding: 0;
+	    background: none;
+		&::after{
+			display: none;
+		}
+}
 .time_card{
 	 @extend .u-p-28;
 	 &_detail{
@@ -468,6 +475,7 @@ rich-text {
 	.contentView{
 		@extend .u-p-l-32;
 		@extend .u-p-r-32;
+		@extend .u-p-b-32;
 		.header{
 			@extend .u-flex;
 			@extend .u-col-top;

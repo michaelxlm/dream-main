@@ -15,8 +15,7 @@
 .header.data-v-42e94b8e {
 	width: 160rpx;
 	height: 160rpx;
-	-webkit-box-shadow: 0rpx 0rpx 60rpx 0rpx rgba(0, 0, 0, 0.1);
-	        box-shadow: 0rpx 0rpx 60rpx 0rpx rgba(0, 0, 0, 0.1);
+	box-shadow: 0rpx 0rpx 60rpx 0rpx rgba(0, 0, 0, 0.1);
 	border-radius: 50%;
 	margin-top: 40rpx;
 	margin-bottom: 40rpx;
@@ -70,7 +69,6 @@
 .form-view .form-border.data-v-42e94b8e {
 	border: none;
 	border-radius: 2.5rem;
-	-webkit-box-shadow: 0 0 60rpx 0 rgba(43, 86, 112, 0.1);
 	box-shadow: 0 0 60rpx 0 rgba(43, 86, 112, 0.1);
 }
 .form-view .form-input.data-v-42e94b8e {
