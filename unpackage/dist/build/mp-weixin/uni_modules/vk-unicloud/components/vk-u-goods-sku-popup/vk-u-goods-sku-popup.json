@@ -1,0 +1,6 @@
+{
+  "component": true,
+  "usingComponents": {
+    "vk-u-number-box": "/uni_modules/vk-unicloud/components/vk-u-number-box/vk-u-number-box"
+  }
+}

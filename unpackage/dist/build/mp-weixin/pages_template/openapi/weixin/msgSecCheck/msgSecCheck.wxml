@@ -1,0 +1,1 @@
+<view class="app data-v-60a062f8"><textarea data-event-opts="{{[['input',[['__set_model',['$0','text','$event',[]],['form1']]]]]}}" style="width:100%;" value="{{form1.text}}" bindinput="__e" class="data-v-60a062f8"></textarea><button data-event-opts="{{[['tap',[['msgSecCheck',['$event']]]]]}}" bindtap="__e" class="data-v-60a062f8">检测文字是否违规</button>{{''+$root.g0+''}}</view>

@@ -18,10 +18,14 @@
 				},
 				// 表单请求数据
 				form1: {
+					dbName:'tw',
 					whereJson: {
 						status: 0,
 					},
-					sortArr: [],
+					sortArr: [{
+						name: '_add_time',
+						type: 'desc'
+					}],
 					pageIndex: 1, //当前页码
 					pageSize: 10, //每页显示数量
 				},

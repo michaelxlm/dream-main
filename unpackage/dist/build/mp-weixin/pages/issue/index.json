@@ -1,0 +1,11 @@
+{
+  "usingComponents": {
+    "u-input": "/node-modules/uview-ui/components/u-input/u-input",
+    "u-form": "/node-modules/uview-ui/components/u-form/u-form",
+    "u-form-item": "/node-modules/uview-ui/components/u-form-item/u-form-item",
+    "u-button": "/node-modules/uview-ui/components/u-button/u-button",
+    "tag-select": "/components/tagSelect/tagSelect",
+    "u-back-top": "/node-modules/uview-ui/components/u-back-top/u-back-top",
+    "u-toast": "/node-modules/uview-ui/components/u-toast/u-toast"
+  }
+}

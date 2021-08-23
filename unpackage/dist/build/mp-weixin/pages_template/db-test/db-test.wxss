@@ -1,0 +1,1 @@
+.app{padding:15px}.app input{height:46px;border:solid 1px #ddd;border-radius:5px;margin-bottom:15px;padding:0 15px}.app button{margin-bottom:15px;font-size:32rpx;margin-left:auto;margin-right:auto;padding-left:14px;padding-right:14px}.app navigator{display:inline-block;color:#007aff;border-bottom:solid 1px #007aff;font-size:16px;line-height:24px;margin-bottom:15px}
