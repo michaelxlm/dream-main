@@ -1,15 +1,15 @@
 <template>
 	<view class="content">
-		<button type="default" @tap="vk.navigateTo('../../openapi/weixin/weixin')">小程序API</button>
+		<button type="default" @click="vk.navigateTo('../../openapi/weixin/weixin')">小程序API</button>
 		<!-- #ifdef MP-WEIXIN -->
-		<button type="default" @tap="loginByWeixin">微信登录</button>
+		<button type="default" @click="loginByWeixin">微信登录</button>
 		<view class="tips">静默授权，无弹窗。</view>
-		<button type="default" @tap="code2SessionWeixin">获取微信openid</button>
+		<button type="default" @click="code2SessionWeixin">获取微信openid</button>
 		<view class="tips">静默授权，无弹窗。</view>
 		<button type="default" @click="setUserInfo">获取并设置微信用户昵称头像</button>
 		<view class="tips">需要授权，有弹窗。</view>
-		<button type="default" @tap="bindWeixin">绑定微信</button>
-		<button type="default" @tap="unbindWeixin">解绑微信</button>
+		<button type="default" @click="bindWeixin">绑定微信</button>
+		<button type="default" @click="unbindWeixin">解绑微信</button>
 		<button type="default" open-type="getPhoneNumber"  @getphonenumber="getPhoneNumber">获取微信绑定的手机号</button>
 		<view class="tips">仅获取手机号</view>
 		<button type="default" open-type="getPhoneNumber"  @getphonenumber="loginByWeixinPhoneNumber">使用微信绑定的手机号登录/注册</button>
@@ -17,10 +17,10 @@
 		<!-- #endif -->
 		<!-- #ifdef APP-PLUS -->
 		<template v-if="hasWeixinAuth">
-			<button type="default" @tap="loginByWeixin">微信登录</button>
-			<button type="default" @tap="bindWeixin">绑定微信</button>
-			<button type="default" @tap="unbindWeixin">解绑微信</button>
-			<button type="default" @tap="setUserInfo">获取微信用户昵称头像</button>
+			<button type="default" @click="loginByWeixin">微信登录</button>
+			<button type="default" @click="bindWeixin">绑定微信</button>
+			<button type="default" @click="unbindWeixin">解绑微信</button>
+			<button type="default" @click="setUserInfo">获取微信用户昵称头像</button>
 			<scroll-view scroll-x="true">
 				<rich-text :nodes="`<pre>${JSON.stringify(data, null, 2)}</pre>`"></rich-text>
 			</scroll-view>

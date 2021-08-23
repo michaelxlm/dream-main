@@ -285,6 +285,22 @@
 		"triggerAssist": false,
 		"description": "检测所有参数 - 是否全部都不为空"
 	},
+	"vk.pubfn.isArray": {
+	 "prefix": "vk.pubfn.isArray",
+	 "body": [
+			"vk.pubfn.isArray($0)"
+		],
+		"triggerAssist": false,
+		"description": "检测变量是否是数组类型"
+	},
+	"vk.pubfn.isObject": {
+	 "prefix": "vk.pubfn.isObject",
+	 "body": [
+			"vk.pubfn.isObject($0)"
+		],
+		"triggerAssist": false,
+		"description": "检测变量是否是对象类型"
+	},
 	"vk.pubfn.getListItem": {
 	 "prefix": "vk.pubfn.getListItem",
 	 "body": [
@@ -372,6 +388,14 @@
 		],
 		"triggerAssist": false,
 		"description": "获取当前页面实例"
+	},
+	"vk.pubfn.openForm": {
+	 "prefix": "vk.pubfn.openForm",
+	 "body": [
+			"vk.pubfn.openForm('弹窗名',{ item })"
+		],
+		"triggerAssist": false,
+		"description": "打开弹窗"
 	},
 	"userDao.findById": {
 	 "prefix": "dao.",

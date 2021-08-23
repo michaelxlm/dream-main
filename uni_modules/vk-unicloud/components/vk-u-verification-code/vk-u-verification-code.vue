@@ -13,7 +13,7 @@
 			:keep-running="keepRunning"
 			:unique-key="uniqueKey"
 		></u-verification-code>
-		<view @tap="sendSmsCode">{{ tips }}</view>
+		<view @click="sendSmsCode">{{ tips }}</view>
 		<!-- 验证码倒计时结束 -->
 	</view>
 </template>

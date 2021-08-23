@@ -58,8 +58,9 @@
 				</view>
 
 			</view>
-			<u-button shape="circle" class="login-btn" @click="resetPassword" :plain="false" :hair-line="false" type="success">重置密码</u-button>
-
+			<view class="login-btn">
+				<u-button shape="circle" @click="resetPassword" :plain="false" :hair-line="false" type="success">重置密码</u-button>
+			</view>
 		</view>
 		<!-- 页面内容结束 -->
 	</view>

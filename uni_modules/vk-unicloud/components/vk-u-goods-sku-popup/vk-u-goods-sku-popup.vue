@@ -32,7 +32,7 @@
 							<view class="item-wrapper">
 								<view
 									class="item-content"
-									@tap="skuClick(item_value, index1, $event, index2)"
+									@click="skuClick(item_value, index1, $event, index2)"
 									v-for="(item_value, index2) in item.list"
 									:key="index2"
 									:class="[item_value.ishow ? '' : 'noactived', subIndex[index1] == index2 ? 'actived' : '']"

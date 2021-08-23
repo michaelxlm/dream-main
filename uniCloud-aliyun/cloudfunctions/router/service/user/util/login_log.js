@@ -11,9 +11,9 @@ module.exports = {
 	 * @param {Object} context         请求上下文
 	 * @param {Number} state           1:登录成功 0 登录失败
 	 */
-	 add: async (event,util) => {
-		let { uniID, config, pubFun, vk , db, _ } = util;
-		let res = { code : 0, msg : '' };
+	add: async (event, util) => {
+		let { uniID, config, pubFun, vk, db, _ } = util;
+		let res = { code: 0, msg: '' };
 		// 业务逻辑开始-----------------------------------------------------------
 		let {
 			type,
@@ -23,29 +23,38 @@ module.exports = {
 			ua,
 			os,
 			platform,
-			context={},
-			state=1
+			context = {},
+			state = 1,
+			dcloud_appid
 		} = event;
-		if(context){
+		if (context) {
 			ip = context.CLIENTIP;
 			ua = context.CLIENTUA;
 			os = context.OS;
 			platform = context.PLATFORM;
+			dcloud_appid = context.APPID;
 		}
 		try {
-			if(vk.pubfn.getData(config, "vk.service.log.login.status")){
+			if (vk.pubfn.getData(config, "vk.service.log.login.status")) {
 				// 增加登录日志
 				await vk.baseDao.add({
-					dbName:"uni-id-log",
-					dataJson:{
-						type, login_type, user_id,
-						ip, ua, os, platform, state
+					dbName: "uni-id-log",
+					dataJson: {
+						type,
+						login_type,
+						user_id,
+						ip,
+						ua,
+						os,
+						platform,
+						state,
+						dcloud_appid
 					}
 				});
-			}else{
+			} else {
 				console.log("已关闭登录日志");
 			}
-		}catch(err){
+		} catch (err) {
 			console.log("日志写入错误");
 		}
 		// 业务逻辑结束-----------------------------------------------------------

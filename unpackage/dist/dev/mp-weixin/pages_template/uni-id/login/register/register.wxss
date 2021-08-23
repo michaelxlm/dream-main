@@ -65,6 +65,7 @@
 	color: #333333;
 	padding: 24rpx 32rpx;
 	margin: 26rpx 0;
+	background-color: #ffffff;
 }
 .form-view .form-border.data-v-42e94b8e {
 	border: none;
@@ -114,6 +115,7 @@
 	text-align: center;
 	height: 40rpx;
 	line-height: 40rpx;
+	margin-bottom: 40rpx;
 }
 .footer .center-line.data-v-42e94b8e {
 	font-size: 24rpx;

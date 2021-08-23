@@ -219,6 +219,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 var that; // 当前页面对象
 var vk; // vk依赖
@@ -244,15 +245,6 @@ var _default = {
       scrollTop: 0 };
 
   },
-  // 监听 - 原生导航自定义菜单(仅限:App、H5)
-  onNavigationBarButtonTap: function onNavigationBarButtonTap(e) {
-    vk.onNavigationBarButtonTap({ e: e, that: that });
-  },
-  // 监听 - 原生返回按钮
-  onBackPress: function onBackPress(e) {
-    console.log("返回按钮", e);
-
-  },
   onPageScroll: function onPageScroll(e) {
     that.scrollTop = e.scrollTop;
   },
@@ -264,19 +256,11 @@ var _default = {
     that.init(options);
   },
   // 监听 - 页面【首次渲染完成时】执行。注意如果渲染速度快，会在页面进入动画完成前触发
-  onReady: function onReady() {
-
-  },
+  onReady: function onReady() {},
   // 监听 - 页面每次【显示时】执行(如：前进和返回) (页面每次出现在屏幕上都触发，包括从下级页面点返回露出当前页面)
-  onShow: function onShow() {
-
-
-  },
+  onShow: function onShow() {},
   // 监听 - 页面每次【隐藏时】执行(如：返回)
-  onHide: function onHide() {
-
-
-  },
+  onHide: function onHide() {},
   // 监听 - 页面下拉刷新
   onPullDownRefresh: function onPullDownRefresh() {
     setTimeout(function () {
@@ -288,22 +272,16 @@ var _default = {
     that.nextPage();
   },
   // 监听 - 窗口尺寸变化(仅限:App、微信小程序)
-  onResize: function onResize() {
-
-  },
+  onResize: function onResize() {},
   // 监听 - 点击右上角转发时
-  onShareAppMessage: function onShareAppMessage(options) {
-
-  },
+  onShareAppMessage: function onShareAppMessage(options) {},
   // 函数
   methods: {
     // 页面数据初始化函数
     init: function init(options) {
       console.log("init: ", options);
       that.getList({
-        success: function success() {
-
-        } });
+        success: function success() {} });
 
     },
     pageTo: function pageTo(path) {
@@ -340,8 +318,6 @@ var _default = {
 
   // 过滤器
   filters: {},
-
-
   // 计算属性
   computed: {} };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))

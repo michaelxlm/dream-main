@@ -180,6 +180,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 //
 //
 //
+//
+//
+//
 
 var that; // 当前页面对象
 var vk; // vk依赖

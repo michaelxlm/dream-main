@@ -3,23 +3,23 @@
 		<view style="text-align: center;">
 			<u-avatar :src="avatar" v-if="avatar" size="140"></u-avatar>
 		</view>
-		<button type="default" @tap="setAvatar">直接设置头像</button>
-		<button type="default" @tap="uploadAvatar">上传到云储存(并设置为头像)</button>
-		<button type="default" @tap="updateUser">更新用户信息</button>
-		<button type="default" @tap="getMyUserInfo">获取用户信息</button>
-		<button type="default" @tap="checkToken">token校验</button>
+		<button type="default" @click="setAvatar">直接设置头像</button>
+		<button type="default" @click="uploadAvatar">上传到云储存(并设置为头像)</button>
+		<button type="default" @click="updateUser">更新用户信息</button>
+		<button type="default" @click="getMyUserInfo">获取用户信息</button>
+		<button type="default" @click="checkToken">token校验</button>
 
-		<button type="default" @tap="setUserInviteCode">设置邀请码</button>
+		<button type="default" @click="setUserInviteCode">设置邀请码</button>
 		<view class="tips">设置邀请码时如果传入邀请码则设置传入的邀请码，如果不传则随机生成6位邀请码</view>
 		<input type="text" v-model="form1.inviteCode" placeholder="邀请码" />
-		<button type="default" @tap="acceptInvite">接受邀请</button>
+		<button type="default" @click="acceptInvite">接受邀请</button>
 
-		<button type="default" @tap="logout">退出</button>
+		<button type="default" @click="logout">退出</button>
 	</view>
 </template>
 
 <script>
-	var that;											// 当前页面对象
+	var that; 										// 当前页面对象
 	var vk;												// vk依赖
 	export default {
 		data() {
@@ -100,7 +100,7 @@
 				vk.userCenter.acceptInvite({
 					data:form1,
 					success:function(data){
-						vk.alert("接收邀请成功");
+						vk.alert("接受邀请成功");
 					}
 				});
 			},
@@ -146,6 +146,7 @@
 		border-radius: 5px;
 		margin-bottom: 15px;
 		padding: 0px 15px;
+		display: block;
 	}
 	.content button {
 		margin-bottom: 15px;

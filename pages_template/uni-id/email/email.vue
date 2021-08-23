@@ -8,23 +8,23 @@
 			<view>"nodemailer": "^6.4.11"</view>
 		</view>
 		<view style="display: flex;">
-			<button type="default" @tap="sendEmailCode('login')">真实-发送验证码</button>
-			<button type="default" @tap="setVerifyCode('login')">模拟-发送验证码</button>
+			<button type="default" @click="sendEmailCode('login')">真实-发送验证码</button>
+			<button type="default" @click="setVerifyCode('login')">模拟-发送验证码</button>
 		</view>
-		<button type="default" @tap="loginByEmail">邮箱验证码登录（不存在则注册）</button>
+		<button type="default" @click="loginByEmail">邮箱验证码登录（不存在则注册）</button>
 		<view class="title">绑定邮箱相关</view>
 		<view style="display: flex;">
-			<button type="default" @tap="sendEmailCode('bind')">真实-发送验证码</button>
-			<button type="default" @tap="setVerifyCode('bind')">模拟-发送验证码</button>
+			<button type="default" @click="sendEmailCode('bind')">真实-发送验证码</button>
+			<button type="default" @click="setVerifyCode('bind')">模拟-发送验证码</button>
 		</view>
-		<button type="default" @tap="bindEmail">绑定邮箱（需先登录）</button>
+		<button type="default" @click="bindEmail">绑定邮箱（需先登录）</button>
 		<view class="tips">绑定邮箱时如果不传验证码或者传空则直接绑定并设置email_confirmed为1，不会去校验验证码</view>
 		<view class="title">解绑邮箱相关</view>
 		<view style="display: flex;">
-			<button type="default" @tap="sendEmailCode('unbind')">真实-发送验证码</button>
-			<button type="default" @tap="setVerifyCode('unbind')">模拟-发送验证码</button>
+			<button type="default" @click="sendEmailCode('unbind')">真实-发送验证码</button>
+			<button type="default" @click="setVerifyCode('unbind')">模拟-发送验证码</button>
 		</view>
-		<button type="default" @tap="unbindEmail">解绑邮箱（需先登录）</button>
+		<button type="default" @click="unbindEmail">解绑邮箱（需先登录）</button>
 		<view class="tips">解绑邮箱时如果不传验证码或者传空则直接解除绑定绑定，不会去校验验证码</view>
 	</view>
 </template>
@@ -136,9 +136,14 @@
 		border-radius: 5px;
 		margin-bottom: 15px;
 		padding: 0px 15px;
+		display: block;
 	}
 	.content button {
 		margin-bottom: 15px;
+		margin-left: auto;
+		margin-right: auto;
+		padding-left: 14px;
+		padding-right: 14px;
 	}
 	.content navigator {
 		display: inline-block;

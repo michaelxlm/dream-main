@@ -1,9 +1,8 @@
 <template>
 	<view class="content">
-		<button type="default" @click="loginByAlipay">支付宝登录</button>
-		<button type="default" @click="code2SessionAlipay">获取支付宝openid</button>
-		<button type="default" @click="bindAlipay">绑定支付宝</button>
-		<button type="default" @click="unbindAlipay">解绑支付宝</button>
+		<button type="default" @click="loginByQQ">QQ登录</button>
+		<button type="default" @click="bindQQ">绑定QQ</button>
+		<button type="default" @click="unbindQQ">解绑QQ</button>
 	</view>
 </template>
 
@@ -21,38 +20,30 @@
 			vk = that.vk;
 		},
 		methods: {
-			// 支付宝登陆
-			loginByAlipay(){
-				vk.userCenter.loginByAlipay({
+			// QQ登陆
+			loginByQQ(){
+				vk.userCenter.loginByQQ({
 					success:function(data){
 						vk.alert("登录成功");
 					}
 				});
 			},
-			// 获取支付宝openid
-			code2SessionAlipay() {
-				vk.userCenter.code2SessionAlipay({
-					success:function(data){
-						vk.alert(JSON.stringify(data));
-					},
-				});
-			},
-			// 绑定支付宝
-			bindAlipay(){
-				vk.userCenter.bindAlipay({
+			// 绑定QQ
+			bindQQ(){
+				vk.userCenter.bindQQ({
 					success:function(data){
 						vk.alert("绑定成功");
 					}
 				});
 			},
-			// 解绑支付宝
-			unbindAlipay(){
-				vk.userCenter.unbindAlipay({
+			// 解绑QQ
+			unbindQQ(){
+				vk.userCenter.unbindQQ({
 					success:function(data){
 						vk.alert("解绑成功");
 					}
 				});
-			}			
+			}
 		}
 	}
 </script>

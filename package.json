@@ -1,7 +1,7 @@
 {
     "id": "vk-cloud-router",
     "displayName": "【开箱即用】vk-unicloud-router - 云函数路由模式开发框架 - 已集成uni-id 框架内置了众多API、工具包，为你的业务扫平障碍。",
-    "version": "2.2.0",
+    "version": "2.2.4",
     "description": "这是一个unicloud快速开发框架+项目模板（已包含核心库）支持URL化，众多现成API供你使用（登录、注册、短信、微信百度服务端API等等）为你的业务扫平障碍。内置小白也能轻松上手的数据库API。",
     "keywords": [
         "vk-unicloud-router",

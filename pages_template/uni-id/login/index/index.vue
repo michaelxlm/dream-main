@@ -29,17 +29,19 @@
 					/>
 				</view>
 			</view>
-			<u-button shape="circle" class="login-btn" @click="login" :plain="false" :hair-line="false" type="success">登 录</u-button>
+			<view class="login-btn">
+				<u-button shape="circle" @click="login" :plain="false" :hair-line="false" type="success">登 录</u-button>
+			</view>
 			<!-- 其他登录 -->
 			<view class="other_login cuIcon">
 				<!-- #ifdef MP-WEIXIN -->
 				<view class="login_icon">
-					<u-icon name="weixin-fill" @tap="login_weixin" size="80" color="#19be6b"></u-icon>
+					<u-icon name="weixin-fill" @click="login_weixin" size="80" color="#19be6b"></u-icon>
 				</view>
 				<!-- #endif -->
 				<!-- #ifdef APP-PLUS -->
 				<view class="login_icon">
-					<u-icon name="weixin-fill" @tap="login_weixin" size="80" color="#19be6b"></u-icon>
+					<u-icon name="weixin-fill" @click="login_weixin" size="80" color="#19be6b"></u-icon>
 				</view>
 				<!-- #endif -->
 			</view>

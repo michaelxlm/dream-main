@@ -14,7 +14,7 @@
 				vk.getVuex('$user.userInfo')<br/>
 				更新 Vuex 数据：<br/>
 				vk.setVuex('$user.userInfo.avatar', avatar)<br/><br/>
-				
+
 				方式二：<br/>
 				获取 Vuex 数据：<br/>
 				vk.vuex.get('$user.userInfo')<br/>
@@ -22,7 +22,7 @@
 				vk.vuex.set('$user.userInfo.avatar', avatar);<br/>
 				触发 Vuex action：<br/>
 				vk.vuex.dispatch('$user/addFootprint', data);<br/>
-				
+
 			</view>
 		</view>
 		<view v-if="vk.getVuex('$user.userInfo')" style="color: red;margin-top: 10rpx;font-size: 36rpx;">
@@ -41,7 +41,7 @@
 </template>
 
 <script>
-	var that;											// 当前页面对象
+	var that; 										// 当前页面对象
 	var vk;												// vk依赖
 	export default {
 		data() {
@@ -93,7 +93,7 @@
 			uploadAvatar(){
 				// 选择图片
 				uni.chooseImage({
-					count: 1, 
+					count: 1,
 					sizeType: ['compressed'],
 					success: function (res) {
 						// 上传图片到云储存
@@ -120,7 +120,7 @@
 		},
 		// 计算属性
 		computed:{
-			
+
 		}
 	}
 </script>
@@ -135,6 +135,7 @@
 		border-radius: 5px;
 		margin-bottom: 15px;
 		padding: 0px 15px;
+		display: block;
 	}
 	.content button {
 		margin-bottom: 15px;

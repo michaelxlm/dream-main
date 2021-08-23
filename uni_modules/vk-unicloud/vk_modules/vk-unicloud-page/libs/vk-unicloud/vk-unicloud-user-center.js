@@ -797,5 +797,78 @@ export default {
 				url: 'user/kh/addUploadRecord'
 			});
 		}
-	}
+	},
+	/**
+	 * 获取QQ code
+	 */
+	getQQCode() {
+		return new Promise((resolve, reject) => {
+			uni.login({
+				provider: 'qq',
+				success(res) {
+					resolve(res.code);
+				},
+				fail(err) {
+					reject(new Error('QQ登录失败'));
+				}
+			})
+		})
+	},
+	/**
+	 * QQ登陆
+	 * res 返回参数说明
+	 * @params {Number} code 错误码，0表示成功
+	 * @params {String} msg 详细信息
+	 * @params {String} token 登录成功之后返回的token信息
+	 * @params {String} tokenExpired token过期时间
+	 */
+	loginByQQ(obj = {}) {
+		let that = this;
+		if (!obj.loading && !obj.title) obj.title = "登录中...";
+		let { data = {} } = obj;
+		that.getQQCode().then((code) => {
+			callFunction({
+				...obj,
+				url: 'user/pub/loginByQQ',
+				data: {
+					...data,
+					code: code
+				}
+			});
+		});
+	},
+	/**
+	 * 绑定QQ
+	 * res 返回参数说明
+	 * @params {Number} code 错误码，0表示成功
+	 * @params {String} msg 详细信息
+	 */
+	bindQQ(obj = {}) {
+		let that = this;
+		if (!obj.loading && !obj.title) obj.title = "请求中...";
+		let { data = {} } = obj;
+		that.getQQCode().then((code) => {
+			callFunction({
+				...obj,
+				url: 'user/kh/bindQQ',
+				data: {
+					...data,
+					code: code
+				}
+			});
+		});
+	},
+	/**
+	 * 解绑QQ
+	 * res 返回参数说明
+	 * @params {Number} code 错误码，0表示成功
+	 * @params {String} msg 详细信息
+	 */
+	unbindQQ(obj = {}) {
+		if (!obj.loading && !obj.title) obj.title = "请求中...";
+		return callFunction({
+			...obj,
+			url: 'user/kh/unbindQQ',
+		});
+	},
 };

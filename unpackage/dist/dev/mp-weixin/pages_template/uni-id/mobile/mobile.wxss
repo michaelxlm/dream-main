@@ -7,9 +7,14 @@
   border-radius: 5px;
   margin-bottom: 15px;
   padding: 0px 15px;
+  display: block;
 }
 .content button.data-v-9fd56fd8 {
   margin-bottom: 15px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 14px;
+  padding-right: 14px;
 }
 .content navigator.data-v-9fd56fd8 {
   display: inline-block;

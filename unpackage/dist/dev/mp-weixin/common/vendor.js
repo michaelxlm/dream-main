@@ -1955,6 +1955,10 @@ module.exports = {
   login: {
     url: '/pages/login/index/index' },
 
+  // 首页页面路径
+  index: {
+    url: '/pages/index/index' },
+
   // 404 Not Found 错误页面路径
   error: {
     url: '/pages/error/404/404',
@@ -2062,6 +2066,16 @@ module.exports = {
       // 上方代码可自己修改，写成你自己的逻辑处理。		
     },
 
+    // login:function(obj){
+    // 	let { vk, params, res } = obj;
+    // 	//console.log("params:",params);
+    // 	//console.log("res:",res);
+    // 	if(!params.noAlert){
+    // 		vk.alert(res.msg);
+    // 	}
+    // 	console.log("跳自己的登录页面");
+    // 	// 上方代码可自己修改，写成你自己的逻辑处理。
+    // },
     fail: function fail(obj) {var
 
       vk =
@@ -2077,7 +2091,15 @@ module.exports = {
       console.log("res:", res);
       return false; // 返回false则取消框架内置fail的逻辑,返回true则会继续执行框架内置fail的逻辑
       // 上方代码可自己修改，写成你自己的逻辑处理。
-    } } };
+    }
+    // fail:function(obj){
+    // 	let { vk, params, res } = obj;
+    // 	//console.log("params:",params);
+    // 	//console.log("res:",res);
+    // 	return false;// 返回false则取消框架内置fail的逻辑,返回true则会继续执行框架内置fail的逻辑
+    // 	// 上方代码可自己修改，写成你自己的逻辑处理。
+    // }
+  } };
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
@@ -17614,6 +17636,79 @@ callFunction = _vkUnicloudCallFunctionUtil.default.callFunction,config = _vkUnic
         url: 'user/kh/addUploadRecord' }));
 
     }
+  },
+  /**
+      * 获取QQ code
+      */
+  getQQCode: function getQQCode() {
+    return new Promise(function (resolve, reject) {
+      uni.login({
+        provider: 'qq',
+        success: function success(res) {
+          resolve(res.code);
+        },
+        fail: function fail(err) {
+          reject(new Error('QQ登录失败'));
+        } });
+
+    });
+  },
+  /**
+      * QQ登陆
+      * res 返回参数说明
+      * @params {Number} code 错误码，0表示成功
+      * @params {String} msg 详细信息
+      * @params {String} token 登录成功之后返回的token信息
+      * @params {String} tokenExpired token过期时间
+      */
+  loginByQQ: function loginByQQ() {var obj = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+    var that = this;
+    if (!obj.loading && !obj.title) obj.title = "登录中...";var _obj$data7 =
+    obj.data,data = _obj$data7 === void 0 ? {} : _obj$data7;
+    that.getQQCode().then(function (code) {
+      callFunction(_objectSpread(_objectSpread({},
+      obj), {}, {
+        url: 'user/pub/loginByQQ',
+        data: _objectSpread(_objectSpread({},
+        data), {}, {
+          code: code }) }));
+
+
+    });
+  },
+  /**
+      * 绑定QQ
+      * res 返回参数说明
+      * @params {Number} code 错误码，0表示成功
+      * @params {String} msg 详细信息
+      */
+  bindQQ: function bindQQ() {var obj = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+    var that = this;
+    if (!obj.loading && !obj.title) obj.title = "请求中...";var _obj$data8 =
+    obj.data,data = _obj$data8 === void 0 ? {} : _obj$data8;
+    that.getQQCode().then(function (code) {
+      callFunction(_objectSpread(_objectSpread({},
+      obj), {}, {
+        url: 'user/kh/bindQQ',
+        data: _objectSpread(_objectSpread({},
+        data), {}, {
+          code: code }) }));
+
+
+    });
+  },
+  /**
+      * 解绑QQ
+      * res 返回参数说明
+      * @params {Number} code 错误码，0表示成功
+      * @params {String} msg 详细信息
+      */
+  unbindQQ: function unbindQQ() {var obj = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+    if (!obj.loading && !obj.title) obj.title = "请求中...";
+    return callFunction(_objectSpread(_objectSpread({},
+    obj), {}, {
+      url: 'user/kh/unbindQQ' }));
+
   } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
@@ -20163,7 +20258,7 @@ pubfn.checkDataExpText = function () {var data = arguments.length > 0 && argumen
         var _andItemArr = andItem.split("=");
         var _key = _andItemArr[0];
         var _value = _andItemArr[1];
-        itemKey = data[_key].toString() == _value ? true : false;
+        itemKey = data[_key] && data[_key].toString() == _value ? true : false;
         //console.log("key:",key,"value:",value,"data[key]",data[key].toString(),"itemKey:",itemKey);
       }
       if (!itemKey) {
@@ -20177,6 +20272,22 @@ pubfn.checkDataExpText = function () {var data = arguments.length > 0 && argumen
   }
   return checkKey;
 };
+
+/**
+    * 判断变量是否是数组
+    * vk.pubfn.isArray(value);
+    */
+pubfn.isArray = function (value) {
+  return Object.prototype.toString.call(value) === "[object Array]" ? true : false;
+};
+/**
+    * 判断变量是否是对象
+    * vk.pubfn.isObject(value);
+    */
+pubfn.isObject = function (value) {
+  return Object.prototype.toString.call(value) === "[object Object]" ? true : false;
+};
+
 
 
 /**
@@ -21139,6 +21250,43 @@ pubfn.requestSubscribeMessage = function (obj) {
   return uni.requestSubscribeMessage(obj);
 
 };
+
+/**
+    * 检测是否需要登录 此方法目前为测试版
+    * vk.pubfn.checkLogin();
+    */
+pubfn.checkLogin = function () {var obj = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var vk = uni.vk;
+  var loginUrl = vk.getVuex("$app.config.login.url");
+  try {
+    var url;
+    try {
+      url = vk.pubfn.getCurrentPageRoute();
+    } catch (err) {
+      url = vk.getVuex("$app.config.index.url") || "/pages/index/index";
+    }
+    vk.navigate.checkNeedLogin({
+      url: url,
+      success: function success(res) {
+        if (res.needLogin) {
+          vk.reLaunch(loginUrl);
+
+          uni.hideHomeButton();
+
+        }
+      } });
+
+  } catch (err) {
+    console.error("catch", err);
+    uni.reLaunch({
+      url: loginUrl });
+
+
+    uni.hideHomeButton();
+
+  }
+};
+
 
 // 前端专属结束 -----------------------------------------------------------
 module.exports = pubfn;

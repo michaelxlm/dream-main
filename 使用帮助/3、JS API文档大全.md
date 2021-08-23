@@ -317,6 +317,17 @@ vk.pubfn.timeUtil.isQingming(new Date());
  * precision	数值精度
  */
 vk.pubfn.calcSize(length,["B","KB","MB","GB"],1024,3);
+
+/**
+ * 判断变量是否是数组
+ * 
+ */
+vk.pubfn.isArray(obj);
+
+/**
+ * 判断变量是否是对象
+ */
+vk.pubfn.isObject(obj);
 ```
 
 ### 前端专属

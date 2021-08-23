@@ -33,6 +33,14 @@
       }
     }
   },
+  "mp-qq": {
+    "oauth": {
+      "qq": {
+        "appid": "",
+        "appsecret": ""
+      }
+    }
+  },
   "service": {
     "sms": {
       "name": "优想生活录",

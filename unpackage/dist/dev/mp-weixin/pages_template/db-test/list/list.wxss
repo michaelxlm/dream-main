@@ -1,17 +1,17 @@
 @charset "UTF-8";
 page.data-v-a2539316 {
-  background-color: #f8f8fa;
+  background-color: #f8f8f8;
   min-height: 100vh;
 }
 /* list 开始 */
 .vk-list-view.data-v-a2539316 {
-  background-color: #f8f8fa;
+  background-color: #f8f8f8;
 }
 .vk-list-view .list-view.data-v-a2539316 {
   padding: 0rpx 0rpx 20rpx 0rpx;
 }
 .vk-list-view .list-search.data-v-a2539316 {
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   padding: 20rpx 30rpx;
 }
 .vk-list-view .list-head-desc-text.data-v-a2539316 {

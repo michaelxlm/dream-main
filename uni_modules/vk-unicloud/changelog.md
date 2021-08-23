@@ -1,3 +1,20 @@
+## 2.2.10（2021-08-06）
+#### 【优化】一些细节
+#### 完整框架项目地址：`https://ext.dcloud.net.cn/plugin?id=2204`[点击查看](https://ext.dcloud.net.cn/plugin?id=2204)
+## 2.2.9（2021-08-06）
+#### 【优化】一些细节
+#### 完整框架项目地址：`https://ext.dcloud.net.cn/plugin?id=2204`[点击查看](https://ext.dcloud.net.cn/plugin?id=2204)
+## 2.2.8（2021-08-05）
+###  更新内容
+#### 1、【修复】因`uni-id`配置隔离导致的微信`vk.openapi.weixin` API 兼容性问题。
+#### 2、【新增】`vk.pubfn.isArray` 判断变量是否是数组类型
+#### 3、【新增】`vk.pubfn.isObject` 判断变量是否是对象类型
+#### 完整框架项目地址：`https://ext.dcloud.net.cn/plugin?id=2204`[点击查看](https://ext.dcloud.net.cn/plugin?id=2204)
+
+## 2.2.7（2021-08-04）
+###  更新内容
+#### 【优化】一些细节
+#### 完整框架项目地址：`https://ext.dcloud.net.cn/plugin?id=2204`[点击查看](https://ext.dcloud.net.cn/plugin?id=2204)
 ## 2.2.6（2021-07-28）
 ###  更新内容
 #### 【新增】前端 `vk.callFunction` 支持请求其他服务空间的云函数

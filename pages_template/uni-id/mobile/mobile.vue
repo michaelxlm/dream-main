@@ -5,31 +5,31 @@
 		<view class="tips" style="color: red;">上次发送的验证码：{{form1.code}}</view>
 		<view class="title">手机号注册&登录相关</view>
 		<view style="display: flex;">
-			<button type="default" @tap="sendSmsCode('login')">真实-发送验证码</button>
-			<button type="default" @tap="setVerifyCode('login')">模拟-发送验证码</button>
+			<button type="default" @click="sendSmsCode('login')">真实-发送验证码</button>
+			<button type="default" @click="setVerifyCode('login')">模拟-发送验证码</button>
 		</view>
-		<button type="default" @tap="loginBySms">短信验证码登录（不存在则注册）</button>
+		<button type="default" @click="loginBySms">短信验证码登录（不存在则注册）</button>
 		<view class="tips">已支持阿里云短信发送，如果不使用uni-id自带的发送验证码功能，可以修改公共模块config中的vk.service.sms.aliyun参数</view>
 		<view class="title">绑定手机相关</view>
 		<view style="display: flex;">
-			<button type="default" @tap="sendSmsCode('bind')">真实-发送验证码</button>
-			<button type="default" @tap="setVerifyCode('bind')">模拟-发送验证码</button>
+			<button type="default" @click="sendSmsCode('bind')">真实-发送验证码</button>
+			<button type="default" @click="setVerifyCode('bind')">模拟-发送验证码</button>
 		</view>
-		<button type="default" @tap="bindMobile">绑定手机号（需先登录）</button>
+		<button type="default" @click="bindMobile">绑定手机号（需先登录）</button>
 		<view class="tips">绑定手机时如果不传验证码或者传空则直接绑定并设置mobile_confirmed为1，不会去校验验证码</view>
 		<view class="title">解绑手机相关</view>
 		<view style="display: flex;">
-			<button type="default" @tap="sendSmsCode('unbind')">真实-发送验证码</button>
-			<button type="default" @tap="setVerifyCode('unbind')">模拟-发送验证码</button>
+			<button type="default" @click="sendSmsCode('unbind')">真实-发送验证码</button>
+			<button type="default" @click="setVerifyCode('unbind')">模拟-发送验证码</button>
 		</view>
-		<button type="default" @tap="unbindMobile">解绑手机（需先登录）</button>
+		<button type="default" @click="unbindMobile">解绑手机（需先登录）</button>
 		<view class="tips">解绑手机时如果不传验证码或者传空则直接解除绑定绑定，不会去校验验证码</view>
 		<view class="title">手机号验证码重置密码</view>
 			<view style="display: flex;">
-				<button type="default" @tap="sendSmsCode('reset')">真实-发送验证码</button>
-				<button type="default" @tap="setVerifyCode('reset')">模拟-发送验证码</button>
+				<button type="default" @click="sendSmsCode('reset')">真实-发送验证码</button>
+				<button type="default" @click="setVerifyCode('reset')">模拟-发送验证码</button>
 			</view>
-			<button type="default" @tap="resetPasswordByMobile">重置密码（需先登录）</button>
+			<button type="default" @click="resetPasswordByMobile">重置密码（需先登录）</button>
 			<view class="tips">重置密码时如果不传验证码或者传空则直接解除绑定绑定，不会去校验验证码</view>
 	</view>
 </template>
@@ -94,7 +94,7 @@
 					},
 					success:function(data){
 						vk.toast("发送成功");
-						
+
 					}
 				});
 			},
@@ -152,9 +152,14 @@
 		border-radius: 5px;
 		margin-bottom: 15px;
 		padding: 0px 15px;
+		display: block;
 	}
 	.content button {
 		margin-bottom: 15px;
+		margin-left: auto;
+		margin-right: auto;
+		padding-left: 14px;
+		padding-right: 14px;
 	}
 	.content navigator {
 		display: inline-block;

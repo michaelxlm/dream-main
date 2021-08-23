@@ -2,15 +2,15 @@
 	<view class="content">
 		<input type="text" v-model="form1.username" placeholder="用户名/邮箱/手机号" />
 		<input type="text" v-model="form1.password" password="true" placeholder="密码" />
-		<button type="default" @tap="register">注册</button>
-		<button type="default" @tap="login">登录</button>
-		<button type="default" @tap="updatePwd">修改密码</button>
-		<button type="default" @tap="resetPwd">重设密码</button>
+		<button type="default" @click="register">注册</button>
+		<button type="default" @click="login">登录</button>
+		<button type="default" @click="updatePwd">修改密码</button>
+		<button type="default" @click="resetPwd">重设密码</button>
 	</view>
 </template>
 
 <script>
-	var that;											// 当前页面对象
+	var that; 										// 当前页面对象
 	var vk;												// vk依赖
 	export default {
 		data() {
@@ -19,7 +19,7 @@
 					username: 'admin',
 					password: '123456'
 				}
-				
+
 			}
 		},
 		onLoad(options) {
@@ -84,6 +84,7 @@
 		border-radius: 5px;
 		margin-bottom: 15px;
 		padding: 0px 15px;
+		display: block;
 	}
 	.content button {
 		margin-bottom: 15px;

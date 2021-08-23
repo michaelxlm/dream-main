@@ -14,7 +14,7 @@ module.exports = {
 		let { uniID, vk } = util;
 		let res = { code : 0, msg : '' };
 		// 业务逻辑开始-----------------------------------------------------------
-		if(vk.pubfn.isNullAll(userInfo.mobile, userInfo.username, userInfo.wx_openid)){
+		if(vk.pubfn.isNullAll(userInfo.mobile, userInfo.username, userInfo.wx_openid, userInfo.ali_openid, userInfo.qq_openid)){
 			return { code : -1, msg : '为了您的账号安全，请绑定手机号后再解绑邮箱！' };
 		}
 		// 解绑

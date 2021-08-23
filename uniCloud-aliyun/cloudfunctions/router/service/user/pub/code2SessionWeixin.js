@@ -2,7 +2,6 @@ module.exports = {
   /**
    * 获取微信openid
    * @url user/pub/code2SessionWeixin 前端调用的url参数地址
-   * @description 获取微信openid
    * data 请求参数 说明
    * @param {String} code 微信登录返回的code
 	 * @param {String} platform 客户端类型：mp-weixin、app-plus，默认uni-id会自动取客户端类型，但是在云函数url化等场景无法取到客户端类型，可以使用此参数指定

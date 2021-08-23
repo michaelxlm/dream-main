@@ -1,6 +1,6 @@
 <template>
 	<view class="content">
-		<button type="default" @tap="loginByUniverify">本机号码一键登录</button>
+		<button type="default" @click="loginByUniverify">本机号码一键登录</button>
 		<view class="tips">需要先配置uniCloud/cloudfunctions/common/config/index.js</view>
 		<view class="tips">中的 uni.service.univerify</view>
 		<view class="code" v-if="userInfo && userInfo._id">

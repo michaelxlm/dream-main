@@ -46,6 +46,7 @@
 	color: #333333;
 	padding: 24rpx 32rpx;
 	margin: 26rpx 0;
+	background-color: #ffffff;
 }
 
 .form-view .form-border {
@@ -86,6 +87,7 @@
 	text-align: center;
 	height: 40rpx;
 	line-height: 40rpx;
+	margin-bottom: 40rpx;
 }
 
 .footer .center-line {

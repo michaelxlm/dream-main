@@ -157,9 +157,10 @@ module.exports = initConfig;
 ```js
 "config": "file:../common/config",
 ```
-#### 7、上传`uni-config-center`公共模块
-#### 8、在`cloudfunctions/router/`目录执行npm i 
-#### 9、上传`router`云函数
-#### 10、完成。（可以尝试运行项目看是否有报错，有问题可以进群解决：22466457，如没有问题，则可以删除原先的config模块了）
+#### 7、删除`cloudfunctions/router/package-lock.json` 文件和 `cloudfunctions/router/node_modules` 目录
+#### 8、上传`uni-config-center`公共模块
+#### 9、在`cloudfunctions/router/`目录执行npm i 
+#### 10、上传`router`云函数
+#### 11、完成。（可以尝试运行项目看是否有报错，有问题可以进群解决：22466457，如没有问题，则可以删除原先的config模块了）
 
 

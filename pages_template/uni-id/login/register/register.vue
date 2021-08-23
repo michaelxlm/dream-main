@@ -55,9 +55,9 @@
 				</view>
 
 			</view>
-
-			<u-button shape="circle" class="login-btn" @click="loginBySms" :plain="false" :hair-line="false" type="success">注 册</u-button>
-
+			<view class="login-btn">
+				<u-button shape="circle" @click="loginBySms" :plain="false" :hair-line="false" type="success">注 册</u-button>
+			</view>
 			<!-- 底部信息 -->
 			<view class="footer">
 				<u-checkbox v-model="form1.agreement" active-color="#737373" shape="circle">同意</u-checkbox>

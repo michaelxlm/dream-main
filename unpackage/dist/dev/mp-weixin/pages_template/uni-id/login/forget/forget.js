@@ -226,6 +226,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 var that; // 当前页面对象
 var vk; // vk依赖

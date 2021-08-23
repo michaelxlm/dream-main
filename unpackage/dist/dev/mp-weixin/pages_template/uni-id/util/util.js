@@ -255,7 +255,7 @@ var _default = {
       vk.userCenter.acceptInvite({
         data: form1,
         success: function success(data) {
-          vk.alert("接收邀请成功");
+          vk.alert("接受邀请成功");
         } });
 
     },
