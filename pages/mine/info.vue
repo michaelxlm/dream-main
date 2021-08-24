@@ -22,10 +22,10 @@
 			<!-- <u-form-item label="微信号">
 				<u-input v-model="infoForm.wx_code" />
 			</u-form-item> -->
-			<u-form-item label="生日">
+			<!-- <u-form-item label="生日">
 				<view @click="calendarShowFunc()">{{infoForm.birthday||'请选择生日'}}</view>
-			</u-form-item>
-			<u-form-item label="个人说明">
+			</u-form-item> -->
+			<u-form-item label="介绍">
 				<u-input v-model="infoForm.intro" />
 			</u-form-item>
 		</u-form>

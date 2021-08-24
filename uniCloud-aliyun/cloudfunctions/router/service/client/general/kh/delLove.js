@@ -93,7 +93,6 @@ module.exports = {
 						loveNumber: _.inc(-1)
 					},
 				});
-
 				console.log(update3Res)
 			}
 			// 总点赞数量减少1
@@ -105,6 +104,7 @@ module.exports = {
 					loveNumber: _.inc(-1)
 				},
 			});
+			console.log(update4Res)
 			//验证是否当前是否已经被删除
 			const endRes = await vk.baseDao.findById({
 				db: transaction,

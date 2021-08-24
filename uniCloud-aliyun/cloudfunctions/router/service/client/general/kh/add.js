@@ -25,8 +25,13 @@ module.exports = {
 			code: 0,
 			msg: ''
 		};
-		let dataJson = data || {}
-		let dbName = data.dbName
+		let {
+			mainDBname,
+			dbName,
+			addJson,
+			type
+		} = data;
+		let dataJson = addJson || {}
 		dataJson.uid = uid; //用户id
 		dataJson.originalParamContext = {
 			os: context.OS, //客户端操作系统，返回值：android、ios    等
@@ -38,9 +43,124 @@ module.exports = {
 			spaceInfo: context.SPACEINFO, // 当前环境信息 {spaceId:'xxx',provider:'tencent'}
 		}; //用户id
 		// 开启事务
-		delete dataJson.dbName
 		const transaction = await vk.baseDao.startTransaction();
 		try {
+			if (type === 'tags') {
+				// 用户总添加标签数量增加1
+				let mainUse = await vk.baseDao.findByWhereJson({
+					db: transaction,
+					dbName: mainDBname + "_user", // 表名
+					whereJson: { // 条件
+						uid: uid,
+					}
+				});
+				if (vk.pubfn.isNull(mainUse)) {
+					let update2Res = await vk.baseDao.add({
+						db: transaction,
+						dbName: mainDBname + "_user",
+						dataJson: {
+							uid: uid,
+							tags_add_number: 1
+						}
+					});
+				} else {
+					let update3Res = await vk.baseDao.update({
+						db: transaction,
+						whereJson: { // 条件
+							uid: uid,
+						},
+						dbName: mainDBname + "_user",
+						dataJson: {
+							tags_add_number: _.inc(1)
+						},
+					});
+					console.log(update3Res)
+				}
+			} else if (type === 'comment') {
+				// 用户总评论数量增加1
+				let mainUse = await vk.baseDao.findByWhereJson({
+					db: transaction,
+					dbName: mainDBname + "_user", // 表名
+					whereJson: { // 条件
+						uid: uid,
+					}
+				});
+				if (vk.pubfn.isNull(mainUse)) {
+					let update2Res = await vk.baseDao.add({
+						db: transaction,
+						dbName: mainDBname + "_user",
+						dataJson: {
+							uid: uid,
+							tw_comment_Number: 1
+						}
+					});
+				} else {
+					let update3Res = await vk.baseDao.update({
+						db: transaction,
+						whereJson: { // 条件
+							uid: uid,
+						},
+						dbName: mainDBname + "_user",
+						dataJson: {
+							tw_comment_Number: _.inc(1)
+						},
+					});
+					console.log(update3Res)
+				}
+				if (addJson.comment_parent_status) {//回复评论
+					// 总评论数量增加1
+					let update4Res = await vk.baseDao.updateById({
+						db: transaction,
+						id: addJson.parent_comment_id,
+						dbName: dbName,
+						dataJson: {
+							commentNumber: _.inc(1)
+						},
+					});
+				}else{//评论图文
+					// 总评论数量增加1
+					let update4Res = await vk.baseDao.updateById({
+						db: transaction,
+						id: addJson.tw_id,
+						dbName: mainDBname,
+						dataJson: {
+							commentNumber: _.inc(1)
+						},
+					});
+				}
+			} else if (type === 'tw') {
+				// 用户总图文数量增加1
+				let mainUse = await vk.baseDao.findByWhereJson({
+					db: transaction,
+					dbName: mainDBname + "_user", // 表名
+					whereJson: { // 条件
+						uid: uid,
+					}
+				});
+				if (vk.pubfn.isNull(mainUse)) {
+					let update2Res = await vk.baseDao.add({
+						db: transaction,
+						dbName: mainDBname + "_user",
+						dataJson: {
+							uid: uid,
+							tw_Number: 1
+						}
+					});
+				} else {
+					let update3Res = await vk.baseDao.update({
+						db: transaction,
+						whereJson: { // 条件
+							uid: uid,
+						},
+						dbName: mainDBname + "_user",
+						dataJson: {
+							tw_Number: _.inc(1)
+						},
+					});
+					console.log(update3Res)
+				}
+			}
+
 			let addRes = await vk.baseDao.add({
 				db: transaction,
 				dbName: dbName,

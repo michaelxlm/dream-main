@@ -345,14 +345,15 @@ rich-text {
 	
 				.item {
 					padding: 20rpx;
-					border-bottom: solid 2rpx $u-border-color;
 	
 					.username {
 						font-size: 24rpx;
 						color: #999999;
 					}
 				}
-	
+	.item +.item {
+		border-top: solid 2rpx $u-border-color;
+	}
 				.all-reply {
 					padding: 20rpx;
 					display: flex;
@@ -449,15 +450,16 @@ rich-text {
 		background-color: #ffffff;
 	
 		.all-reply-top {
-			margin-left: 20rpx;
-			padding-left: 20rpx;
+			@extend .u-m-t-20;
+			@extend .u-m-l-20;
+			@extend .u-p-l-20;
 			border-left: solid 4rpx #5677fc;
 			font-size: 30rpx;
 			font-weight: bold;
 		}
 	
-		.item {
-			border-bottom: solid 2rpx $u-border-color;
+		.item+.item {
+			border-top: solid 2rpx $u-border-color;
 		}
 	
 		.reply {
@@ -515,7 +517,7 @@ rich-text {
 		}
 	}
 	.operationNavigation{
-		position: fixed;
+		position: absolute;
 		left: 0;
 		bottom: 0;
 		right: 0;

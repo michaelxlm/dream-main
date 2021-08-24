@@ -79,7 +79,8 @@
 			</view>
 			<u-divider v-if="!comment.hasMore">已显示全部评论</u-divider>
 		</view>
-		<u-popup v-model="addCommentPopup.status" mode="bottom" border-radius="14" height="180">
+		<u-popup v-model="addCommentPopup.status" safe-area-inset-bottom="true" mode="bottom" border-radius="14"
+			height="180">
 			<view class="addCommentPopup">
 				<view class="issureCommentText">
 					<u-input v-model="addCommentPopup.replyText" type="textarea" :border="false" :height="100"
@@ -412,7 +413,6 @@
 			//提交评论
 			replyCommentSubmitFunc() {
 				let params = {
-					dbName: that.dbName + '_comment',
 					tw_id: that.wid, //图文ID
 					commentText: that.addCommentPopup.replyText || '', //描述
 					comment_reply_status: false,
@@ -432,7 +432,12 @@
 				vk.callFunction({
 					url: 'client/general/kh/add',
 					title: '请求中...',
-					data: params,
+					data: {
+						addJson: params,
+						dbName: that.dbName + '_comment',
+						mainDBname: "tw",
+						type: "comment"
+					},
 					success(res) {
 						console.log(res)
 						if (Number(res.code) === 0) {

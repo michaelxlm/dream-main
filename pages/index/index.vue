@@ -94,6 +94,7 @@
 							},
 							success: function(data) {
 								that.sessionKey = data.sessionKey
+								this.getList()
 							},
 						});
 					}

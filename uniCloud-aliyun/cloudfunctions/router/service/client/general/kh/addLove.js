@@ -82,6 +82,7 @@ module.exports = {
 						loveNumber: 1
 					}
 				});
+				console.log(update2Res)
 			} else {
 				let update3Res = await vk.baseDao.update({
 					db: transaction,
@@ -93,7 +94,6 @@ module.exports = {
 						loveNumber: _.inc(1)
 					},
 				});
-
 				console.log(update3Res)
 			}
 			// 总点赞数量增加1

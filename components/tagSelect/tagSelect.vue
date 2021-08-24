@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<u-popup v-model="show" mode="bottom" height="90%" @close="close()">
+		<u-popup v-model="show" safe-area-inset-bottom="true" mode="bottom" height="90%" @close="close()">
 			<!-- 页面内容开始 -->
 			<view class="vk-search-view u-p-t-32">
 				<!--头部开始 -->
@@ -78,7 +78,7 @@
 		},
 		data() {
 			return {
-				url: "client/general/kh/getList", // 获取list数据的云函数请求路径
+				url: "client/general/pub/getList", // 获取list数据的云函数请求路径
 				// init请求返回的数据
 				data: {
 					list: [], // 列表数据
@@ -132,9 +132,13 @@
 					url: 'client/general/kh/add',
 					title: '请求中...',
 					data: {
-						text: text,
+						addJson:{
+							text: text,
+							heatNumber: 1,
+						},
 						dbName: "tags",
-						heatNumber: 0
+						mainDBname:"tw",
+						type:"tags"
 					},
 					success(res) {
 						that.$emit('tagSelectItem', {

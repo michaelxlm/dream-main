@@ -926,10 +926,10 @@ text {
 .u-padding-20, .u-p-20, .detailCompontent .addCommentPopup {
   padding: 20rpx !important;
 }
-.u-m-l-20, .mainForm .u-btn--success {
+.u-m-l-20, .mainForm .u-btn--success, .detailCompontent .all-reply .all-reply-top {
   margin-left: 20rpx !important;
 }
-.u-p-l-20 {
+.u-p-l-20, .detailCompontent .all-reply .all-reply-top {
   padding-left: 20rpx !important;
 }
 .u-margin-left-20 {
@@ -938,7 +938,7 @@ text {
 .u-padding-left-20 {
   padding-left: 20rpx !important;
 }
-.u-m-t-20, .footer, .vk-search-view .list-head-desc-text {
+.u-m-t-20, .footer, .detailCompontent .all-reply .all-reply-top, .vk-search-view .list-head-desc-text {
   margin-top: 20rpx !important;
 }
 .u-p-t-20, .detailCompontent .operatingButtonView .buttonItem {
@@ -3496,11 +3496,13 @@ rich-text {
 }
 .detailCompontent .comment .right .reply-box .item {
   padding: 20rpx;
-  border-bottom: solid 2rpx #e4e7ed;
 }
 .detailCompontent .comment .right .reply-box .item .username {
   font-size: 24rpx;
   color: #999999;
+}
+.detailCompontent .comment .right .reply-box .item + .item {
+  border-top: solid 2rpx #e4e7ed;
 }
 .detailCompontent .comment .right .reply-box .all-reply {
   padding: 20rpx;
@@ -3598,14 +3600,12 @@ rich-text {
   background-color: #ffffff;
 }
 .detailCompontent .all-reply .all-reply-top {
-  margin-left: 20rpx;
-  padding-left: 20rpx;
   border-left: solid 4rpx #5677fc;
   font-size: 30rpx;
   font-weight: bold;
 }
-.detailCompontent .all-reply .item {
-  border-bottom: solid 2rpx #e4e7ed;
+.detailCompontent .all-reply .item + .item {
+  border-top: solid 2rpx #e4e7ed;
 }
 .detailCompontent .all-reply .reply {
   padding: 20rpx;
@@ -3624,7 +3624,7 @@ rich-text {
   border-radius: 80rpx;
 }
 .detailCompontent .operationNavigation {
-  position: fixed;
+  position: absolute;
   left: 0;
   bottom: 0;
   right: 0;
