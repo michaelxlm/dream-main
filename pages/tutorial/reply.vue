@@ -366,7 +366,7 @@
 					params.reply_comment_id = '';
 				}
 				vk.callFunction({
-					url: 'client/general/kh/add',
+					url: 'client/general/kh/adds',
 					title: '请求中...',
 					data: {
 						addJson: params,

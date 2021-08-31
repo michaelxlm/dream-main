@@ -8,8 +8,11 @@ module.exports = {
 	 */
 	main: async (event) => {
 		let {
-			data = {}, util, originalParam, uid
+			data = {}, util, originalParam, uid, userInfo, filterResponse
 		} = event;
+		let {
+			filterStack
+		} = filterResponse;
 		let {
 			customUtil,
 			config,
@@ -20,173 +23,111 @@ module.exports = {
 		} = util;
 		let {
 			context
-		} = originalParam
-		let res = {
-			code: 0,
-			msg: ''
-		};
+		} = originalParam;
 		let {
 			mainDBname,
 			dbName,
-			addJson,
-			type
+			tw_id, //删除的图文ID
+			childCommint, //是否是子评论
+			del_id, //删除的ID
+			type, //删除的类型
 		} = data;
-		let dataJson = addJson || {}
-		dataJson.uid = uid; //用户id
-		dataJson.originalParamContext = {
-			os: context.OS, //客户端操作系统，返回值：android、ios    等
-			platform: context.PLATFORM, //运行平台，返回值为 mp-weixin、app-plus等
-			appid: context.APPID, // manifest.json中配置的appid
-			clientIP: context.CLIENTIP, // 客户端ip信息
-			clientUA: context.CLIENTUA, // 客户端user-agent
-			deviceId: context.DEVICEID, // 客户端标识，新增于HBuilderX 3.1.0，同uni-app客户端getSystemInfo接口获取的deviceId
-			spaceInfo: context.SPACEINFO, // 当前环境信息 {spaceId:'xxx',provider:'tencent'}
-		}; //用户id
-		// 开启事务
-		const transaction = await vk.baseDao.startTransaction();
+		// 业务逻辑开始-----------------------------------------------------------
 		try {
+			let twUserFilter = vk.pubfn.getListItem(filterStack, "filterId", "twUserFilter"); //获取图文用户ID过滤器
+			// 业务逻辑开始-----------------------------------------------------------
 			if (type === 'tags') {
-				// 用户总添加标签数量增加1
-				let mainUse = await vk.baseDao.findByWhereJson({
-					db: transaction,
-					dbName: mainDBname + "_user", // 表名
-					whereJson: { // 条件
-						uid: uid,
-					}
-				});
-				if (vk.pubfn.isNull(mainUse)) {
-					let update2Res = await vk.baseDao.add({
-						db: transaction,
+				try {
+					let delLove1Res = await vk.baseDao.updateById({
+						id: twUserFilter.twUseID,
 						dbName: mainDBname + "_user",
 						dataJson: {
-							uid: uid,
-							tags_add_number: 1
-						}
-					});
-				} else {
-					let update3Res = await vk.baseDao.update({
-						db: transaction,
-						whereJson: { // 条件
-							uid: uid,
-						},
-						dbName: mainDBname + "_user",
-						dataJson: {
-							tags_add_number: _.inc(1)
+							tags_add_number: _.inc(-1)
 						},
 					});
-					console.log(update3Res)
+					console.log(delLove1Res)
+				} catch (err) {
+					console.error(`delLove1Res error`, err)
 				}
+
 			} else if (type === 'comment') {
-				// 用户总评论数量增加1
-				let mainUse = await vk.baseDao.findByWhereJson({
-					db: transaction,
-					dbName: mainDBname + "_user", // 表名
-					whereJson: { // 条件
-						uid: uid,
+				try {
+					let delLove2Res = await vk.baseDao.updateById({
+						id: twUserFilter.twUseID,
+						dbName: mainDBname + "_user",
+						dataJson: {
+							tw_comment_Number: _.inc(-1)
+						},
+					});
+					console.log(delLove2Res)
+					if (childCommint) { //回复评论
+						// 总评论数量增加1
+						let delLove3Res = await vk.baseDao.updateById({
+							id: addJson.parent_comment_id,
+							dbName: dbName,
+							dataJson: {
+								commentNumber: _.inc(-1)
+							},
+						});
+						console.log(delLove3Res)
+					} else { //评论图文
+						// 总评论数量减少1
+						let delLove4Res = await vk.baseDao.updateById({
+							id: tw_id,
+							dbName: mainDBname,
+							dataJson: {
+								commentNumber: _.inc(-1)
+							},
+						});
+						console.log(delLove4Res)
 					}
-				});
-				if (vk.pubfn.isNull(mainUse)) {
-					let update2Res = await vk.baseDao.add({
-						db: transaction,
-						dbName: mainDBname + "_user",
-						dataJson: {
-							uid: uid,
-							tw_comment_Number: 1
-						}
-					});
-				} else {
-					let update3Res = await vk.baseDao.update({
-						db: transaction,
-						whereJson: { // 条件
-							uid: uid,
-						},
-						dbName: mainDBname + "_user",
-						dataJson: {
-							tw_comment_Number: _.inc(1)
-						},
-					});
-					console.log(update3Res)
-				}
-				if (addJson.comment_parent_status) {
-					// 总评论数量增加1
-					let update4Res = await vk.baseDao.updateById({
-						db: transaction,
-						id: addJson.parent_comment_id,
-						dbName: dbName,
-						dataJson: {
-							commentNumber: _.inc(1)
-						},
-					});
+				} catch (err) {
+					console.error(`delLove2Res error`, err)
 				}
 			} else if (type === 'tw') {
-				// 用户总图文数量增加1
-				let mainUse = await vk.baseDao.findByWhereJson({
-					db: transaction,
-					dbName: mainDBname + "_user", // 表名
-					whereJson: { // 条件
-						uid: uid,
-					}
-				});
-				if (vk.pubfn.isNull(mainUse)) {
-					let update2Res = await vk.baseDao.add({
-						db: transaction,
+				try {
+					// 用户总图文数量增加1
+					let delLove5Res = await vk.baseDao.updateById({
+						id: twUserFilter.twUseID,
 						dbName: mainDBname + "_user",
 						dataJson: {
-							uid: uid,
-							tw_Number: 1
-						}
-					});
-				} else {
-					let update3Res = await vk.baseDao.update({
-						db: transaction,
-						whereJson: { // 条件
-							uid: uid,
-						},
-						dbName: mainDBname + "_user",
-						dataJson: {
-							tw_Number: _.inc(1)
+							tw_Number: _.inc(-1)
 						},
 					});
-					console.log(update3Res)
+					console.log(delLove5Res)
+				} catch (err) {
+					console.error(`delLove5Res error`, err)
 				}
 			}
-
-			let addRes = await vk.baseDao.add({
-				db: transaction,
+			let delLoveRes = await vk.baseDao.updateById({
 				dbName: dbName,
-				dataJson: dataJson
+				id: del_id,
+				dataJson: {
+					status: 1
+				},
 			});
-			if (addRes.status == 1) { //状态为1则图文删除
-				transaction.rollback(-100);
-				return {
-					code: -1,
-					msg: "添加失败",
-					addRes: addRes
-				}
-			} else {
-				// 提交事物
-				await transaction.commit();
-				console.log(`transaction succeeded`);
+			console.log(delLoveRes)
+			if (delLoveRes && Number(delLoveRes) > 0) { //状态为1则图文删除
 				return {
 					code: 0,
-					msg: "添加成功",
-					addRes: addRes
+					msg: "删除成功",
+				}
+			} else {
+				return {
+					code: -1,
+					msg: "删除失败"
 				}
 			}
 		} catch (err) {
-			// 事务回滚
-			await transaction.rollback();
-			console.error(`transaction error`, err)
 			return {
 				code: -1,
-				msg: "数据库写入异常,事务已回滚",
+				msg: "删除失败",
 				err: {
 					message: err.message,
-					stack: err.stack
+					stack: err.stack,
 				}
 			}
 		}
 		// 业务逻辑结束-----------------------------------------------------------
-		return res;
 	}
 }

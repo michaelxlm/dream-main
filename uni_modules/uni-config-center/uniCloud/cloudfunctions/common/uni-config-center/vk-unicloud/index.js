@@ -54,7 +54,7 @@ module.exports = {
 		},
 		"db":{
 			"unicloud":{
-				"maxLimit" : 500,	// 最大limit限制(目前腾讯云最大1000,阿里云最大500)
+				"maxLimit" : 1000,	// 最大limit限制(目前腾讯云最大1000,阿里云最大500)
 				"cancelAddTime" : false,// 取消vk.baseDao.add 时自动生成_add_time和_add_time_str
 			}
 		},

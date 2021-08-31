@@ -167,14 +167,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 
 var that; // 当前页面对象
 var vk; // vk依赖
 var _default = {
   data: function data() {
     return {
+      customStyle: {
+        margin: '32rpx' // 注意驼峰命名，并且值必须用引号包括，因为这是对象
+      },
       options: {},
       tagSelectShow: false,
       issureForm: {
@@ -317,7 +318,7 @@ var _default = {
     submitFunc: function submitFunc() {
       console.log(that.issureForm);
       vk.callFunction({
-        url: 'client/general/kh/add',
+        url: 'client/general/kh/adds',
         title: '请求中...',
         data: {
           addJson: that.issureForm,

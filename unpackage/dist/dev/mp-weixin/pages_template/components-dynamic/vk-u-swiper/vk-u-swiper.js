@@ -99,10 +99,10 @@ try {
       return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-toast/u-toast */ "node-modules/uview-ui/components/u-toast/u-toast").then(__webpack_require__.bind(null, /*! uview-ui/components/u-toast/u-toast.vue */ 444))
     },
     vkUSwiper: function() {
-      return __webpack_require__.e(/*! import() | uni_modules/vk-unicloud/components/vk-u-swiper/vk-u-swiper */ "uni_modules/vk-unicloud/components/vk-u-swiper/vk-u-swiper").then(__webpack_require__.bind(null, /*! @/uni_modules/vk-unicloud/components/vk-u-swiper/vk-u-swiper.vue */ 600))
+      return __webpack_require__.e(/*! import() | uni_modules/vk-unicloud/components/vk-u-swiper/vk-u-swiper */ "uni_modules/vk-unicloud/components/vk-u-swiper/vk-u-swiper").then(__webpack_require__.bind(null, /*! @/uni_modules/vk-unicloud/components/vk-u-swiper/vk-u-swiper.vue */ 607))
     },
     uSubsection: function() {
-      return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-subsection/u-subsection */ "node-modules/uview-ui/components/u-subsection/u-subsection").then(__webpack_require__.bind(null, /*! uview-ui/components/u-subsection/u-subsection.vue */ 593))
+      return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-subsection/u-subsection */ "node-modules/uview-ui/components/u-subsection/u-subsection").then(__webpack_require__.bind(null, /*! uview-ui/components/u-subsection/u-subsection.vue */ 600))
     }
   }
 } catch (e) {

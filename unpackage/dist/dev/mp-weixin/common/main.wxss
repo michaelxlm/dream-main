@@ -1307,7 +1307,7 @@ text {
 .u-m-l-32 {
   margin-left: 32rpx !important;
 }
-.u-p-l-32, .issureForm, .detailCompontent .contentView, .detailCompontent .operatingButtonView .buttonItem, .detailCompontent .operationNavigation .issureComment, .vk-search-view .list-search {
+.u-p-l-32, .issureForm .u-form-item__body, .detailCompontent .contentView, .detailCompontent .operatingButtonView .buttonItem, .detailCompontent .operationNavigation .issureComment, .vk-search-view .list-search {
   padding-left: 32rpx !important;
 }
 .u-margin-left-32 {
@@ -1331,7 +1331,7 @@ text {
 .u-m-r-32 {
   margin-right: 32rpx !important;
 }
-.u-p-r-32, .issureForm, .detailCompontent .contentView, .detailCompontent .operatingButtonView .buttonItem, .detailCompontent .operationNavigation .issureComment, .vk-search-view .list-search {
+.u-p-r-32, .issureForm .u-form-item__body, .detailCompontent .contentView, .detailCompontent .operatingButtonView .buttonItem, .detailCompontent .operationNavigation .issureComment, .vk-search-view .list-search {
   padding-right: 32rpx !important;
 }
 .u-margin-right-32 {

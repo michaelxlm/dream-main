@@ -78,7 +78,7 @@ var components
 try {
   components = {
     uPopup: function() {
-      return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-popup/u-popup */ "node-modules/uview-ui/components/u-popup/u-popup").then(__webpack_require__.bind(null, /*! uview-ui/components/u-popup/u-popup.vue */ 574))
+      return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-popup/u-popup */ "node-modules/uview-ui/components/u-popup/u-popup").then(__webpack_require__.bind(null, /*! uview-ui/components/u-popup/u-popup.vue */ 581))
     },
     uSearch: function() {
       return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-search/u-search */ "node-modules/uview-ui/components/u-search/u-search").then(__webpack_require__.bind(null, /*! uview-ui/components/u-search/u-search.vue */ 393))
@@ -222,12 +222,9 @@ var vk;var _default2 =
   watch: {
     show: {
       handler: function handler(oldVal, newVal) {
-        console.log('show');
-        console.log(this.show);
         if (this.show) {
           this.init();
         }
-
       },
       deep: true } },
 
@@ -244,7 +241,11 @@ var vk;var _default2 =
         list: [], // 列表数据
         pageKey: true, // 是否还能加载下一页
         loadmore: "loading",
-        total: 0 },
+        total: 0,
+        sortArr: [{
+          name: 'heatNumber',
+          type: 'desc' }] },
+
 
       // 表单请求数据
       form1: {
@@ -289,7 +290,7 @@ var vk;var _default2 =
     // 添加标签
     addItemBtn: function addItemBtn(text) {
       vk.callFunction({
-        url: 'client/general/kh/add',
+        url: 'client/general/kh/adds',
         title: '请求中...',
         data: {
           addJson: {

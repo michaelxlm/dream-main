@@ -52,7 +52,7 @@
 			});
 		},
 		onReady() {
-			that.init();
+			
 		},
 		onNavigationBarButtonTap(e) {
 			vk.onNavigationBarButtonTap({
@@ -69,6 +69,7 @@
 			uni.setNavigationBarTitle({
 				title: title
 			});
+			that.init();
 		},
 		// 监听 - 页面下拉刷新
 		onPullDownRefresh() {

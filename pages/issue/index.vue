@@ -23,13 +23,11 @@
 				</view>
 				<u-form :model="issureForm" ref="issureForm" class="issureForm">
 					<u-form-item :label="$t('issure.tags')" right-icon="arrow-right">
-						<span
-							@click="tagSelectFunc()">{{vk.pubfn.isNotNull(issureForm.tags)?issureForm.tags[0].text:'跟更多同好交流'}}</span>
-
+						<div @click="tagSelectFunc()">{{vk.pubfn.isNotNull(issureForm.tags)?issureForm.tags[0].text:'跟更多同好交流'}}</div>
 					</u-form-item>
 				</u-form>
 			</view>
-			<u-button class="u-m-32" @click="submitFunc">{{$t('issure.confirm')}}</u-button>
+			<u-button :custom-style="customStyle" @click="submitFunc">{{$t('issure.confirm')}}</u-button>
 		</view>
 		<tagSelect :show="tagSelectShow" @tagSelectClose="tagSelectClose()" @tagSelectItem="tagSelectItem"></tagSelect>
 		<u-back-top :scrollTop="scrollTop" :z-index="999"></u-back-top>
@@ -44,10 +42,13 @@
 	export default {
 		data() {
 			return {
+				customStyle: {
+					margin: '32rpx', // 注意驼峰命名，并且值必须用引号包括，因为这是对象
+				},
 				options: {},
 				tagSelectShow: false,
 				issureForm: {
-					
+
 					need_user_info: false, // 如果云函数用不到 `userInfo`，则传false可以加快接口相应速度
 					text: '', //描述
 					imageList: [],
@@ -186,13 +187,13 @@
 			submitFunc() {
 				console.log(that.issureForm)
 				vk.callFunction({
-					url: 'client/general/kh/add',
+					url: 'client/general/kh/adds',
 					title: '请求中...',
 					data: {
-						addJson:that.issureForm,
+						addJson: that.issureForm,
 						dbName: "tw",
-						mainDBname:"tw",
-						type:"tw"
+						mainDBname: "tw",
+						type: "tw"
 					},
 					success(res) {
 						console.log(res)

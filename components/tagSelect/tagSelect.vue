@@ -62,12 +62,9 @@
 		watch: {
 			show: {
 				handler(oldVal, newVal) {
-					console.log('show')
-					console.log(this.show)
 					if (this.show) {
 						this.init()
 					}
-
 				},
 				deep: true
 			}
@@ -84,7 +81,11 @@
 					list: [], // 列表数据
 					pageKey: true, // 是否还能加载下一页
 					loadmore: "loading",
-					total: 0
+					total: 0,
+					sortArr: [{
+						name: 'heatNumber',
+						type: 'desc'
+					}],
 				},
 				// 表单请求数据
 				form1: {
@@ -129,7 +130,7 @@
 			// 添加标签
 			addItemBtn(text) {
 				vk.callFunction({
-					url: 'client/general/kh/add',
+					url: 'client/general/kh/adds',
 					title: '请求中...',
 					data: {
 						addJson:{

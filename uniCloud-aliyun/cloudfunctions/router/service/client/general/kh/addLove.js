@@ -11,8 +11,11 @@ module.exports = {
 	 */
 	main: async (event) => {
 		let {
-			data = {}, util, originalParam, uid, userInfo
+			data = {}, util, originalParam, uid, userInfo, filterResponse
 		} = event;
+		let {
+			filterStack
+		} = filterResponse;
 		let {
 			customUtil,
 			config,
@@ -31,13 +34,9 @@ module.exports = {
 			comment_id, //评论iD
 			tw_id, //当前的图文ID
 		} = data;
-		console.log(uid)
-		console.log(userInfo)
 		// 业务逻辑开始-----------------------------------------------------------
-		// 可写与数据库的交互逻辑等等
-		// 开启事务
-		const transaction = await vk.baseDao.startTransaction();
 		try {
+			let twUserFilter = vk.pubfn.getListItem(filterStack, "filterId", "twUserFilter"); //获取图文用户ID过滤器
 			let dataJson = {}
 			dataJson.comment_id = comment_id; //评论ID
 			dataJson.from = from; //点赞类型
@@ -57,85 +56,70 @@ module.exports = {
 			// 业务逻辑开始-----------------------------------------------------------
 			let parent_id = '';
 			parent_id = from === 'comment' ? comment_id : tw_id
-			// 添加到点赞表
-			let update1Res = await vk.baseDao.add({
-				db: transaction,
-				dbName: dbName + "_like",
-				dataJson: dataJson
-			});
-			console.log(update1Res)
-			// 用户总点赞数量增加1
-			let timeUse = await vk.baseDao.findByWhereJson({
-				db: transaction,
-				dbName: mainDBname + "_user", // 表名
-				whereJson: { // 条件
-					uid: uid,
-				}
-			});
-			console.log(timeUse)
-			if (vk.pubfn.isNull(timeUse)) {
-				let update2Res = await vk.baseDao.add({
-					db: transaction,
-					dbName: mainDBname + "_user",
-					dataJson: {
-						uid: uid,
-						loveNumber: 1
-					}
-				});
-				console.log(update2Res)
-			} else {
-				let update3Res = await vk.baseDao.update({
-					db: transaction,
-					whereJson: { // 条件
-						uid: uid,
-					},
+			try {
+				let addLove1Res = await vk.baseDao.updateById({
+					id: twUserFilter.twUseID,
 					dbName: mainDBname + "_user",
 					dataJson: {
 						loveNumber: _.inc(1)
 					},
 				});
-				console.log(update3Res)
+				console.log(addLove1Res)
+				if (addLove1Res < 1) {
+					return {
+						code: -1,
+						msg: "点赞失败",
+						resultFrom: 'addLove1Res',
+						result: addLove1Res
+					}
+				}
+			} catch (err) {
+				console.log(`addLove1Res fail`, err);
 			}
-			// 总点赞数量增加1
-			let update4Res = await vk.baseDao.updateById({
-				db: transaction,
-				id: parent_id,
-				dbName: dbName,
-				dataJson: {
-					loveNumber: _.inc(1)
-				},
+			try {
+				// 总点赞数量增加1
+				let addLove4Res = await vk.baseDao.updateById({
+					id: parent_id,
+					dbName: dbName,
+					dataJson: {
+						loveNumber: _.inc(1)
+					},
+				});
+				if (addLove4Res < 1) {
+					return {
+						code: -1,
+						msg: "点赞失败",
+						resultFrom: 'addLove4Res',
+						result: addLove4Res
+					}
+				}
+			} catch (err) {
+				console.log(`addLove4Res fail`, err);
+			}
+
+			// 添加到点赞表
+			let addLoveRes = await vk.baseDao.add({
+				dbName: dbName + "_like",
+				dataJson: dataJson
 			});
-			//验证是否当前是否已经被删除
-			const endRes = await vk.baseDao.findById({
-				db: transaction,
-				dbName: dbName,
-				id: parent_id
-			});
-			console.log(endRes)
-			if (endRes.status == 1) { //状态为1则图文删除
-				transaction.rollback(-100);
+			console.log(addLoveRes)
+			if (vk.pubfn.isNull(addLoveRes)) { //状态为1则图文删除
 				return {
 					code: -1,
 					msg: "当前内容已被删除",
 					id: parent_id
 				}
 			} else {
-				// 提交事物
-				await transaction.commit();
-				console.log(`transaction succeeded`);
 				return {
 					code: 0,
 					msg: "点赞成功",
-					id: update1Res
+					id: addLoveRes
 				}
 			}
 		} catch (err) {
-			// 事务回滚
-			await transaction.rollback();
-			console.error(`transaction error`, err)
 			return {
 				code: -1,
-				msg: "数据库写入异常,事务已回滚",
+				msg: "点赞失败",
 				err: {
 					message: err.message,
 					stack: err.stack

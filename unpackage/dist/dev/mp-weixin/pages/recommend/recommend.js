@@ -208,7 +208,7 @@ var _default = {
 
   },
   onReady: function onReady() {
-    that.init();
+
   },
   onNavigationBarButtonTap: function onNavigationBarButtonTap(e) {
     vk.onNavigationBarButtonTap({
@@ -225,6 +225,7 @@ var _default = {
     uni.setNavigationBarTitle({
       title: title });
 
+    that.init();
   },
   // 监听 - 页面下拉刷新
   onPullDownRefresh: function onPullDownRefresh() {

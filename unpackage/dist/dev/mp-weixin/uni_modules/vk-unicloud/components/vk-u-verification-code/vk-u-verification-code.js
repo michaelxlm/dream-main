@@ -78,7 +78,7 @@ var components
 try {
   components = {
     uVerificationCode: function() {
-      return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-verification-code/u-verification-code */ "node-modules/uview-ui/components/u-verification-code/u-verification-code").then(__webpack_require__.bind(null, /*! uview-ui/components/u-verification-code/u-verification-code.vue */ 647))
+      return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-verification-code/u-verification-code */ "node-modules/uview-ui/components/u-verification-code/u-verification-code").then(__webpack_require__.bind(null, /*! uview-ui/components/u-verification-code/u-verification-code.vue */ 654))
     }
   }
 } catch (e) {

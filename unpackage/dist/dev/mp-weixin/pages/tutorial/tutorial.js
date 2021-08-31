@@ -111,14 +111,17 @@ try {
     uDivider: function() {
       return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-divider/u-divider */ "node-modules/uview-ui/components/u-divider/u-divider").then(__webpack_require__.bind(null, /*! uview-ui/components/u-divider/u-divider.vue */ 567))
     },
+    uModal: function() {
+      return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-modal/u-modal */ "node-modules/uview-ui/components/u-modal/u-modal").then(__webpack_require__.bind(null, /*! uview-ui/components/u-modal/u-modal.vue */ 574))
+    },
     uPopup: function() {
-      return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-popup/u-popup */ "node-modules/uview-ui/components/u-popup/u-popup").then(__webpack_require__.bind(null, /*! uview-ui/components/u-popup/u-popup.vue */ 574))
+      return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-popup/u-popup */ "node-modules/uview-ui/components/u-popup/u-popup").then(__webpack_require__.bind(null, /*! uview-ui/components/u-popup/u-popup.vue */ 581))
     },
     uInput: function() {
       return Promise.all(/*! import() | node-modules/uview-ui/components/u-input/u-input */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-input/u-input")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-input/u-input.vue */ 414))
     },
     uBadge: function() {
-      return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-badge/u-badge */ "node-modules/uview-ui/components/u-badge/u-badge").then(__webpack_require__.bind(null, /*! uview-ui/components/u-badge/u-badge.vue */ 581))
+      return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-badge/u-badge */ "node-modules/uview-ui/components/u-badge/u-badge").then(__webpack_require__.bind(null, /*! uview-ui/components/u-badge/u-badge.vue */ 588))
     },
     uBackTop: function() {
       return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-back-top/u-back-top */ "node-modules/uview-ui/components/u-back-top/u-back-top").then(__webpack_require__.bind(null, /*! uview-ui/components/u-back-top/u-back-top.vue */ 386))
@@ -159,27 +162,27 @@ var render = function() {
         var g7 = _vm.vk.pubfn.isNotNull(commentItem.author)
         var g8 = _vm.vk.pubfn.isNotNull(commentItem.isLikeList._id)
         var g9 = _vm.vk.pubfn.isNotNull(commentItem.isLikeList)
-        var g10 = _vm.vk.pubfn.isNotNull(commentItem.replyList)
-        var l0 = g10
+        var g10 = _vm.vk.pubfn.dateDiff(commentItem._add_time)
+        var g11 = _vm.vk.pubfn.isNotNull(commentItem.replyList)
+        var l0 = g11
           ? _vm.__map(commentItem.replyList, function(item, index) {
               var $orig = _vm.__get_orig(item)
 
-              var g11 = _vm.vk.pubfn.isNotNull(item.author)
+              var g12 = _vm.vk.pubfn.isNotNull(item.author)
               return {
                 $orig: $orig,
-                g11: g11
+                g12: g12
               }
             })
           : null
-        var g12 = _vm.vk.pubfn.dateDiff(commentItem._add_time)
         return {
           $orig: $orig,
           g7: g7,
           g8: g8,
           g9: g9,
           g10: g10,
-          l0: l0,
-          g12: g12
+          g11: g11,
+          l0: l0
         }
       })
     : null
@@ -232,6 +235,13 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
+
+
+
+
+
+
+
 
 
 
@@ -474,6 +484,13 @@ var _appConfig = _interopRequireDefault(__webpack_require__(/*! @/app.config.js 
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 var that; // 当前页面对象
 var vk; // vk依赖
 var _default = (_data$onBackPress$onP = { data: function data() {return { dbName: 'tw', wid: '', //图文id
@@ -482,7 +499,7 @@ var _default = (_data$onBackPress$onP = { data: function data() {return { dbName
       addCommentPopup: { status: false, //添加评论弹出框
         commentItem: {}, //评论父级内容
         replyText: '', //评论内容
-        placeholder: '发表评论' }, scrollTop: 0 };}, // 监听 - 原生返回按钮
+        placeholder: '发表评论' }, del: { show: false, content: '确定删除当前评论？', type: '', comment: {} }, scrollTop: 0 };}, // 监听 - 原生返回按钮
   onBackPress: function onBackPress(e) {console.log("返回按钮", e);}, onPageScroll: function onPageScroll(e) {that.scrollTop = e.scrollTop;}, onShareAppMessage: function onShareAppMessage() {return { title: that.banner.title, path: '/pages/tutorial/tutorial?id=' + that.wid };}, // 监听 - 页面每次【加载时】执行(如：前进)
   onLoad: function onLoad() {var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};that = this;vk = that.vk;that.options = options;console.log('onLoad');if (vk.pubfn.isNotNull(options.id)) {that.init(options);that.getComment('init');} else {vk.navigateTo('/pages/error/404/404');}}, // 监听 - 页面【首次渲染完成时】执行。注意如果渲染速度快，会在页面进入动画完成前触发
   onReady: function onReady() {}, // 监听 - 页面每次【显示时】执行(如：前进和返回) (页面每次出现在屏幕上都触发，包括从下级页面点返回露出当前页面)
@@ -491,8 +508,7 @@ var _default = (_data$onBackPress$onP = { data: function data() {return { dbName
   onPullDownRefresh: function onPullDownRefresh() {setTimeout(function () {uni.stopPullDownRefresh();}, 1000);}, // 监听 - 页面触底部
   onReachBottom: function onReachBottom(options) {console.log(options);console.log('监听 - 页面触底部');if (that.comment.hasMore) {that.comment.pagination.pageIndex += 1;that.getComment('more');}}, // 监听 - 窗口尺寸变化(仅限:App、微信小程序)
   onResize: function onResize() {} }, _defineProperty(_data$onBackPress$onP, "onShareAppMessage", function onShareAppMessage(options) {}), _defineProperty(_data$onBackPress$onP, "methods", { // 页面数据初始化函数
-  init: function init(options) {that.wid = options.id;vk.callFunction({ url: 'client/general/pub/getList', title: '请求中...', data: { dbName: that.dbName, getOne: true, whereJson: { _id: that.wid, status: 0 }, foreignDB: [{ dbName: "uni-id-users", localKey: "uid", foreignKey: "_id", as: "author", whereJson: { status: 0 }, limit: 1 }, { dbName: "tw_like", localKey: "_id", foreignKey: "tw_id", whereJson: { uid: that.userInfo._id, status: 0 }, as: "isLikeMine", sortArr: [{ "name": "_add_time", "type": "desc" }], limit: 1 }] }, success: function success(res) {if (vk.pubfn.isNotNull(res.rows)) {
-          that.tutorialData = res.rows;
+  init: function init(options) {that.wid = options.id;vk.callFunction({ url: 'client/general/pub/getList', title: '请求中...', data: { dbName: that.dbName, getOne: true, whereJson: { _id: that.wid, status: 0 }, foreignDB: [{ dbName: "uni-id-users", localKey: "uid", foreignKey: "_id", as: "author", whereJson: { status: 0 }, limit: 1 }, { dbName: "tw_like", localKey: "_id", foreignKey: "tw_id", whereJson: { uid: that.userInfo._id, status: 0 }, as: "isLikeMine", sortArr: [{ "name": "_add_time", "type": "desc" }], limit: 1 }] }, success: function success(res) {if (vk.pubfn.isNotNull(res.rows)) {that.tutorialData = res.rows;
           that.$u.mpShare.title = that.tutorialData.text;
           that.$u.mpShare.imageUrl = _appConfig.default.imageShareUrl;
           if (vk.pubfn.isNotNull(that.tutorialData.isLikeMine._id)) {
@@ -663,7 +679,7 @@ var _default = (_data$onBackPress$onP = { data: function data() {return { dbName
       params.parent_comment_id = '';
     }
     vk.callFunction({
-      url: 'client/general/kh/add',
+      url: 'client/general/kh/adds',
       title: '请求中...',
       data: {
         addJson: params,
@@ -740,6 +756,50 @@ var _default = (_data$onBackPress$onP = { data: function data() {return { dbName
         } });
 
     }
+  },
+
+  //删除弹窗打开
+  delCommentFunc: function delCommentFunc(commentItem, type) {
+    console.log(commentItem);
+    that.del.show = true;
+    that.del.type = type;
+    that.del.comment = commentItem;
+  },
+  // 删除当前评论/图文
+  delConfirm: function delConfirm() {
+    vk.callFunction({
+      url: 'client/general/kh/del',
+      title: '请求中...',
+      data: {
+        mainDBname: that.dbName,
+        dbName: that.del.type === "comment" ? that.dbName + "_comment" : that.dbName,
+        tw_id: that.wid, //图文ID
+        childCommint: that.del.comment.comment_parent_status || false,
+        type: that.del.type,
+        del_id: that.del.type === "comment" ? that.del.comment._id : that.wid //评论ID
+      },
+      success: function success(res) {
+        console.log(res);
+        if (res.code === 0) {
+          that.getComment('init');
+          that.delCancel();
+        }
+        that.delCancel();
+        vk.toast(res.msg, "none");
+      },
+      fail: function fail() {
+        that.delCancel();
+      } });
+
+  },
+  // 关闭删除弹窗
+  delCancel: function delCancel() {
+    that.del = {
+      show: false,
+      content: '确定删除当前评论？',
+      type: '',
+      comment: {} };
+
   } }), _defineProperty(_data$onBackPress$onP, "filters",
 
 

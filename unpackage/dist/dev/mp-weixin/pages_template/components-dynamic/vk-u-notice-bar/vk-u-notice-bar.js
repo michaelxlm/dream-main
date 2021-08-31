@@ -99,10 +99,10 @@ try {
       return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-toast/u-toast */ "node-modules/uview-ui/components/u-toast/u-toast").then(__webpack_require__.bind(null, /*! uview-ui/components/u-toast/u-toast.vue */ 444))
     },
     vkUNoticeBar: function() {
-      return __webpack_require__.e(/*! import() | uni_modules/vk-unicloud/components/vk-u-notice-bar/vk-u-notice-bar */ "uni_modules/vk-unicloud/components/vk-u-notice-bar/vk-u-notice-bar").then(__webpack_require__.bind(null, /*! @/uni_modules/vk-unicloud/components/vk-u-notice-bar/vk-u-notice-bar.vue */ 588))
+      return __webpack_require__.e(/*! import() | uni_modules/vk-unicloud/components/vk-u-notice-bar/vk-u-notice-bar */ "uni_modules/vk-unicloud/components/vk-u-notice-bar/vk-u-notice-bar").then(__webpack_require__.bind(null, /*! @/uni_modules/vk-unicloud/components/vk-u-notice-bar/vk-u-notice-bar.vue */ 595))
     },
     uSubsection: function() {
-      return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-subsection/u-subsection */ "node-modules/uview-ui/components/u-subsection/u-subsection").then(__webpack_require__.bind(null, /*! uview-ui/components/u-subsection/u-subsection.vue */ 593))
+      return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-subsection/u-subsection */ "node-modules/uview-ui/components/u-subsection/u-subsection").then(__webpack_require__.bind(null, /*! uview-ui/components/u-subsection/u-subsection.vue */ 600))
     }
   }
 } catch (e) {

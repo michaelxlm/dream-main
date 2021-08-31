@@ -286,8 +286,10 @@ rich-text {
   @include photoAlbumBlock(1);
 }
 .issureForm{
-	@extend .u-p-l-32;
-	@extend .u-p-r-32;
+	.u-form-item__body{
+		@extend .u-p-l-32;
+		@extend .u-p-r-32;
+	}
 	.u-form-item--right__content__slot{
 		 @extend .u-row-right;
 	}

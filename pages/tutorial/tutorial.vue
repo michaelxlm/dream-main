@@ -59,6 +59,11 @@
 						</view>
 					</view>
 					<view class="content">{{ commentItem.commentText }}</view>
+					<view class="bottom">
+						{{vk.pubfn.dateDiff(commentItem._add_time)}}
+						<view class="replyButton" @click="replyCommentFunc(commentItem)">回复</view>
+						<view class="replyButton" @click="delCommentFunc(commentItem,'comment')">删除</view>
+					</view>
 					<view class="reply-box" v-if="vk.pubfn.isNotNull(commentItem.replyList)">
 						<view class="item" v-for="(item, index) in commentItem.replyList" :key="item.index">
 							<view class="username">{{ vk.pubfn.isNotNull(item.author)?item.author.nickname:'匿名' }}
@@ -71,14 +76,16 @@
 							<u-icon class="more" name="arrow-right" :size="26"></u-icon>
 						</view>
 					</view>
-					<view class="bottom">
-						{{vk.pubfn.dateDiff(commentItem._add_time)}}
-						<view class="replyButton" @click="replyCommentFunc(commentItem)">回复</view>
-					</view>
+
 				</view>
 			</view>
 			<u-divider v-if="!comment.hasMore">已显示全部评论</u-divider>
 		</view>
+		<!-- 删除提示框 -->
+		<u-modal v-model="del.show" @confirm="delConfirm" @cancel="delCancel" ref="uModal" :async-close="true"
+			:content="del.content" confirm-text="删除" confirm-color="#ff0000">
+		</u-modal>
+		<!-- 评论框 -->
 		<u-popup v-model="addCommentPopup.status" safe-area-inset-bottom="true" mode="bottom" border-radius="14"
 			height="180">
 			<view class="addCommentPopup">
@@ -143,6 +150,12 @@
 					commentItem: {}, //评论父级内容
 					replyText: '', //评论内容
 					placeholder: '发表评论'
+				},
+				del: {
+					show: false,
+					content: '确定删除当前评论？',
+					type: '',
+					comment: {}
 				},
 				scrollTop: 0,
 			}
@@ -430,7 +443,7 @@
 					params.parent_comment_id = '';
 				}
 				vk.callFunction({
-					url: 'client/general/kh/add',
+					url: 'client/general/kh/adds',
 					title: '请求中...',
 					data: {
 						addJson: params,
@@ -506,6 +519,50 @@
 							vk.toast(res.msg, "none");
 						}
 					});
+				}
+			},
+
+			//删除弹窗打开
+			delCommentFunc(commentItem, type) {
+				console.log(commentItem)
+				that.del.show = true
+				that.del.type = type
+				that.del.comment = commentItem
+			},
+			// 删除当前评论/图文
+			delConfirm() {
+				vk.callFunction({
+					url: 'client/general/kh/del',
+					title: '请求中...',
+					data: {
+						mainDBname: that.dbName,
+						dbName: that.del.type === "comment" ? that.dbName + "_comment" : that.dbName,
+						tw_id: that.wid, //图文ID
+						childCommint: that.del.comment.comment_parent_status || false,
+						type: that.del.type,
+						del_id: that.del.type === "comment" ? that.del.comment._id : that.wid, //评论ID
+					},
+					success(res) {
+						console.log(res)
+						if (res.code === 0) {
+							that.getComment('init');
+							that.delCancel()
+						}
+						that.delCancel()
+						vk.toast(res.msg, "none");
+					},
+					fail() {
+						that.delCancel()
+					}
+				});
+			},
+			// 关闭删除弹窗
+			delCancel() {
+				that.del = {
+					show: false,
+					content: '确定删除当前评论？',
+					type: '',
+					comment: {}
 				}
 			}
 		},
