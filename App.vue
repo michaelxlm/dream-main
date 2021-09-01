@@ -35,6 +35,18 @@
 				});
 				// #endif
 			},
+			// 初始化服务器配置参数
+			gitAppInit: function() {
+				let that = this;
+				this.vk.callFunction({
+					url: 'plugs/components_dynamic/client/pub/gitAppInit',
+				}).then((data) => {
+					that.vk.setVuex('$app.componentsDynamic', data.componentsDynamic || {});
+				}).catch((err) => {
+					console.log(err)
+					that.vk.setVuex('$app.componentsDynamic', {});
+				});
+			},
 		},
 		// 监听 - 页面404
 		onPageNotFound: function(e) {
@@ -45,21 +57,9 @@
 		onLaunch: function() {
 			if (config.debug) console.log('App Launch')
 			let that = this;
-			console.log(this)
-			console.log(this.vk)
-			// 初始化服务器配置参数
-			// this.vk.callFunction({
-			// 	url: 'plugs/components_dynamic/client/pub/init',
-			// }).then((data) => {
-			// 	console.log(data)
-			// }).catch((err) => {
-			// 	console.log(err)
-			// });
+			that.gitAppInit()
 			that.watchLocalStorage();
 			that.initLogin()
-			console.log('App Launch');
-
-
 			// #ifdef APP-NVUE
 			plus.screen.lockOrientation('portrait-primary');
 

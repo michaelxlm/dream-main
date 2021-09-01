@@ -3,7 +3,7 @@
 		<u-card :full="true" v-for="(item) in list" :key="item._id" :index="item._id"
 			@click="cardClick" margin="0" :show-head="false" :show-foot="false">
 			<view class="u-card-body" slot="body">
-				<u-avatar :src="item.author.avatar ||''" size="90"></u-avatar>
+				<u-avatar :src="item.author.avatar ||mainLogo" size="90"></u-avatar>
 				<view class="content">
 					<view class="nickname">{{item.author.nickname}}</view>
 					<view class="text">{{item.text}}</view>
@@ -26,6 +26,7 @@
 </template>
 
 <script>
+	import config from '@/app.config.js'
 	export default {
 		name:"contentList",
 		props: {
@@ -35,6 +36,11 @@
 					return [];
 				}
 			},
+		},
+		computed: {
+			mainLogo() {
+				return config.staticUrl.logo
+			}
 		},
 		data() {
 			return {

@@ -29,14 +29,13 @@
 					pageIndex: 1, //当前页码
 					pageSize: 10, //每页显示数量
 				},
-				componentsDynamic: {},
 				scrollTop: 0,
 			}
 		},
 		// 计算属性
 		computed: {
 			recommendSettingList() {
-				return this.componentsDynamic['recommendSetting'] ? this.componentsDynamic['recommendSetting']['list'] : []
+				return this.vk.getVuex('$app.componentsDynamic.recommendSetting.list')|| []
 			},
 		},
 		// 监听 - 页面每次【加载时】执行(如：前进)
@@ -44,12 +43,6 @@
 			that = this;
 			vk = that.vk;
 			that.options = options;
-			vk.pubfn.getComponentsDynamicData({
-				that: that,
-				ids: [
-					"recommendSetting"
-				]
-			});
 		},
 		onReady() {
 			

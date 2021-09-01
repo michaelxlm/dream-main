@@ -159,53 +159,62 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-var _default2 =
-{
-  name: "contentList",
-  props: {
-    list: {
-      type: Array,
-      default: function _default() {
-        return [];
-      } } },
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
 
 
-  data: function data() {
-    return {};
 
-  },
-  methods: {
-    cardClick: function cardClick(_id) {
-      console.log(_id);
-      this.vk.navigateTo('/pages/tutorial/tutorial?id=' + _id);
-    } } };exports.default = _default2;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var _appConfig = _interopRequireDefault(__webpack_require__(/*! @/app.config.js */ 12));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var _default2 = { name: "contentList", props: { list: { type: Array, default: function _default() {return [];} } }, computed: { mainLogo: function mainLogo() {return _appConfig.default.staticUrl.logo;} }, data: function data() {return {};}, methods: { cardClick: function cardClick(_id) {console.log(_id);this.vk.navigateTo('/pages/tutorial/tutorial?id=' + _id);} } };exports.default = _default2;
 
 /***/ })
 

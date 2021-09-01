@@ -76,7 +76,6 @@
 					pageIndex: 1, //当前页码
 					pageSize: 10, //每页显示数量
 				},
-				componentsDynamic: {},
 				tabCurrent: 0, //排序
 				scrollTop: 0,
 			}
@@ -134,7 +133,6 @@
 				this.getList()
 			}
 			setIntervalTime = setInterval(function() {
-				console.log('setIntervalTime')
 				that.nowTime = vk.myfn.getSystemDetailTime()
 			}, 1000)
 		},
@@ -168,12 +166,7 @@
 		methods: {
 			// 页面数据初始化函数
 			init(options) {
-				// vk.pubfn.getComponentsDynamicData({
-				// 	that: that,
-				// 	ids: [
-				// 		"indexListSort",
-				// 	]
-				// });
+				
 
 			},
 			// 使用微信绑定的手机号登录/注册
@@ -250,7 +243,7 @@
 				return this.vk.pubfn.isNotNull(mobile)
 			},
 			tabSortList() {
-				return this.componentsDynamic['indexListSort'] ? this.componentsDynamic['indexListSort']['list'] : []
+				return this.vk.getVuex('$app.componentsDynamic.indexListSort.list')|| []
 			},
 		}
 	}

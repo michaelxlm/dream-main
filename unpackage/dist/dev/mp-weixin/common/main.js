@@ -168,6 +168,18 @@ var _appConfig = _interopRequireDefault(__webpack_require__(/*! @/app.config.js 
         } });
 
 
+    },
+    // 初始化服务器配置参数
+    gitAppInit: function gitAppInit() {
+      var that = this;
+      this.vk.callFunction({
+        url: 'plugs/components_dynamic/client/pub/gitAppInit' }).
+      then(function (data) {
+        that.vk.setVuex('$app.componentsDynamic', data.componentsDynamic || {});
+      }).catch(function (err) {
+        console.log(err);
+        that.vk.setVuex('$app.componentsDynamic', {});
+      });
     } },
 
   // 监听 - 页面404
@@ -179,21 +191,9 @@ var _appConfig = _interopRequireDefault(__webpack_require__(/*! @/app.config.js 
   onLaunch: function onLaunch() {
     if (_appConfig.default.debug) console.log('App Launch');
     var that = this;
-    console.log(this);
-    console.log(this.vk);
-    // 初始化服务器配置参数
-    // this.vk.callFunction({
-    // 	url: 'plugs/components_dynamic/client/pub/init',
-    // }).then((data) => {
-    // 	console.log(data)
-    // }).catch((err) => {
-    // 	console.log(err)
-    // });
+    that.gitAppInit();
     that.watchLocalStorage();
     that.initLogin();
-    console.log('App Launch');
-
-
 
 
 

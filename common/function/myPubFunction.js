@@ -18,7 +18,7 @@ myfn.getSystemTime = function(data) {
  * 时间补位0
  */
 myfn.fillZero = function(time, digits = 2) {
-	return Number(time) < Number(new Array(digits).join('9')) ? new Array(digits).join('0') + time : time + ''
+	return Number(time) <= Number(new Array(digits).join('9')) ? new Array(digits).join('0') + time : time + ''
 }
 /**
  * 时间处理-换算上午/下午

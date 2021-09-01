@@ -224,6 +224,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
 var _appConfig = _interopRequireDefault(__webpack_require__(/*! @/app.config.js */ 12));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
 //
 //
@@ -273,18 +276,11 @@ var _appConfig = _interopRequireDefault(__webpack_require__(/*! @/app.config.js 
 //
 //
 //
-var that;var app = getApp();var vk;var _default = { components: {}, data: function data() {return { sessionKey: "", options: {}, componentsDynamic: {} };}, computed: { customStyle: function customStyle() {return { height: 'auto', lineHeight: 'auto', padding: '0' };}, userInfo: function userInfo() {return this.vk.getVuex('$user.userInfo') || {};}, miniProgramData: function miniProgramData() {return this.componentsDynamic['miniProgramData'] ? this.componentsDynamic['miniProgramData']['list'] : [];}, mainLogo: function mainLogo() {return _appConfig.default.staticUrl.logo;} }, watch: { userInfo: { handler: function handler(oldVal, newVal) {console.log(oldVal);console.log(newVal);if (this.vk.pubfn.isNotNull(newVal.mobile)) {vk.userCenter.code2SessionWeixin({ data: { needCache: true }, success: function success(data) {that.sessionKey = data.sessionKey;} });}}, deep: true } },
-
-  onLoad: function onLoad() {var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-    that = this;
-    that.options = options;
+//
+//
+//
+var that;var app = getApp();var vk;var _default = { components: {}, data: function data() {return { sessionKey: "", options: {} };}, computed: { customStyle: function customStyle() {return { height: 'auto', lineHeight: 'auto', padding: '0' };}, userInfo: function userInfo() {return this.vk.getVuex('$user.userInfo') || {};}, miniProgramData: function miniProgramData() {return this.vk.getVuex('$app.componentsDynamic.miniProgramData.list') || [];}, mainLogo: function mainLogo() {return _appConfig.default.staticUrl.logo;} }, watch: { userInfo: { handler: function handler(oldVal, newVal) {console.log(oldVal);console.log(newVal);if (this.vk.pubfn.isNotNull(newVal.mobile)) {vk.userCenter.code2SessionWeixin({ data: { needCache: true }, success: function success(data) {that.sessionKey = data.sessionKey;} });}}, deep: true } }, onLoad: function onLoad() {var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};that = this;that.options = options;
     vk = that.vk;
-    vk.pubfn.getComponentsDynamicData({
-      that: that,
-      ids: [
-      "miniProgramData"] });
-
-
   },
   onShow: function onShow() {
     uni.setNavigationBarTitle({

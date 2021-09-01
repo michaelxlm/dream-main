@@ -137,43 +137,39 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   var g0 = _vm.vk.pubfn.isNotNull(_vm.comment.author)
-  var g1 = _vm.vk.pubfn.isNotNull(_vm.comment.author)
-  var g2 = _vm.vk.pubfn.dateDiff(_vm.comment._add_time)
+  var g1 = _vm.vk.pubfn.dateDiff(_vm.comment._add_time)
 
   var l0 = _vm.__map(_vm.replyList, function(item, index) {
     var $orig = _vm.__get_orig(item)
 
-    var g3 = _vm.vk.pubfn.isNotNull(item.author)
-    var g4 = _vm.vk.pubfn.isNotNull(item.author)
-    var g5 = _vm.vk.pubfn.dateDiff(item._add_time)
-    var g6 = _vm.vk.pubfn.isNotNull(item.isLikeList)
-    var g7 = _vm.vk.pubfn.isNotNull(item.isLikeList)
-    var g8 = _vm.vk.pubfn.isNotNull(item.reply._id)
-    var g9 = g8 ? _vm.vk.pubfn.isNotNull(item.reply.author) : null
+    var g2 = _vm.vk.pubfn.isNotNull(item.author)
+    var g3 = _vm.vk.pubfn.dateDiff(item._add_time)
+    var g4 = _vm.vk.pubfn.isNotNull(item.isLikeList)
+    var g5 = _vm.vk.pubfn.isNotNull(item.isLikeList)
+    var g6 = _vm.vk.pubfn.isNotNull(item.reply._id)
+    var g7 = g6 ? _vm.vk.pubfn.isNotNull(item.reply.author) : null
     return {
       $orig: $orig,
+      g2: g2,
       g3: g3,
       g4: g4,
       g5: g5,
       g6: g6,
-      g7: g7,
-      g8: g8,
-      g9: g9
+      g7: g7
     }
   })
 
-  var g10 = _vm.vk.pubfn.isNotNull(_vm.comment.isLikeList)
-  var g11 = _vm.vk.pubfn.isNotNull(_vm.comment.isLikeList)
+  var g8 = _vm.vk.pubfn.isNotNull(_vm.comment.isLikeList)
+  var g9 = _vm.vk.pubfn.isNotNull(_vm.comment.isLikeList)
   _vm.$mp.data = Object.assign(
     {},
     {
       $root: {
         g0: g0,
         g1: g1,
-        g2: g2,
         l0: l0,
-        g10: g10,
-        g11: g11
+        g8: g8,
+        g9: g9
       }
     }
   )
@@ -414,8 +410,11 @@ var _default = { data: function data() {return { dbName: 'tw', options: {}, comm
       scrollTop: 0 };}, onLoad: function onLoad() {var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};that = this;vk = that.vk;that.options = options;if (vk.pubfn.isNotNull(that.options.parent_comment_id) || vk.pubfn.isNotNull(that.options.wid)) {that.getReply('init');that.getFindById();} else {uni.redirectTo({ url: _appConfig.default.error.url });}}, onPageScroll: function onPageScroll(e) {that.scrollTop = e.scrollTop;}, // 监听 - 页面下拉刷新
   onPullDownRefresh: function onPullDownRefresh() {setTimeout(function () {uni.stopPullDownRefresh();}, 1000);}, onShow: function onShow() {uni.setNavigationBarTitle({ title: this.$t('issure.allReply') });}, // 监听 - 页面触底部
   onReachBottom: function onReachBottom(options) {console.log(options);console.log('监听 - 页面触底部');if (that.hasMore) {that.pageIndex += 1;that.getReply('more');}}, // 计算属性
-  computed: { userInfo: function userInfo() {console.log('userInfo');return this.vk.getVuex('$user.userInfo') || {};} }, methods: { // 获取主评论
-    getFindById: function getFindById() {vk.callFunction({ url: 'client/general/pub/getList', title: '请求中...', data: { dbName: that.dbName + '_comment', getOne: true, whereJson: { _id: that.options.parent_comment_id, tw_id: that.options.wid, status: 0 }, sortArr: [{ "name": "_add_time", "type": "desc" }], foreignDB: [{ dbName: "uni-id-users", localKey: "uid", foreignKey: "_id", as: "author", whereJson: {}, limit: 1 }, { dbName: "tw_comment_like", localKey: "_id", foreignKey: "comment_id", whereJson: { uid: that.userInfo._id, status: 0 }, as: "isLikeList", sortArr: [{ "name": "_add_time", "type": "desc" }], limit: 1 }] }, success: function success(res) {console.log(res);
+  computed: { mainLogo: function mainLogo() {return _appConfig.default.staticUrl.logo;}, userInfo: function userInfo() {console.log('userInfo');return this.vk.getVuex('$user.userInfo') || {};} }, methods: { // 获取主评论
+    getFindById: function getFindById() {vk.callFunction({ url: 'client/general/pub/getList', title: '请求中...', data: { dbName: that.dbName + '_comment', getOne: true, whereJson: { _id: that.options.parent_comment_id, tw_id: that.options.wid, status: 0 }, sortArr: [{ "name": "_add_time", "type": "desc" }], foreignDB: [{ dbName: "uni-id-users", localKey: "uid", foreignKey: "_id", as: "author", whereJson: {}, limit: 1 }, { dbName: "tw_comment_like", localKey: "_id", foreignKey: "comment_id", whereJson: { uid: that.userInfo._id, status: 0 }, as: "isLikeList", sortArr: [{ "name": "_add_time", "type": "desc" }], limit: 1 }] },
+
+        success: function success(res) {
+          console.log(res);
           if (vk.pubfn.isNotNull(res.rows)) {
             that.comment = res.rows;
           } else {}

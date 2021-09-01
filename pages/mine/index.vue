@@ -6,8 +6,8 @@
 					class="userinfo u-flex user-box u-p-l-30 u-p-r-20 u-p-b-30"
 					@click="pageTo('/pages/mine/info?from=mine')">
 					<block>
-						<u-avatar class="userinfo-avatar u-skeleton-circle u-m-r-20" :src="userInfo.avatar || mainLogo"
-							size="140" />
+						<u-avatar class="userinfo-avatar u-skeleton-circle u-m-r-36" :src="userInfo.avatar || mainLogo"
+							size="120" :show-sex="userInfo.gender!=='0'" :sex-icon="userInfo.gender===1?'man':'woman'"/>
 						<view class="u-skeleton-fillet u-flex-1">
 							<view class="u-font-18 u-p-b-20">
 								<text>{{ userInfo.nickname|| userInfo.username ||"游客" }}</text>
@@ -15,7 +15,7 @@
 							<view class="u-font-14 u-tips-color">{{userInfo.intro }}</view>
 						</view>
 						<view class="u-m-l-10 u-p-10">
-							<u-icon name="setting" color="#969799" size="28"></u-icon>
+							<u-icon name="setting" color="#969799" size="36"></u-icon>
 						</view>
 					</block>
 				</view>
@@ -29,6 +29,9 @@
 				</view>
 			</view>
 		</view>
+		<!-- #ifdef MP-WEIXIN -->
+		<official-account></official-account>
+		<!-- #endif -->
 		<!-- #ifdef MP-WEIXIN || H5 -->
 		<view class="u-m-t-20">
 			<u-cell-group>
@@ -58,7 +61,6 @@
 			return {
 				sessionKey: "",
 				options: {},
-				componentsDynamic: {}
 			}
 		},
 		computed: {
@@ -73,7 +75,7 @@
 				return this.vk.getVuex('$user.userInfo') || {}
 			},
 			miniProgramData() {
-				return this.componentsDynamic['miniProgramData'] ? this.componentsDynamic['miniProgramData']['list'] : []
+				return this.vk.getVuex('$app.componentsDynamic.miniProgramData.list')|| []
 			},
 			mainLogo() {
 				return config.staticUrl.logo
@@ -103,12 +105,6 @@
 			that = this;
 			that.options = options
 			vk = that.vk;
-			vk.pubfn.getComponentsDynamicData({
-				that: that,
-				ids: [
-					"miniProgramData"
-				]
-			});
 		},
 		onShow() {
 			uni.setNavigationBarTitle({

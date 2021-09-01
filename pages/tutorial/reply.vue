@@ -4,7 +4,7 @@
 			<view class="top">
 				<view class="left">
 					<view class="heart-photo">
-						<u-avatar v-if="vk.pubfn.isNotNull(comment.author)" :src="comment.author.avatar">
+						<u-avatar :src="comment.author.avatar||mainLogo">
 						</u-avatar>
 					</view>
 					<view class="user-info">
@@ -24,7 +24,7 @@
 					<view class="top">
 						<view class="left">
 							<view class="heart-photo">
-								<u-avatar v-if="vk.pubfn.isNotNull(item.author)" :src="item.author.avatar" :size="64">
+								<u-avatar :src="item.author.avatar||mainLogo" :size="64">
 								</u-avatar>
 							</view>
 							<view class="user-info">
@@ -156,6 +156,9 @@
 		},
 		// 计算属性
 		computed: {
+			mainLogo() {
+				return config.staticUrl.logo
+			},
 			userInfo() {
 				console.log('userInfo')
 				return this.vk.getVuex('$user.userInfo') || {}

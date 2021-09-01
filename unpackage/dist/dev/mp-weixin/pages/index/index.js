@@ -94,7 +94,7 @@ var components
 try {
   components = {
     contentList: function() {
-      return __webpack_require__.e(/*! import() | components/contentList/contentList */ "components/contentList/contentList").then(__webpack_require__.bind(null, /*! @/components/contentList/contentList.vue */ 367))
+      return Promise.all(/*! import() | components/contentList/contentList */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/contentList/contentList")]).then(__webpack_require__.bind(null, /*! @/components/contentList/contentList.vue */ 367))
     },
     uniFab: function() {
       return __webpack_require__.e(/*! import() | uni_modules/uni-fab/components/uni-fab/uni-fab */ "uni_modules/uni-fab/components/uni-fab/uni-fab").then(__webpack_require__.bind(null, /*! @/uni_modules/uni-fab/components/uni-fab/uni-fab.vue */ 372))
@@ -247,7 +247,6 @@ var setIntervalTime;var _default =
         pageIndex: 1, //当前页码
         pageSize: 10 //每页显示数量
       },
-      componentsDynamic: {},
       tabCurrent: 0, //排序
       scrollTop: 0 };
 
@@ -305,7 +304,6 @@ var setIntervalTime;var _default =
       this.getList();
     }
     setIntervalTime = setInterval(function () {
-      console.log('setIntervalTime');
       that.nowTime = vk.myfn.getSystemDetailTime();
     }, 1000);
   },
@@ -339,12 +337,7 @@ var setIntervalTime;var _default =
   methods: {
     // 页面数据初始化函数
     init: function init(options) {
-      // vk.pubfn.getComponentsDynamicData({
-      // 	that: that,
-      // 	ids: [
-      // 		"indexListSort",
-      // 	]
-      // });
+
 
     },
     // 使用微信绑定的手机号登录/注册
@@ -421,7 +414,7 @@ var setIntervalTime;var _default =
       return this.vk.pubfn.isNotNull(mobile);
     },
     tabSortList: function tabSortList() {
-      return this.componentsDynamic['indexListSort'] ? this.componentsDynamic['indexListSort']['list'] : [];
+      return this.vk.getVuex('$app.componentsDynamic.indexListSort.list') || [];
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

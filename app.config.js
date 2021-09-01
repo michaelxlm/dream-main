@@ -71,6 +71,7 @@ module.exports = {
 	// 静态文件的资源URL地址
 	staticUrl:{
 		// Logo
+		initAvatar:"https://vkceyugu.cdn.bspapp.com/VKCEYUGU-b4611f81-e9d6-4fa5-a427-e2984f0f2148/6c5bd0b7-8c6e-4cb1-a5e3-39addd957f7f.jpg",
 		logo: '/static/logo.png',
 	},
 	// 自定义公共函数，myPubFunction内的函数可通过vk.myfn.xxx() 调用

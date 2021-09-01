@@ -3,7 +3,7 @@
 		<view class="contentView">
 			<view class="header">
 				<!-- 头像 -->
-				<u-avatar v-if="vk.pubfn.isNotNull(tutorialData.author)" :src="tutorialData.author.avatar"></u-avatar>
+				<u-avatar :src="tutorialData.author.avatar||mainLogo"></u-avatar>
 				<view class="author">
 					<!-- 作者名 -->
 					{{vk.pubfn.isNotNull(tutorialData.author)?tutorialData.author.nickname:'匿名'}}
@@ -43,7 +43,7 @@
 			<u-gap height="10" bg-color="#ececec"></u-gap>
 			<!-- 评论列表 -->
 			<view class="comment" v-for="(commentItem, index) in commentList" :key="commentItem._id">
-				<u-avatar v-if="vk.pubfn.isNotNull(tutorialData.author)" :src="tutorialData.author.avatar" :size="64">
+				<u-avatar :src="tutorialData.author.avatar||mainLogo" :size="64">
 				</u-avatar>
 				<view class="right">
 					<view class="top">
@@ -572,6 +572,9 @@
 		},
 		// 计算属性
 		computed: {
+			mainLogo() {
+				return config.staticUrl.logo
+			},
 			tabbar() {
 				return this.vk.getVuex('$app.config.tabbar') || []
 			},

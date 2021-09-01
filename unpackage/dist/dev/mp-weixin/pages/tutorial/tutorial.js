@@ -149,39 +149,37 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   var g0 = _vm.vk.pubfn.isNotNull(_vm.tutorialData.author)
-  var g1 = _vm.vk.pubfn.isNotNull(_vm.tutorialData.author)
-  var g2 = _vm.vk.pubfn.dateDiff(_vm.tutorialData._add_time)
-  var g3 = _vm.vk.pubfn.isNotNull(_vm.tutorialData.author)
-  var g4 = _vm.vk.pubfn.isNotNull(_vm.tutorialData.imageList)
-  var g5 = _vm.vk.pubfn.isNotNull(_vm.commentList)
-  var g6 = _vm.vk.pubfn.isNotNull(_vm.tutorialData.author)
-  var l1 = g5
+  var g1 = _vm.vk.pubfn.dateDiff(_vm.tutorialData._add_time)
+  var g2 = _vm.vk.pubfn.isNotNull(_vm.tutorialData.author)
+  var g3 = _vm.vk.pubfn.isNotNull(_vm.tutorialData.imageList)
+  var g4 = _vm.vk.pubfn.isNotNull(_vm.commentList)
+  var l1 = g4
     ? _vm.__map(_vm.commentList, function(commentItem, index) {
         var $orig = _vm.__get_orig(commentItem)
 
-        var g7 = _vm.vk.pubfn.isNotNull(commentItem.author)
-        var g8 = _vm.vk.pubfn.isNotNull(commentItem.isLikeList._id)
-        var g9 = _vm.vk.pubfn.isNotNull(commentItem.isLikeList)
-        var g10 = _vm.vk.pubfn.dateDiff(commentItem._add_time)
-        var g11 = _vm.vk.pubfn.isNotNull(commentItem.replyList)
-        var l0 = g11
+        var g5 = _vm.vk.pubfn.isNotNull(commentItem.author)
+        var g6 = _vm.vk.pubfn.isNotNull(commentItem.isLikeList._id)
+        var g7 = _vm.vk.pubfn.isNotNull(commentItem.isLikeList)
+        var g8 = _vm.vk.pubfn.dateDiff(commentItem._add_time)
+        var g9 = _vm.vk.pubfn.isNotNull(commentItem.replyList)
+        var l0 = g9
           ? _vm.__map(commentItem.replyList, function(item, index) {
               var $orig = _vm.__get_orig(item)
 
-              var g12 = _vm.vk.pubfn.isNotNull(item.author)
+              var g10 = _vm.vk.pubfn.isNotNull(item.author)
               return {
                 $orig: $orig,
-                g12: g12
+                g10: g10
               }
             })
           : null
         return {
           $orig: $orig,
+          g5: g5,
+          g6: g6,
           g7: g7,
           g8: g8,
           g9: g9,
-          g10: g10,
-          g11: g11,
           l0: l0
         }
       })
@@ -195,8 +193,6 @@ var render = function() {
         g2: g2,
         g3: g3,
         g4: g4,
-        g5: g5,
-        g6: g6,
         l1: l1
       }
     }
@@ -808,6 +804,9 @@ var _default = (_data$onBackPress$onP = { data: function data() {return { dbName
 
 
 {
+  mainLogo: function mainLogo() {
+    return _appConfig.default.staticUrl.logo;
+  },
   tabbar: function tabbar() {
     return this.vk.getVuex('$app.config.tabbar') || [];
   },

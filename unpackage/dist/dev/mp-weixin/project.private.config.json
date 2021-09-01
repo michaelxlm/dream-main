@@ -17,6 +17,18 @@
           "pathName": "pages/tutorial/tutorial",
           "query": "id=6117bb7ce55c2c0001ddc124",
           "scene": null
+        },
+        {
+          "name": "pages/mine/index",
+          "pathName": "pages/mine/index",
+          "query": "",
+          "scene": 1011
+        },
+        {
+          "name": "pages/mine/info",
+          "pathName": "pages/mine/info",
+          "query": "from=mine",
+          "scene": null
         }
       ]
     }

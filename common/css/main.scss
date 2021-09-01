@@ -12,6 +12,37 @@ $u-black: #000000;
 			display: none;
 		}
 }
+.u-avatar{
+	@extend .u-m-t-10;
+	 @extend .u-m-b-10;
+	box-shadow: 0 0 8rpx #666666;
+}
+.editImgView{
+		position: relative;
+	.editImg{
+		&::after{
+			 position: absolute;
+			    top: 0;
+			    left: 0;
+			    content: "";
+			    background-color: #000000;
+				border-radius: 100%;
+			    opacity: 0.35;
+			    z-index: 1;
+			    width: 100%;
+			    height: 100%;
+		}
+	}
+	.editImgIcon{
+		position: absolute;
+		color: #FFFFFF;
+		z-index: 2;
+		top: 60rpx;
+		left: 60rpx;
+	}
+}
+
+
 .time_card{
 	 @extend .u-p-28;
 	 &_detail{
