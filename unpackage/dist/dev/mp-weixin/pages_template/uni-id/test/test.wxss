@@ -1,0 +1,114 @@
+.content.data-v-1c98ebd4 {
+  padding: 15px;
+}
+.content input.data-v-1c98ebd4 {
+  height: 46px;
+  border: solid 1px #dddddd;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  padding: 0px 15px;
+}
+.content button.data-v-1c98ebd4 {
+  margin-bottom: 15px;
+}
+.content navigator.data-v-1c98ebd4 {
+  display: inline-block;
+  color: #007aff;
+  border-bottom: solid 1px #007aff;
+  font-size: 16px;
+  line-height: 24px;
+  margin-bottom: 15px;
+}
+.tips.data-v-1c98ebd4 {
+  text-align: center;
+  line-height: 20px;
+  font-size: 14px;
+  color: #999999;
+  margin-bottom: 20px;
+}
+.wrap.data-v-1c98ebd4 {
+  padding: 24rpx;
+}
+.u-row.data-v-1c98ebd4 {
+  margin: 40rpx 0;
+}
+.demo-layout.data-v-1c98ebd4 {
+  height: 80rpx;
+  border-radius: 8rpx;
+}
+.bg-purple.data-v-1c98ebd4 {
+  background: #d3dce6;
+}
+.bg-purple-light.data-v-1c98ebd4 {
+  background: #e5e9f2;
+}
+.bg-purple-dark.data-v-1c98ebd4 {
+  background: #99a9bf;
+}
+.list-cell.data-v-1c98ebd4 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 10px 24rpx;
+  overflow: hidden;
+  color: #323233;
+  font-size: 14px;
+  line-height: 24px;
+  background-color: #fff;
+}
+.container.data-v-1c98ebd4 {
+  padding: 20rpx 60rpx;
+}
+.userinfo.data-v-1c98ebd4 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+}
+.userinfo-avatar.data-v-1c98ebd4 {
+  width: 128rpx;
+  height: 128rpx;
+  margin: 20rpx;
+  border-radius: 50%;
+}
+.lists.data-v-1c98ebd4 {
+  margin: 10px 0;
+}
+.u-node.data-v-1c98ebd4 {
+  width: 44rpx;
+  height: 44rpx;
+  border-radius: 100rpx;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+          justify-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  background: #d0d0d0;
+}
+.u-order-title.data-v-1c98ebd4 {
+  color: #333333;
+  font-weight: bold;
+  font-size: 32rpx;
+}
+.u-order-desc.data-v-1c98ebd4 {
+  color: #969696;
+  font-size: 28rpx;
+  margin-bottom: 6rpx;
+}
+.u-order-time.data-v-1c98ebd4 {
+  color: #c8c8c8;
+  font-size: 26rpx;
+}
+
