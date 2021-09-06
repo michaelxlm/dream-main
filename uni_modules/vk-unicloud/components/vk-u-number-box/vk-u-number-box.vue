@@ -1,3 +1,4 @@
+<!-- 步进器 -->
 <template>
 	<view class="vk-u-number-box">
 		<view class="u-icon-minus" @touchstart.prevent="btnTouchStart('minus')" @touchend.stop.prevent="clearTimer" :class="{ 'u-icon-disabled': disabled || inputVal <= min }"
@@ -8,7 +9,7 @@
 				fontSize: size + 'rpx',
 				minHeight: '1.4em'
 			}">
-			<view :style="'font-size:'+(Number(size)+10)+'rpx'" class="num-btn">-</view>
+			<view :style="'font-size:'+(Number(size)+10)+'rpx'" class="num-btn">－</view>
 		</view>
 		<input :disabled="disabledInput || disabled" :cursor-spacing="getCursorSpacing" :class="{ 'u-input-disabled': disabled }"
 		    v-model="inputVal" class="u-number-input" @blur="onBlur"
@@ -61,12 +62,17 @@
 	 */
 	export default {
 		name: "vk-u-number-box",
+		emits: ["update:modelValue", "input", "change", "blur", "plus", "minus"],
 		props: {
 			// 预显示的数字
 			value: {
 				type: Number,
 				default: 1
 			},
+      modelValue: {
+        type: Number,
+        default: 1
+      },
 			// 背景颜色
 			bgColor: {
 				type: String,
@@ -91,6 +97,11 @@
 			stepFirst: {
 				type: Number,
 				default: 0
+			},
+			// 是否只能输入 step 的倍数
+			stepStrictly: {
+				type: Boolean,
+				default: false
 			},
 			// 是否禁用加减操作
 			disabled: {
@@ -150,7 +161,19 @@
 			}
 		},
 		watch: {
-			value(v1, v2) {
+      value(v1, v2) {
+        // 只有value的改变是来自外部的时候，才去同步inputVal的值，否则会造成循环错误
+        if(!this.changeFromInner) {
+          this.inputVal = v1;
+          // 因为inputVal变化后，会触发this.handleChange()，在其中changeFromInner会再次被设置为true，
+          // 造成外面修改值，也导致被认为是内部修改的混乱，这里进行this.$nextTick延时，保证在运行周期的最后处
+          // 将changeFromInner设置为false
+          this.$nextTick(function(){
+            this.changeFromInner = false;
+          })
+        }
+      },
+			modelValue(v1, v2) {
 				// 只有value的改变是来自外部的时候，才去同步inputVal的值，否则会造成循环错误
 				if(!this.changeFromInner) {
 					this.inputVal = v1;
@@ -183,6 +206,16 @@
 				}
 				// 发出change事件
 				this.handleChange(value, 'change');
+			},
+			min(v1){
+				if(v1 !== undefined && v1!="" && this.getValue() < v1){
+					this.$emit("input",v1);
+				}
+			},
+			max(v1){
+				if(v1 !== undefined && v1!="" && this.getValue() > v1){
+					this.$emit("input",v1);
+				}
 			}
 		},
 		data() {
@@ -194,7 +227,7 @@
 			};
 		},
 		created() {
-			this.inputVal = Number(this.value);
+			this.inputVal = Number(this.getValue());
 		},
 		computed: {
 			getCursorSpacing() {
@@ -203,6 +236,15 @@
 			}
 		},
 		methods: {
+      getValue(){
+        // #ifndef VUE3
+        return this.value;
+        // #endif
+        
+        // #ifdef VUE3
+        return this.modelValue;
+        // #endif
+      },
 			// 点击退格键
 			btnTouchStart(callback) {
 				// 先执行一遍方法，否则会造成松开手时，就执行了clearTimer，导致无法实现功能
@@ -281,6 +323,12 @@
 						value = this.calcPlus(this.inputVal, this.step);
 					}
 				}
+				if(this.stepStrictly){
+					let strictly = value % this.step;
+					if(strictly > 0){
+						value -= strictly;
+					}
+				}
 				if (value > this.max ) {
 					value = this.max;
 				}else if (value < this.min) {
@@ -298,16 +346,23 @@
 				// 这里不直接判断是否正整数，是因为用户传递的props min值可能为0
 				if (!/(^\d+$)/.test(value) || value[0] == 0) val = this.min;
 				val = +value;
-				if (val > this.max) {
-					val = this.max;
-				} else if (val < this.min) {
-					val = this.min;
-				}
+				
 				// 新增stepFirst开始
 				if(this.stepFirst > 0 && this.inputVal < this.stepFirst && this.inputVal>0){
 					val = this.stepFirst;
 				}
 				// 新增stepFirst结束
+				if(this.stepStrictly){
+					let strictly = val % this.step;
+					if(strictly > 0){
+						val -= strictly;
+					}
+				}
+				if (val > this.max) {
+					val = this.max;
+				} else if (val < this.min) {
+					val = this.min;
+				}
 				this.$nextTick(() => {
 					this.inputVal = val;
 				})
@@ -328,6 +383,7 @@
 					this.changeFromInner = false;
 				}, 150);
 				this.$emit('input', Number(value));
+				this.$emit("update:modelValue", Number(value));
 				this.$emit(type, {
 					// 转为Number类型
 					value: Number(value),
@@ -390,5 +446,5 @@
 		position: relative;
 		top:-4rpx;
 	}
-	
+
 </style>

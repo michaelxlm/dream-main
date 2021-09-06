@@ -13,7 +13,7 @@ module.exports = {
 		let { uid } = data;
 		let res = { code : 0, msg : 'ok' };
 		// 业务逻辑开始----------------------------------------------------------- 
-		res = await vk.baseDao.select({
+		res = await vk.baseDao.selects({
 			dbName:"vk-test",
 			pageIndex:1,
 			pageSize:100,

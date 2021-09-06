@@ -28,6 +28,7 @@
         "uni-id/univerify/univerify",
         "uni-id/weixin/weixin",
         "uni-id/alipay/alipay",
+        "uni-id/qq/qq",
         "uni-id/util/util",
         "uni-id/email/email",
         "uni-id/login/index/index",
@@ -38,12 +39,13 @@
         "components-dynamic/vk-u-swiper/vk-u-swiper",
         "components-dynamic/vk-u-grid-button/vk-u-grid-button",
         "components-dynamic/vk-u-goods-sku-popup/vk-u-goods-sku-popup",
-        "vuex/vuex",
+        "vk-vuex/vk-vuex",
         "openapi/weixin/weixin",
         "openapi/weixin/msgSecCheck/msgSecCheck",
         "openapi/weixin/imgSecCheck/imgSecCheck",
         "openapi/weixin/sendMessage/sendMessage",
-        "openapi/baidu/baidu"
+        "openapi/baidu/baidu",
+        "uni-id/test/test"
       ]
     }
   ],

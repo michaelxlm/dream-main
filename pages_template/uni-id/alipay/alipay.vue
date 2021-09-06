@@ -1,6 +1,8 @@
 <template>
 	<view class="content">
-		<button type="default" @click="loginByAlipay">支付宝登录</button>
+		<button type="default" @click="loginByAlipay('register')">支付宝注册</button>
+		<button type="default" @click="loginByAlipay('login')">支付宝登录</button>
+		<button type="default" @click="loginByAlipay()">支付宝登录(不存在自动注册)</button>
 		<button type="default" @click="code2SessionAlipay">获取支付宝openid</button>
 		<button type="default" @click="bindAlipay">绑定支付宝</button>
 		<button type="default" @click="unbindAlipay">解绑支付宝</button>
@@ -24,6 +26,9 @@
 			// 支付宝登陆
 			loginByAlipay(){
 				vk.userCenter.loginByAlipay({
+					data:{
+						type
+					},
 					success:function(data){
 						vk.alert("登录成功");
 					}
@@ -52,7 +57,7 @@
 						vk.alert("解绑成功");
 					}
 				});
-			}			
+			}
 		}
 	}
 </script>

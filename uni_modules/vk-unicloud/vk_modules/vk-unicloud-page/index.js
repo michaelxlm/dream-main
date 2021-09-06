@@ -10,7 +10,7 @@ import navigate 					from './libs/function/vk.navigate'
 import localStorage 			from './libs/function/vk.localStorage'
 import aliyunOSSUtil			from './libs/function/aliyunOSSUtil'
 import openapi						from './libs/openapi/index'
-import request						from './libs/function/vk.request'
+import requestUtil				from './libs/function/vk.request'
 
 import filters 						from './libs/function/vk.filters'
 import mixin 							from './libs/mixin/mixin.js'
@@ -61,7 +61,9 @@ var vk = {
 	// 开放API
 	openapi,
 	// 请求库
-	request
+	requestUtil,
+	// 发起URL请求
+	request: requestUtil.request
 };
 // vk实例初始化
 vk.init = function(obj={}){
@@ -98,15 +100,22 @@ vk.use = function(obj, util){
 const install = Vue => {
 	// 全局混入
 	Vue.mixin(mixin);
+  // #ifndef VUE3
 	// 加载全局过滤器开始
 	for(let i in filters){
 		Vue.filter(i, filters[i]);
 	}
-	let util = { vk };
-	// 将vk挂载到Vue实例
-	Vue.prototype.vk = vk;
-	// 将vk挂载到uni对象
-	uni.vk = Vue.prototype.vk;
+  Vue.prototype.vk = vk;
+  // #endif
+  
+  // #ifdef VUE3
+  // 将vk挂载到Vue实例
+  Vue.config.globalProperties.vk = vk;
+  // #endif
+  
+   // 将vk挂载到uni对象
+	uni.vk = vk;
+  let util = { vk };
 	// 加载插件
 	vk.use({
 		callFunctionUtil : vk.callFunctionUtil,

@@ -4,4 +4,4 @@
  */
 import vk from './vk_modules/vk-unicloud-page'
 
-module.exports = vk;
+export default vk;

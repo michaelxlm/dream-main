@@ -1,6 +1,8 @@
 <template>
 	<view class="content">
-		<button type="default" @click="loginByQQ">QQ登录</button>
+		<button type="default" @click="loginByQQ('register')">QQ注册</button>
+		<button type="default" @click="loginByQQ('login')">QQ登录</button>
+		<button type="default" @click="loginByQQ()">QQ登录(不存在自动注册)</button>
 		<button type="default" @click="bindQQ">绑定QQ</button>
 		<button type="default" @click="unbindQQ">解绑QQ</button>
 	</view>
@@ -23,6 +25,9 @@
 			// QQ登陆
 			loginByQQ(){
 				vk.userCenter.loginByQQ({
+					data:{
+						type
+					},
 					success:function(data){
 						vk.alert("登录成功");
 					}

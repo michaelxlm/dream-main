@@ -2,7 +2,9 @@
 	<view class="content">
 		<button type="default" @click="vk.navigateTo('../../openapi/weixin/weixin')">小程序API</button>
 		<!-- #ifdef MP-WEIXIN -->
-		<button type="default" @click="loginByWeixin">微信登录</button>
+		<button type="default" @click="loginByWeixin('register')">微信注册</button>
+		<button type="default" @click="loginByWeixin('login')">微信登录</button>
+		<button type="default" @click="loginByWeixin()">微信登录(不存在自动注册)</button>
 		<view class="tips">静默授权，无弹窗。</view>
 		<button type="default" @click="code2SessionWeixin">获取微信openid</button>
 		<view class="tips">静默授权，无弹窗。</view>
@@ -63,8 +65,11 @@
 				// #endif
 			},
 			// 微信登陆
-			loginByWeixin(){
+			loginByWeixin(type){
 				vk.userCenter.loginByWeixin({
+					data:{
+						type
+					},
 					success:function(data){
 						vk.alert(data.msg);
 						that.data = data;
@@ -77,7 +82,7 @@
 						vk.alert(JSON.stringify(data));
 					},
 				});
-			}, 
+			},
 			// 设置用户昵称头像
 			setUserInfo(){
 				// #ifdef MP-WEIXIN
@@ -102,7 +107,7 @@
 					vk.alert("您的微信版本过低，请先更新微信!");
 				}
 				// #endif
-				
+
 				// #ifndef MP-WEIXIN
 				uni.login({
 				  provider: 'weixin',

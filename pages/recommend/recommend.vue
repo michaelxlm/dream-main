@@ -18,6 +18,7 @@
 				},
 				// 表单请求数据
 				form1: {
+					findSelf: false,
 					dbName:'tw',
 					whereJson: {
 						status: 0,

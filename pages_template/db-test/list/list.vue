@@ -134,8 +134,6 @@ export default {
 			vk.toast("点击" + item._id.substring(20));
 		}
 	},
-	// 过滤器
-	filters: {},
 	// 计算属性
 	computed: {}
 };

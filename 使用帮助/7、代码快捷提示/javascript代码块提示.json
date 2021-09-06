@@ -397,6 +397,182 @@
 		"triggerAssist": false,
 		"description": "打开弹窗"
 	},
+	"vk.pubfn.sleep": {
+	 "prefix": "vk.pubfn.sleep",
+	 "body": [
+			"await vk.pubfn.sleep(1000);"
+		],
+		"triggerAssist": false,
+		"description": "进程强制等待，休眠"
+	},
+	"vk.pubfn.getDayOffsetStartAndEnd": {
+	 "prefix": "vk.pubfn.getDayOffsetStartAndEnd",
+	 "body": [
+			"let dayTime = vk.pubfn.getDayOffsetStartAndEnd(0);"
+		],
+		"triggerAssist": false,
+		"description": "获得相对当前时间的偏移 count 天的起止日期"
+	},
+	"vk.pubfn.getMonthOffsetStartAndEnd": {
+	 "prefix": "vk.pubfn.getMonthOffsetStartAndEnd",
+	 "body": [
+			"let monthTime = vk.pubfn.getMonthOffsetStartAndEnd(0);"
+		],
+		"triggerAssist": false,
+		"description": "获得相对当前时间的偏移 count 月的起止日期"
+	},
+	"vk.pubfn.getYearOffsetStartAndEnd": {
+	 "prefix": "vk.pubfn.getYearOffsetStartAndEnd",
+	 "body": [
+			"let yearTime = vk.pubfn.getYearOffsetStartAndEnd(0);"
+		],
+		"triggerAssist": false,
+		"description": "获得相对当前时间的偏移 count 年的起止日期"
+	},
+	"vk.pubfn.priceFilter": {
+	 "prefix": "vk.pubfn.priceFilter",
+	 "body": [
+			"vk.pubfn.priceFilter(${0})"
+		],
+		"triggerAssist": false,
+		"description": "金额过滤器"
+	},
+	"vk.pubfn.timeFormat": {
+	 "prefix": "vk.pubfn.timeFormat",
+	 "body": [
+			"vk.pubfn.timeFormat(${0})"
+		],
+		"triggerAssist": false,
+		"description": "时间过滤器,第二个参数支持yyyy-MM-dd HH:mm:ss"
+	},
+	"vk.pubfn.dateDiff": {
+	 "prefix": "vk.pubfn.dateDiff",
+	 "body": [
+			"vk.pubfn.dateDiff(${0})"
+		],
+		"triggerAssist": false,
+		"description": "将时间显示成1秒前、1天前"
+	},
+	"vk.pubfn.dateDiff2": {
+	 "prefix": "vk.pubfn.dateDiff2",
+	 "body": [
+			"vk.pubfn.dateDiff2(${0})"
+		],
+		"triggerAssist": false,
+		"description": "将时间显示成当前时间距离time剩余时间为：3天"
+	},
+	"vk.pubfn.numStr": {
+	 "prefix": "vk.pubfn.numStr",
+	 "body": [
+			"vk.pubfn.numStr(${0})"
+		],
+		"triggerAssist": false,
+		"description": "将大数字转中文，如15234120转成1千万"
+	},
+	"vk.pubfn.percentageFilter": {
+	 "prefix": "vk.pubfn.percentageFilter",
+	 "body": [
+			"vk.pubfn.percentageFilter(${0})"
+		],
+		"triggerAssist": false,
+		"description": "百分比过滤器"
+	},
+	"vk.pubfn.calcSize": {
+	 "prefix": "vk.pubfn.calcSize",
+	 "body": [
+			"vk.pubfn.calcSize(${0}value,['B','KB','MB','GB'],1024,3).title"
+		],
+		"triggerAssist": false,
+		"description": "计量单位过滤器"
+	},
+	"vk.pubfn.priceLeftFilter": {
+	 "prefix": "vk.pubfn.priceLeftFilter",
+	 "body": [
+			"vk.pubfn.priceLeftFilter(${0})"
+		],
+		"triggerAssist": false,
+		"description": "金额过滤器 - 只显示小数点左边"
+	},
+	"vk.pubfn.priceRightFilter": {
+	 "prefix": "vk.pubfn.priceRightFilter",
+	 "body": [
+			"vk.pubfn.priceRightFilter(${0})"
+		],
+		"triggerAssist": false,
+		"description": "金额过滤器 - 只显示小数点右边"
+	},
+	"金额过滤器": {
+	 "prefix": "qw",
+	 "body": [
+			"vk.pubfn.priceFilter(${0})"
+		],
+		"triggerAssist": false,
+		"description": "金额过滤器"
+	},
+	"时间过滤器": {
+	 "prefix": "qw",
+	 "body": [
+			"vk.pubfn.timeFormat(${0})"
+		],
+		"triggerAssist": false,
+		"description": "时间过滤器,第二个参数支持yyyy-MM-dd HH:mm:ss"
+	},
+	"将时间显示成1秒前、1天前": {
+	 "prefix": "qw",
+	 "body": [
+			"vk.pubfn.dateDiff(${0})"
+		],
+		"triggerAssist": false,
+		"description": "将时间显示成1秒前、1天前"
+	},
+	"将时间显示成当前时间距离time剩余时间为：3天": {
+	 "prefix": "qw",
+	 "body": [
+			"vk.pubfn.dateDiff2(${0})"
+		],
+		"triggerAssist": false,
+		"description": "将时间显示成当前时间距离time剩余时间为：3天"
+	},
+	"将大数字转中文": {
+	 "prefix": "qw",
+	 "body": [
+			"vk.pubfn.numStr(${0})"
+		],
+		"triggerAssist": false,
+		"description": "将大数字转中文，如15234120转成1千万"
+	},
+	"百分比过滤器": {
+	 "prefix": "qw",
+	 "body": [
+			"vk.pubfn.percentageFilter(${0})"
+		],
+		"triggerAssist": false,
+		"description": "百分比过滤器"
+	},
+	"计量单位过滤器": {
+	 "prefix": "qw",
+	 "body": [
+			"vk.pubfn.calcSize(${0}value,['B','KB','MB','GB'],1024,3).title"
+		],
+		"triggerAssist": false,
+		"description": "计量单位过滤器"
+	},
+	"金额过滤器 - 只显示小数点左边": {
+	 "prefix": "qw",
+	 "body": [
+			"vk.pubfn.priceLeftFilter(${0})"
+		],
+		"triggerAssist": false,
+		"description": "金额过滤器 - 只显示小数点左边"
+	},
+	"金额过滤器 - 只显示小数点右边": {
+	 "prefix": "qw",
+	 "body": [
+			"vk.pubfn.priceRightFilter(${0})"
+		],
+		"triggerAssist": false,
+		"description": "金额过滤器 - 只显示小数点右边"
+	},
 	"userDao.findById": {
 	 "prefix": "dao.",
 	 "body": [
@@ -444,6 +620,14 @@
 		],
 		"triggerAssist": false,
 		"description": "数组删除"
+	},
+	"保留两位小数": {
+	 "prefix": "qq.",
+	 "body": [
+			"parseFloat(${0}).toFixed(2);"
+		],
+		"triggerAssist": false,
+		"description": "保留两位小数,并舍去最后的0"
 	},
 	"try{...} catch(err){...}": {
 	 "prefix": "try",

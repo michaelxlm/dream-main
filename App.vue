@@ -49,13 +49,13 @@
 			},
 		},
 		// 监听 - 页面404
-		onPageNotFound: function(e) {
+		onPageNotFound:function(e) {
 			uni.redirectTo({
 				url: config.error.url
 			})
 		},
 		onLaunch: function() {
-			if (config.debug) console.log('App Launch')
+			if(config.debug) console.log('App Launch')
 			let that = this;
 			that.gitAppInit()
 			that.watchLocalStorage();
@@ -98,17 +98,16 @@
 			// #endif
 		},
 		onShow: function() {
-			if (config.debug) console.log('App Show')
+			if(config.debug) console.log('App Show')
 		},
 		onHide: function() {
-			if (config.debug) console.log('App Hide')
+			if(config.debug) console.log('App Hide')
 		}
 	}
 </script>
 
 <style lang="scss">
-	/*z自定义全局样式*/
-	@import "./common/css/main.scss";
-
-	page {}
+	/*每个页面公共css */
+	@import "uview-ui/index.scss";
+  @import "./common/css/app.scss";
 </style>

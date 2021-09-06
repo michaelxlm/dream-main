@@ -90,4 +90,4 @@ function uniqueArr(array) {
 	return n;
 }
 
-module.exports = util;
+export default util;

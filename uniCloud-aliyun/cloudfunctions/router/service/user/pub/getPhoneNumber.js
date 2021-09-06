@@ -11,8 +11,8 @@ module.exports = {
 	main: async (event) => {
 		let { data = {}, userInfo, util, originalParam } = event;
 		let { customUtil, config, pubFun, vk, db, _ } = util;
-		let { uid } = data;
 		let res = { code : 0, msg : '' };
+		console.log(data)
 		// 业务逻辑开始-----------------------------------------------------------
 		// 若不指定appId,默认取config.uni.mp-weixin.oauth.weixin.appid;
 		res = await vk.openapi.weixin.decrypt.getPhoneNumber(data);

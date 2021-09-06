@@ -1,7 +1,7 @@
 {
   "id": "uni-pay",
   "displayName": "uni-pay",
-  "version": "1.0.20",
+  "version": "1.0.21",
   "description": "更简单的支付接口调用方式、拉齐不同支付平台",
   "keywords": [
     "unipay",

@@ -6,7 +6,7 @@
   top: 0;
   right: 0;
   bottom: 0;
-  z-index: 1000;
+  z-index: 990;
   overflow: hidden;
 }
 .vk-u-goods-sku-popup.show.data-v-4f48708d {
@@ -19,6 +19,7 @@
 .vk-u-goods-sku-popup.show .layer.data-v-4f48708d {
   -webkit-animation: showLayer-data-v-4f48708d 0.2s linear both;
           animation: showLayer-data-v-4f48708d 0.2s linear both;
+  bottom: 0px;
 }
 .vk-u-goods-sku-popup.hide .mask.data-v-4f48708d {
   -webkit-animation: hidePopup-data-v-4f48708d 0.2s linear both;
@@ -118,7 +119,12 @@
   font-size: 28rpx;
 }
 .vk-u-goods-sku-popup .layer .specification-wrapper .specification-wrapper-content .specification-header .specification-right .price-content .price.data-v-4f48708d {
+  margin-left: 4rpx;
   font-size: 48rpx;
+}
+.vk-u-goods-sku-popup .layer .specification-wrapper .specification-wrapper-content .specification-header .specification-right .price-content .price2.data-v-4f48708d {
+  margin-left: 4rpx;
+  font-size: 36rpx;
 }
 .vk-u-goods-sku-popup .layer .specification-wrapper .specification-wrapper-content .specification-header .specification-right .inventory.data-v-4f48708d {
   font-size: 24rpx;
@@ -162,7 +168,7 @@
   background-color: #ffffff;
   color: #333333;
   margin-right: 20rpx;
-  border: 2rpx solid #f4f4f4;
+  border: 1px solid #f4f4f4;
   box-sizing: border-box;
 }
 .vk-u-goods-sku-popup .layer .specification-wrapper .specification-wrapper-content .specification-content .specification-item .item-wrapper .item-content.actived.data-v-4f48708d {
@@ -170,10 +176,15 @@
   color: #fe560a;
 }
 .vk-u-goods-sku-popup .layer .specification-wrapper .specification-wrapper-content .specification-content .specification-item .item-wrapper .item-content.noactived.data-v-4f48708d {
-  background-color: #e4e4e4;
-  border-color: #e4e4e4;
-  color: #9e9e9e;
-  text-decoration: line-through;
+  background-color: #f6f6f6;
+  border-color: #f6f6f6;
+  color: #c3c3c3;
+}
+.vk-u-goods-sku-popup .layer .specification-wrapper .specification-wrapper-content .specification-content .number-box-view.data-v-4f48708d {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  padding-top: 30rpx;
 }
 .vk-u-goods-sku-popup .layer .specification-wrapper .close.data-v-4f48708d {
   position: absolute;

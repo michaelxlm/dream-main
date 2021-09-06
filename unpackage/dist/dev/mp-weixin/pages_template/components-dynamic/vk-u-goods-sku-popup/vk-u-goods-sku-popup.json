@@ -1,12 +1,7 @@
 {
   "navigationBarTitleText": "商品SKU选择器组件",
   "usingComponents": {
-    "u-button": "/node-modules/uview-ui/components/u-button/u-button",
     "vk-u-goods-sku-popup": "/uni_modules/vk-unicloud/components/vk-u-goods-sku-popup/vk-u-goods-sku-popup",
-    "u-subsection": "/node-modules/uview-ui/components/u-subsection/u-subsection",
-    "u-form": "/node-modules/uview-ui/components/u-form/u-form",
-    "u-form-item": "/node-modules/uview-ui/components/u-form-item/u-form-item",
-    "u-input": "/node-modules/uview-ui/components/u-input/u-input",
     "vk-u-number-box": "/uni_modules/vk-unicloud/components/vk-u-number-box/vk-u-number-box"
   }
 }

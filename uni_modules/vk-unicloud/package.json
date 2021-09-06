@@ -1,7 +1,7 @@
 {
   "id": "vk-unicloud",
   "displayName": "vk-unicloud-router开发框架核心库 - 已集成uni-id 框架内置了众多API。",
-  "version": "2.2.10",
+  "version": "2.3.22",
   "description": "此为vk-unicloud-router框架核心库（新手建议下载完整框架项目）已集成uni-id支持云函数url化。众多现成API，内置小白也能轻松上手的数据库API。使你项目刚起步进度就是百分之50",
   "keywords": [
     "vk-unicloud-router",
@@ -33,10 +33,10 @@
     },
     "declaration": {
       "ads": "无",
-      "data": "无",
+      "data": "插件不采集任何数据",
       "permissions": "无"
     },
-    "npmurl": ""
+    "npmurl": "https://vkdoc.fsq.pub/"
   },
   "uni_modules": {
     "dependencies": ["uni-config-center","uni-id","uni-pay"],
@@ -74,6 +74,10 @@
         "快应用": {
           "华为": "u",
           "联盟": "u"
+        },
+        "Vue": {
+            "vue2": "y",
+            "vue3": "u"
         }
       }
     }

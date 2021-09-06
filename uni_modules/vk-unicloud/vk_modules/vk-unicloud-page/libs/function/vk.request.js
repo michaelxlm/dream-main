@@ -1,3 +1,22 @@
+var requestUtil = {};
+
+
+requestUtil.config = {
+	// 请求配置
+	request: {
+		// 公共请求参数(每次请求都会带上的参数)
+		dataParam: {}
+	},
+	requestGlobalParamKeyName: "vk_url_request_global_param",
+	debug: process.env.NODE_ENV !== "production",
+	// 日志风格
+	logger: {
+		colorArr: [
+			"#0095ff",
+			"#67C23A"
+		]
+	},
+};
 var counterNum = 0;
 /**
  * request 请求库
@@ -37,9 +56,33 @@ vk.request({
 });
  */
 
-var request = function(obj = {}) {
+requestUtil.request = function(obj = {}) {
 	let vk = uni.vk;
-	let config = vk.callFunctionUtil.getConfig();
+
+	// 注入自定义全局参数开始-----------------------------------------------------------
+	let config = requestUtil.config;
+	let globalParam = uni.getStorageSync(config.requestGlobalParamKeyName) || {};
+	// 根据正则规格自动匹配全局请求参数
+	for (let i in globalParam) {
+		let customDate = globalParam[i];
+		if (customDate.regExp) {
+			let regExp = new RegExp(customDate.regExp);
+			if (regExp.test(obj.url)) {
+				obj.data = Object.assign(customDate.data, obj.data);
+			}
+		}
+	}
+	// 根据指定globalParamName匹配全局请求参数
+	let customDate = requestUtil.getRequestGlobalParam(obj.globalParamName);
+	if (customDate && JSON.stringify(customDate) !== "{}") {
+		if (customDate.regExp) {
+			obj.data = Object.assign(customDate.data, obj.data); // 新版本
+		} else {
+			obj.data = Object.assign(customDate, obj.data); // 兼容旧版本
+		}
+	}
+	// 注入自定义全局参数结束-----------------------------------------------------------
+
 	if (!obj.method) obj.method = "POST"; // 默认POST请求
 	if (typeof obj.dataType === "undefined") obj.dataType = "json";
 	if (obj.dataType == "default" || obj.dataType === "") delete obj.dataType;
@@ -59,6 +102,7 @@ var request = function(obj = {}) {
 		Logger.url = url;
 	}
 	if (obj.title) vk.showLoading(obj.title);
+	if (obj.loading) vk.setLoading(true, obj.loading);
 	let promiseAction = new Promise(function(resolve, reject) {
 		uni.request({
 			...obj,
@@ -94,13 +138,13 @@ var request = function(obj = {}) {
 // 请求成功回调
 function requestSuccess(obj = {}) {
 	let vk = uni.vk;
-	let config = vk.callFunctionUtil.getConfig();
+	let config = requestUtil.config;
 	let {
 		res = {},
-		params,
-		Logger,
-		resolve,
-		reject
+			params,
+			Logger,
+			resolve,
+			reject
 	} = obj;
 	let {
 		title,
@@ -108,7 +152,8 @@ function requestSuccess(obj = {}) {
 		dataType,
 		errorCodeName,
 		errorMsgName,
-		success
+		success,
+		loading
 	} = params;
 	let data = res.data || {};
 	if (vk.pubfn.isNotNullAll(errorCodeName, data[errorCodeName])) {
@@ -117,7 +162,9 @@ function requestSuccess(obj = {}) {
 	}
 	if (vk.pubfn.isNotNullAll(errorMsgName, data[errorMsgName])) {
 		data.msg = data[errorMsgName];
-		delete data[errorMsgName];
+		if(typeof data[errorMsgName] === "string"){
+			delete data[errorMsgName];
+		}
 	}
 	if (res.statusCode >= 400 || data.code) {
 		requestFail({
@@ -128,6 +175,7 @@ function requestSuccess(obj = {}) {
 		});
 	} else {
 		if (title) vk.hideLoading();
+		if (loading) vk.setLoading(false, loading);
 		if (needOriginalRes) data.originalRes = vk.pubfn.copyObject(res);
 		if (config.debug) Logger.result = (typeof data == "object") ? vk.pubfn.copyObject(data) : data;
 		if (typeof success === "function") success(data);
@@ -138,22 +186,23 @@ function requestSuccess(obj = {}) {
 // 请求失败回调
 function requestFail(obj = {}) {
 	let vk = uni.vk;
-	let config = vk.callFunctionUtil.getConfig();
+	let config = requestUtil.config;
 	let {
 		res = {},
-		params,
-		Logger,
-		reject
+			params,
+			Logger,
+			reject
 	} = obj;
 	let {
 		title,
 		needAlert,
-		fail
+		fail,
+		loading
 	} = params;
-	if (typeof needAlert === "undefined"){
+	if (typeof needAlert === "undefined") {
 		needAlert = (typeof fail === "function") ? false : true;
 	}
-	
+
 	let errMsg = "";
 	let sysErr = false;
 	if (typeof res.code !== "undefined") {
@@ -166,27 +215,43 @@ function requestFail(obj = {}) {
 		sysErr = true;
 		errMsg = "请求超时，请重试！";
 	}
-	if (needAlert && vk.pubfn.isNotNull(errMsg)) {
-		if (sysErr) {
-			vk.toast("网络开小差了！", "none");
-		} else {
-			vk.alert(errMsg);
-		}
-	}
-	if (title) vk.hideLoading();
 	if (config.debug) Logger.error = res;
-	if (typeof fail === "function") fail(res);
-	if (typeof reject === "function") reject(res);
+	if (title) vk.hideLoading();
+	if (loading) vk.setLoading(false, loading);
+	let runKey = true;
+	// 自定义拦截器开始-----------------------------------------------------------
+	let { interceptor={} } = vk.callFunctionUtil.getConfig();
+	if (interceptor.request && typeof interceptor.request.fail == "function") {
+		runKey = interceptor.request.fail({
+			vk,
+			res: res,
+			params: params
+		});
+		if (runKey === undefined) runKey = true;
+	}
+	// 自定义拦截器结束-----------------------------------------------------------
+	if (runKey) {
+		if (needAlert && vk.pubfn.isNotNull(errMsg)) {
+			if (sysErr) {
+				vk.toast("网络开小差了！", "none");
+			} else {
+				vk.alert(errMsg);
+			}
+		}
+		if (typeof fail === "function") fail(res);
+		if (typeof reject === "function") reject(res);
+	}
+	
 }
 
 // 请求完成回调
 function requestComplete(obj = {}) {
 	let vk = uni.vk;
-	let config = vk.callFunctionUtil.getConfig();
+	let config = requestUtil.config;
 	let {
 		res = {},
-		params,
-		Logger
+			params,
+			Logger
 	} = obj;
 	let {
 		title,
@@ -199,7 +264,8 @@ function requestComplete(obj = {}) {
 		let colorArr = config.logger.colorArr;
 		let colorStr = colorArr[counterNum % colorArr.length];
 		counterNum++;
-		console.log("%c--------【开始】【服务器请求】【" + Logger.action + "】--------", 'color: ' + colorStr +';font-size: 12px;font-weight: bold;');
+		console.log("%c--------【开始】【服务器请求】【" + Logger.action + "】--------", 'color: ' + colorStr +
+			';font-size: 12px;font-weight: bold;');
 		console.log("【请求地址】: ", Logger.url);
 		console.log("【请求参数】: ", Logger.params);
 		console.log("【返回数据】: ", Logger.result);
@@ -212,11 +278,80 @@ function requestComplete(obj = {}) {
 				console.error("【Stack】: ", Logger.error.err.stack);
 			}
 		}
-		console.log("%c--------【结束】【服务器请求】【" + Logger.action + "】--------", 'color: ' + colorStr +';font-size: 12px;font-weight: bold;');
+		console.log("%c--------【结束】【服务器请求】【" + Logger.action + "】--------", 'color: ' + colorStr +
+			';font-size: 12px;font-weight: bold;');
 	}
 	let data = res.data;
 	if (needOriginalRes) data.originalRes = vk.pubfn.copyObject(res);
 	if (typeof complete === "function") complete(data);
 }
 
-export default request;
+/**
+ * 修改请求配置中的公共请求参数
+ * 若把shop-manage改成*则代表全局
+	vk.requestUtil.updateRequestGlobalParam({
+		"shop-manage":{
+			regExp:"^xxx/kh/",
+			data:{
+				shop_id : shop_id
+			}
+		}
+	});
+	对应的request中增加参数globalParamName:"shop-manage"
+	vk.request({
+		url: 'xxx/xxxxxx',
+		title: '请求中...',
+		globalParamName:"shop-manage",// 如果设置了正则规则,则不需要此参数
+		data: {},
+		success(data) {
+		}
+	});
+ */
+requestUtil.updateRequestGlobalParam = (data = {}, setKey) => {
+	let vk = uni.vk;
+	let config = requestUtil.config;
+	if (setKey) {
+		// 覆盖对象
+		config.request.dataParam = data;
+	} else {
+		// 覆盖参数(有就覆盖,没有则新增)
+		config.request.dataParam = Object.assign(config.request.dataParam, data);
+	}
+	vk.setStorageSync(config.requestGlobalParamKeyName, config.request.dataParam);
+}
+
+/**
+ * 获取请求配置中的公共请求参数
+	vk.requestUtil.getRequestGlobalParam();
+ */
+requestUtil.getRequestGlobalParam = (globalParamName = "*") => {
+	let vk = uni.vk;
+	let config = requestUtil.config;
+	let data = config.request.dataParam;
+	if (!data || JSON.stringify(data) === "{}") {
+		data = uni.getStorageSync(config.requestGlobalParamKeyName) || {};
+		config.request.dataParam = data;
+	}
+	let param = data[globalParamName] || {};
+	return JSON.parse(JSON.stringify(param));
+}
+
+/**
+ * 删除请求配置中的公共请求参数
+ * globalParamName 不传代表删除所有
+	vk.requestUtil.deleteRequestGlobalParam(globalParamName);
+ */
+requestUtil.deleteRequestGlobalParam = (globalParamName) => {
+	let vk = uni.vk;
+	let config = requestUtil.config;
+	let globalParam = uni.getStorageSync(config.requestGlobalParamKeyName) || {};
+	if (globalParamName) {
+		delete globalParam[globalParamName];
+	} else {
+		globalParam = {};
+	}
+	config.request.dataParam = globalParam;
+	vk.setStorageSync(config.requestGlobalParamKeyName, globalParam);
+}
+
+export default requestUtil;

@@ -49,7 +49,6 @@
 		data() {
 			// 页面数据变量
 			return {
-				sessionKey: "",
 				nowTime: {},
 				url: 'client/general/pub/getList',
 				data: {
@@ -58,10 +57,12 @@
 				},
 				// 表单请求数据
 				form1: {
-					dbName:'tw',
+					dbName: 'tw',
 					whereJson: {
 						status: 0,
 					},
+					findSelf: true,
+					uid: '',
 					sortArr: [{
 						name: '_add_time',
 						type: 'desc'
@@ -80,27 +81,7 @@
 				scrollTop: 0,
 			}
 		},
-		watch: {
-			bindMobileStatus: {
-				handler(oldVal, newVal) {
-					if (newVal) {
-						console.log('watch')
-						this.getList()
-					} else {
-						vk.userCenter.code2SessionWeixin({
-							data: {
-								needCache: true
-							},
-							success: function(data) {
-								that.sessionKey = data.sessionKey
-								this.getList()
-							},
-						});
-					}
-				},
-				deep: true
-			}
-		},
+		watch: {},
 		onNavigationBarButtonTap(e) {
 			vk.onNavigationBarButtonTap({
 				e,
@@ -117,7 +98,6 @@
 			that.options = options;
 			that.init(options);
 			clearInterval(setIntervalTime)
-
 		},
 		// 监听 - 页面【首次渲染完成时】执行。注意如果渲染速度快，会在页面进入动画完成前触发
 		onReady() {
@@ -129,9 +109,7 @@
 			uni.setNavigationBarTitle({
 				title: that.$t('nav.index')
 			});
-			if (that.bindMobileStatus) {
-				this.getList()
-			}
+			that.getList()
 			setIntervalTime = setInterval(function() {
 				that.nowTime = vk.myfn.getSystemDetailTime()
 			}, 1000)
@@ -166,7 +144,7 @@
 		methods: {
 			// 页面数据初始化函数
 			init(options) {
-				
+
 
 			},
 			// 使用微信绑定的手机号登录/注册
@@ -178,27 +156,41 @@
 				if (!encryptedData || !iv) {
 					return false;
 				}
-				vk.userCenter.getPhoneNumber({
+				vk.userCenter.code2SessionWeixin({
 					data: {
-						encryptedData,
-						iv,
-						sessionKey: that.sessionKey
+						needCache: true
 					},
-					success(phone) {
-						console.log(phone.data)
-						vk.userCenter.bindMobile({
+					success: function(data) {
+						vk.userCenter.getPhoneNumber({
 							data: {
-								uid: vk.getVuex('$user.userInfo._id'),
-								mobile: phone.mobile
+								encryptedData,
+								iv,
+								sessionKey: data.sessionKey
 							},
-							success(data) {
-								that.vk.setVuex('$user.userInfo', data.userInfo || {});
-								console.log('loginByWeixinPhoneNumber')
+							success(phone) {
+								console.log(phone.data)
+								vk.userCenter.bindMobile({
+									data: {
+										uid: vk.getVuex('$user.userInfo._id'),
+										mobile: phone.mobile
+									},
+									success(res) {
+										that.vk.setVuex('$user.userInfo', res.userInfo || {});
+										console.log('loginByWeixinPhoneNumber')
+										that.getList()
+									}
+								});
+							},
+							fail() {
 								that.getList()
 							}
 						});
+					},
+					fail() {
+						that.getList()
 					}
 				});
+
 
 			},
 			// 获取数据
@@ -206,7 +198,8 @@
 				that.form1.sortArr = that.tabSortList.length > 0 ? that.tabSortList[that.tabCurrent].sortArr : [{
 					name: '_add_time',
 					type: 'desc'
-				}]
+				}];
+				that.form1.uid = that.userInfo._id
 				vk.pubfn.getListData({
 					that: that,
 					url: that.url,
@@ -221,7 +214,7 @@
 					that.getList();
 				}
 			},
-			pageTo(path) {		
+			pageTo(path) {
 				clearInterval(setIntervalTime)
 				vk.navigateTo(path);
 			},
@@ -238,12 +231,15 @@
 		},
 		// 计算属性
 		computed: {
+			userInfo() {
+				return this.vk.getVuex('$user.userInfo') || {}
+			},
 			bindMobileStatus() {
 				let mobile = this.vk.getVuex('$user.userInfo.mobile') || null
 				return this.vk.pubfn.isNotNull(mobile)
 			},
 			tabSortList() {
-				return this.vk.getVuex('$app.componentsDynamic.indexListSort.list')|| []
+				return this.vk.getVuex('$app.componentsDynamic.indexListSort.list') || []
 			},
 		}
 	}

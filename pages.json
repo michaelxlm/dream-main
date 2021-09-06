@@ -1,7 +1,7 @@
 {
-	"easycom": {
-		"^u-(.*)": "uview-ui/components/u-$1/u-$1.vue"
-	},
+  "easycom": {
+    "^u-(.*)": "uview-ui/components/u-$1/u-$1.vue"
+  },
 	"pages": [{
 			"path": "pages/index/index"
 		}, {
@@ -59,40 +59,60 @@
 				"navigationBarTitleText": "",
 				"enablePullDownRefresh": false
 			}
-
+			
 		}
 	],
 	"subPackages": [{
 		"root": "pages_template",
 		"pages": [{
-				"path": "db-test/db-test"
+				"path": "db-test/db-test",
+        "style": {
+          "navigationBarTitleText": "数据库API演示"
+        }
 			},
 			{
-				"path": "db-test/list/list"
+				"path": "db-test/list/list",
+        "style": {
+          "navigationBarTitleText": "列表加载演示"
+        }
 			},
 			{
-				"path": "uni-id/index/index"
+				"path": "uni-id/index/index",
+				"style": {
+					"navigationBarTitleText": "【开箱即用】vk-uniCloud-router - 云函数路由模式 - uniCloud开发框架 - 已集成uni-id"
+				}
 			},
 			{
-				"path": "uni-id/password/password"
+				"path": "uni-id/password/password",
+        "style": {}
 			},
 			{
-				"path": "uni-id/mobile/mobile"
+				"path": "uni-id/mobile/mobile",
+        "style": {}
 			},
 			{
-				"path": "uni-id/univerify/univerify"
+				"path": "uni-id/univerify/univerify",
+        "style": {}
 			},
 			{
-				"path": "uni-id/weixin/weixin"
+				"path": "uni-id/weixin/weixin",
+        "style": {}
 			},
 			{
-				"path": "uni-id/alipay/alipay"
+				"path": "uni-id/alipay/alipay",
+        "style": {}
+			},
+      {
+        "path": "uni-id/qq/qq",
+        "style": {}
+      },
+			{
+				"path": "uni-id/util/util",
+        "style": {}
 			},
 			{
-				"path": "uni-id/util/util"
-			},
-			{
-				"path": "uni-id/email/email"
+				"path": "uni-id/email/email",
+        "style": {}
 			},
 			{
 				"path": "uni-id/login/index/index",
@@ -143,31 +163,42 @@
 				}
 			},
 			{
-				"path": "vuex/vuex",
+				"path": "vk-vuex/vk-vuex",
 				"style": {
 					"navigationBarTitleText": "vuex演示示例"
 				}
 			},
 			{
-				"path": "openapi/weixin/weixin"
+				"path": "openapi/weixin/weixin",
+        "style": {}
 			},
 			{
-				"path": "openapi/weixin/msgSecCheck/msgSecCheck"
+				"path": "openapi/weixin/msgSecCheck/msgSecCheck",
+        "style": {}
 			},
 			{
-				"path": "openapi/weixin/imgSecCheck/imgSecCheck"
+				"path": "openapi/weixin/imgSecCheck/imgSecCheck",
+        "style": {}
 			},
 			{
-				"path": "openapi/weixin/sendMessage/sendMessage"
+				"path": "openapi/weixin/sendMessage/sendMessage",
+        "style": {}
 			},
 			{
-				"path": "openapi/baidu/baidu"
-			}
+				"path": "openapi/baidu/baidu",
+        "style": {}
+			},
+      {
+        "path": "uni-id/test/test",
+        "style": {
+          "navigationStyle": "custom" ,// 隐藏系统导航栏
+          "navigationBarTextStyle": "white" // 状态栏字体为白色，只能为 white-白色，black-黑色 二选一
+        }
+      }
 		]
 	}],
 	"globalStyle": {
-		"navigationBarTextStyle": "black",
-		"navigationBarBackgroundColor": "#FFFFFF",
+		"navigationBarTextStyle": "black","navigationBarBackgroundColor": "#FFFFFF",
 		"onReachBottomDistance": 150
 	},
 	"tabBar": {

@@ -5,6 +5,7 @@ module.exports = {
 	 * data 请求参数 说明
 	 * @param {String} code QQ小程序登录返回的code
 	 * @param {String} accessToken QQ APP登录返回的access_token
+	 * @param {String} type login:登录 register:注册
 	 * res 返回参数说明
 	 * @param {Number} code 错误码，0表示成功
 	 * @param {String} msg 详细信息
@@ -17,7 +18,6 @@ module.exports = {
 		let { uid } = data;
 		let res = {};
 		// 业务逻辑开始-----------------------------------------------------------
-		// 微信登录(未绑定任何账号时,会新建账号)
 		res = await uniID.loginByQQ(data);
 		if(res.token){
 			// 日志服务

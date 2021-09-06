@@ -10,7 +10,7 @@ updateManager.updateReady = function(obj) {
 };
 
 
-module.exports = updateManager;
+export default updateManager;
 
 
 function updateManagerByMP (obj={}){

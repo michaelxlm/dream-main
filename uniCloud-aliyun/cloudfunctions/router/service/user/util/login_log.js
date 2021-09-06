@@ -36,6 +36,10 @@ module.exports = {
 		}
 		try {
 			if (vk.pubfn.getData(config, "vk.service.log.login.status")) {
+				let nowDate = new Date();
+				let {
+					now
+				} = vk.pubfn.getCommonTime(nowDate);
 				// 增加登录日志
 				await vk.baseDao.add({
 					dbName: "uni-id-log",
@@ -48,7 +52,12 @@ module.exports = {
 						os,
 						platform,
 						state,
-						dcloud_appid
+						dcloud_appid,
+						date:{
+							...now,
+							date_day_str: vk.pubfn.timeFormat(nowDate, "yyyy-MM-dd"),
+							date_month_str: vk.pubfn.timeFormat(nowDate, "yyyy-MM")
+						}
 					}
 				});
 			} else {

@@ -41,9 +41,11 @@ aliyunOSSUtil.uploadFile = function(obj) {
 		index = 0,
 		file = {},
 		needSave = false,
-		category_id
+		category_id,
+		title,
 	} = obj;
 	let vk = getApp().globalData.vk;
+	if (title) vk.showLoading(title);
 	let fileNameObj = createFileName(obj);
 	let aliyunOSS = getConfig();
 	let fileName = fileNameObj.fileFullName;
@@ -62,77 +64,90 @@ aliyunOSSUtil.uploadFile = function(obj) {
 	let Logger = {};
 	Logger.startTime = new Date().getTime();
 	Logger.filePath = filePath;
-	let uploadTask = uni.uploadFile({
-		url: aliyunOSS.action,
-		filePath,
-		name,
-		header,
-		formData: formData,
-		success: function(res) {
-			if (![200, 201].includes(res.statusCode)) {
-				if (typeof obj.fail === "function") obj.fail(res);
+	return new Promise((resolve, reject) => {
+		let uploadTask = uni.uploadFile({
+			url: aliyunOSS.action,
+			filePath,
+			name,
+			header,
+			formData: formData,
+			success: function(res) {
+				if (title) vk.hideLoading();
+				if (![200, 201].includes(res.statusCode)) {
+					if (typeof obj.fail === "function") obj.fail(res);
+					Logger.error = res;
+				} else {
+					// 上传成功
+					res.fileID = fileNameObj.url;
+					Logger.result = res;
+					if (needSave) {
+						// 保存文件记录到数据库
+						vk.userCenter.addUploadRecord({
+							data: {
+								url: res.fileID,
+								name: file.name,
+								size: file.size,
+								file_id: res.fileID,
+								provider: "aliyun",
+								category_id
+							},
+							filePath,
+							fileType,
+							success: function() {
+								if (typeof obj.success === "function") obj.success(res);
+								resolve(res);
+							},
+							fail: function(res) {
+								if (typeof obj.fail === "function") obj.fail(res);
+								reject(res);
+							}
+						});
+					}else{
+						if (typeof obj.success === "function") obj.success(res);
+						resolve(res);
+					}
+				}
+			},
+			fail: function(res) {
+				if (title) vk.hideLoading();
 				Logger.error = res;
-			} else {
-				// 上传成功
-				res.fileID = fileNameObj.url;
-				if (typeof obj.success === "function") obj.success(res);
-				Logger.result = res;
-				if (needSave) {
-					// 保存文件记录到数据库
-					vk.userCenter.addUploadRecord({
-						data: {
-							url: res.fileID,
-							name: file.name,
-							size: file.size,
-							file_id: res.fileID,
-							provider: "aliyun",
-							category_id
-						},
-						filePath,
-						fileType
-					});
+				if(res.errMsg && res.errMsg.indexOf('fail url not in domain list')>-1){
+					vk.toast('上传域名未在白名单中');
+				}
+				if (typeof obj.fail === "function") obj.fail(res);
+			},
+			complete: function() {
+				let vk = getApp().globalData.vk;
+				let config = vk.callFunctionUtil.config;
+				if (config.debug) {
+					Logger.endTime = new Date().getTime();
+					Logger.runTime = (Logger.endTime - Logger.startTime);
+					let colorArr = config.logger.colorArr;
+					let colorStr = colorArr[counterNum % colorArr.length];
+					counterNum++;
+					console.log("%c--------【开始】【阿里云oss文件上传】--------", 'color: ' + colorStr +
+						';font-size: 12px;font-weight: bold;');
+					console.log("【本地文件】: ", Logger.filePath);
+					console.log("【返回数据】: ", Logger.result);
+					console.log("【预览地址】: ", Logger.result.fileID);
+					console.log("【上传耗时】: ", Logger.runTime, "毫秒");
+					console.log("【上传时间】: ", vk.pubfn.timeFormat(Logger.startTime, "yyyy-MM-dd hh:mm:ss"));
+					if (Logger.error) console.error("【error】:", Logger.error);
+					console.log("%c--------【结束】【阿里云oss文件上传】--------", 'color: ' + colorStr +
+						';font-size: 12px;font-weight: bold;');
 				}
 			}
-		},
-		fail: function(res) {
-			Logger.error = res;
-			if(res.errMsg && res.errMsg.indexOf('fail url not in domain list')>-1){
-				vk.toast('上传域名未在白名单中');
+		});
+		uploadTask.onProgressUpdate((res) => {
+			if (res.progress > 0) {
+				if (typeof obj.onUploadProgress === "function") obj.onUploadProgress(res);
 			}
-			if (typeof obj.fail === "function") obj.fail(res);
-		},
-		complete: function() {
-			let vk = getApp().globalData.vk;
-			let config = vk.callFunctionUtil.config;
-			if (config.debug) {
-				Logger.endTime = new Date().getTime();
-				Logger.runTime = (Logger.endTime - Logger.startTime);
-				let colorArr = config.logger.colorArr;
-				let colorStr = colorArr[counterNum % colorArr.length];
-				counterNum++;
-				console.log("%c--------【开始】【阿里云oss文件上传】--------", 'color: ' + colorStr +
-					';font-size: 12px;font-weight: bold;');
-				console.log("【本地文件】: ", Logger.filePath);
-				console.log("【返回数据】: ", Logger.result);
-				console.log("【预览地址】: ", Logger.result.fileID);
-				console.log("【上传耗时】: ", Logger.runTime, "毫秒");
-				console.log("【上传时间】: ", vk.pubfn.timeFormat(Logger.startTime, "yyyy-MM-dd hh:mm:ss"));
-				if (Logger.error) console.error("【error】:", Logger.error);
-				console.log("%c--------【结束】【阿里云oss文件上传】--------", 'color: ' + colorStr +
-					';font-size: 12px;font-weight: bold;');
-			}
-		}
+		});
 	});
-	uploadTask.onProgressUpdate((res) => {
-		if (res.progress > 0) {
-			if (typeof obj.onUploadProgress === "function") obj.onUploadProgress(res);
-		}
-	});
-	return uploadTask;
 };
 
 
-module.exports = aliyunOSSUtil;
+export default aliyunOSSUtil;
 
 
 // 获取配置

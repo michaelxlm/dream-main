@@ -17,10 +17,11 @@
 		<!-- 验证码倒计时结束 -->
 	</view>
 </template>
-
+   
 <script>
 	export default {
 		name: "vk-u-verification-code",
+    emits: ["start", "end", "codeChange"],
 		props: {
 			seconds: {
 				type: [Number,String],

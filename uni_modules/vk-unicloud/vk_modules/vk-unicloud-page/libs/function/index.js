@@ -45,6 +45,13 @@ pubfn.queryParams = queryParams;
 pubfn.setClipboardData = setClipboardData;
 
 /**
+ * 休眠，等待（单位毫秒）
+ * @params {Number} ms 毫秒
+ * await vk.pubfn.sleep(1000);
+ */
+pubfn.sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+
+/**
  * 日期格式化
  * @params {Date || Number} date 需要格式化的时间
  * vk.pubfn.timeFormat(new Date(),"yyyy-MM-dd hh:mm:ss");
@@ -67,6 +74,32 @@ pubfn.getFullTime = pubfn.timeUtil.getFullTime;
  * vk.pubfn.getWeekStartAndEnd(0);
  */
 pubfn.getWeekStartAndEnd = pubfn.timeUtil.getWeekStartAndEnd;
+
+
+/**
+ * 获得相对当前时间的偏移 count 天的起止日期(日的开始和结束)
+ * @params {Number} count  默认0 (0代表今日 为-1代表昨日 为1代表明日以此类推)
+ * @params {Date || Number} date 指定从那天开始计算
+ * vk.pubfn.getDayOffsetStartAndEnd(0);
+ */
+pubfn.getDayOffsetStartAndEnd = pubfn.timeUtil.getDayOffsetStartAndEnd;
+
+/**
+ * 获得相对当前时间的偏移 count 月的起止日期(月的开始和结束)
+ * @params {Number} count  默认0 (0代表本月 为-1代表上月 为1代表下月以此类推)
+ * @params {Date || Number} date 指定从那天开始计算
+ * vk.pubfn.getMonthOffsetStartAndEnd(0);
+ */
+pubfn.getMonthOffsetStartAndEnd = pubfn.timeUtil.getMonthOffsetStartAndEnd;
+
+
+/**
+ * 获得相对当前时间的偏移 count 年的起止日期(年的开始和结束)
+ * @params {Number} count  默认0 (0代表今年 为-1代表去年 为1代表明年以此类推)
+ * @params {Date || Number} date 指定从那天开始计算
+ * vk.pubfn.getYearOffsetStartAndEnd(0);
+ */
+pubfn.getYearOffsetStartAndEnd = pubfn.timeUtil.getYearOffsetStartAndEnd;
 
 /**
  * 获取时间范围
@@ -648,7 +681,7 @@ pubfn.checkDataExpText = function (data={},expText) {
 				let andItemArr = andItem.split("=");
 				let key = andItemArr[0];
 				let value = andItemArr[1];
-				itemKey = (data[key] && data[key].toString() == value) ? true : false;
+				itemKey = (typeof data[key] !== "undefined" && data[key].toString() == value) ? true : false;
 				//console.log("key:",key,"value:",value,"data[key]",data[key].toString(),"itemKey:",itemKey);
 			}
 			if(!itemKey){
@@ -876,13 +909,15 @@ pubfn.regExpTest = function(text, expText){
 /**
  * 产生订单号，不依赖数据库，高并发时性能高（理论上会重复，但概率非常非常低）
  * @params {String} prefix 前缀
+ * @params {Number} num 位数，建议在25-30之间，默认25
  * vk.pubfn.createOrderNo();
  */
-pubfn.createOrderNo = function(prefix=""){
+pubfn.createOrderNo = function(prefix="", num=25){
 	// 获取当前时间字符串格式如20200803093000123
 	let fullTime = pubfn.getFullTime(new Date(), 1);
 	fullTime = fullTime.substring(2);
-	return prefix + fullTime + pubfn.random(10);
+	let randomNum = num - (prefix + fullTime).length;
+	return prefix + fullTime + pubfn.random(randomNum);
 };
 
 // 前端专属开始 -----------------------------------------------------------
@@ -896,6 +931,7 @@ pubfn.dateDiff = function(startTime) {
 	if (!startTime){
 		return "";
 	}
+  if(typeof startTime === "string" && !isNaN(startTime)) startTime = Number(startTime);
 	if(typeof startTime == "number"){
 		if (startTime.toString().length == 10) startTime *= 1000;
 		startTime = new Date(startTime);
@@ -937,6 +973,7 @@ pubfn.dateDiff2 = function(startTime) {
 	if (!startTime){
 		return "";
 	}
+  if(typeof startTime === "string" && !isNaN(startTime)) startTime = Number(startTime);
 	if(typeof startTime == "number"){
 		if (startTime.toString().length == 10) startTime *= 1000;
 		startTime = new Date(startTime);
@@ -1109,6 +1146,7 @@ pubfn.calcSize = function (length=0, arr, ary, precision=2, showType="auto"){
 		title : size + " " + type
 	}
 };
+
 
 
 /**
@@ -1679,4 +1717,4 @@ pubfn.checkLogin = function(obj = {}) {
 
 
 // 前端专属结束 -----------------------------------------------------------
-module.exports = pubfn;
+export default pubfn;

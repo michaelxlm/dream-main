@@ -6,7 +6,6 @@
 				<u-toast ref="uToast"></u-toast>
 				<!-- 图文导航 -->
 				<vk-u-grid-button :datas='componentsDynamic["vk-test-grid-button-01"]' :custom-datas='customDatas' @click="click"></vk-u-grid-button>
-			
 			</view>
 		</view>
 		<view class="u-config-wrap">
@@ -72,15 +71,15 @@
 				that.$set(that.customDatas,key,value);
 			},
 			dataChange1(index){
-				let data_value = that.componentsDynamic["vk-test-grid-button-01"];
+				let data_value = JSON.parse(JSON.stringify(that.componentsDynamic["vk-test-grid-button-01"]));
 				if(index == 1){
 					// 修改
 					data_value.list[0].text = "修改后的按钮1222";
-					data_value.list[0].icon = "red-packet";
+					data_value.list[0].icon = "https://img2.baidu.com/it/u=528808604,872300859&fm=26&fmt=auto&gp=0.jpg";
 				}else{
 					// 还原
 					data_value.list[0].text = "按钮1";
-					data_value.list[0].icon = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1594798331539&di=fe544344d765e4f23f90457f02a2d361&imgtype=0&src=http%3A%2F%2Fpic1.win4000.com%2Fwallpaper%2F1%2F58f03bf05fddb.jpg%3Fdown";
+					data_value.list[0].icon = "red-packet";
 				}
 				that.callFunction({
 					data_id:"vk-test-grid-button-01",
@@ -88,7 +87,7 @@
 				});
 			},
 			dataChange2(index){
-				let data_value = that.componentsDynamic["vk-test-grid-button-01"];
+				let data_value = JSON.parse(JSON.stringify(that.componentsDynamic["vk-test-grid-button-01"]));
 				if(index == 1){
 					// 修改
 					data_value.col = 3;

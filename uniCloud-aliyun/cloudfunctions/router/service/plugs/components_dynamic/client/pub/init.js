@@ -78,16 +78,16 @@ module.exports = {
 			  "data": {
 			    "list": [
 			      {
-			        "title": "标题11111111",
-			        "image": "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1594798331539&di=fe544344d765e4f23f90457f02a2d361&imgtype=0&src=http%3A%2F%2Fpic1.win4000.com%2Fwallpaper%2F1%2F58f03bf05fddb.jpg%3Fdown"
+			      	"title": "标题11111111",
+			      	"image": "https://img0.baidu.com/it/u=1595128334,82706458&fm=26&fmt=auto&gp=0.jpg"
 			      },
 			      {
-			        "title": "标题2222222",
-			        "image": "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1594798658581&di=bcd5486940ad88cf88a904f411c53e94&imgtype=0&src=http%3A%2F%2Fn.sinaimg.cn%2Fsinacn15%2F600%2Fw1920h1080%2F20180505%2Fad66-hacuuvt5802647.jpg"
+			      	"title": "标题2222222",
+			      	"image": "https://img2.baidu.com/it/u=3290011888,2972843018&fm=26&fmt=auto&gp=0.jpg"
 			      },
 			      {
-			        "title": "标题3333333",
-			        "image": "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1594798022306&di=ed613c19ef36df7856b383601acb2f05&imgtype=0&src=http%3A%2F%2Fimg.pconline.com.cn%2Fimages%2Fupload%2Fupc%2Ftx%2Fwallpaper%2F1306%2F17%2Fc1%2F22199754_1371460645988.jpg"
+			      	"title": "标题3333333",
+			      	"image": "https://img2.baidu.com/it/u=528808604,872300859&fm=26&fmt=auto&gp=0.jpg"
 			      }
 			    ],
 			    "height": 300
@@ -104,7 +104,7 @@ module.exports = {
 					"border":false,
 					"list":[
 						{
-							"icon":"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1594798331539&di=fe544344d765e4f23f90457f02a2d361&imgtype=0&src=http%3A%2F%2Fpic1.win4000.com%2Fwallpaper%2F1%2F58f03bf05fddb.jpg%3Fdown",
+							"icon":"red-packet",
 							"text":"按钮1",
 							"page":"../vk-u-notice-bar/vk-u-notice-bar"
 						},

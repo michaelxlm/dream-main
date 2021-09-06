@@ -1,7 +1,7 @@
 
 const install = Vue => {
 	const debug = process.env.NODE_ENV !== 'production';
-	let vk = Vue.prototype.vk;
+	let vk = Vue.prototype ? Vue.prototype.vk : Vue.config.globalProperties.vk;
 	if (debug && vk) {
 		const oldErrorHandler = Vue.config.errorHandler;
 		Vue.config.errorHandler = function errorHandler(err, vm, info) {

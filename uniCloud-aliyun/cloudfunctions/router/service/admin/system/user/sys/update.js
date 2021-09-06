@@ -9,6 +9,8 @@ module.exports = {
 	 * @param {String} gender 			性别
 	 * @param {Boolean} mobile 		手机号
 	 * @param {String} comment 		备注
+	 * @param {Array} dcloud_appid 	允许登录的应用列表
+	 * @param {Number} login_appid_type 	0:全部应用 1:部分应用
 	 * res 返回参数说明
 	 * @param {Number} code 错误码，0表示成功
 	 * @param {String} msg 详细信息
@@ -25,7 +27,9 @@ module.exports = {
 			gender,
 			mobile,
 			comment,
-			allow_login_background
+			allow_login_background,
+			dcloud_appid = [],
+			login_appid_type
 		} = data;
 		let mobile_confirmed;
 		// 参数合法校验开始-----------------------------------------------------------
@@ -40,7 +44,7 @@ module.exports = {
 		// 检测mobile
 		if (mobile) {
 			let num = await vk.baseDao.count({
-				dbName: dbName,
+				dbName,
 				whereJson: {
 					mobile: mobile,
 					_id: _.neq(_id)
@@ -51,18 +55,31 @@ module.exports = {
 			}
 			mobile_confirmed = 1; // 设置该手机号为已验证(否则无法通过手机号进行登录)
 		}
+		let dataJson = {
+			nickname,
+			gender,
+			mobile,
+			mobile_confirmed,
+			comment,
+			allow_login_background
+		};
+		// 设置允许登录的应用列表
+		if(login_appid_type && typeof uniID.setAuthorizedAppLogin === "function"){
+			let setAuthorizedAppLoginRes = await uniID.setAuthorizedAppLogin({
+				uid: _id,
+				dcloudAppidList: dcloud_appid
+			});
+			if(setAuthorizedAppLoginRes.code !== 0){
+				return setAuthorizedAppLoginRes;
+			}
+		}else if(login_appid_type === 0){
+			dataJson["dcloud_appid"] = _.remove();
+		}
 		// 执行数据库API请求
 		res.num = await vk.baseDao.updateById({
-			dbName: dbName,
+			dbName,
 			id:_id,
-			dataJson: {
-				nickname,
-				gender,
-				mobile,
-				mobile_confirmed,
-				comment,
-				allow_login_background
-			}
+			dataJson
 		});
 
 		return res;

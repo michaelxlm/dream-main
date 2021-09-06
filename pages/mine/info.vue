@@ -3,9 +3,9 @@
 		<!-- 头部logo -->
 		<view class="headerLogo">
 			<view @click="chooseAvatar()" class="editImgView">
-				<u-image class="editImg" :src="infoForm.avatar || mainLogo" mode="aspectFill" shape="circle" :width="160" :height="160"
-					:show-error="false" :show-loading="false" />
-					<u-icon name="edit-pen" size="40" class="editImgIcon"></u-icon>
+				<u-image class="editImg" :src="infoForm.avatar || mainLogo" mode="aspectFill" shape="circle"
+					:width="160" :height="160" :show-error="false" :show-loading="false" />
+				<u-icon name="edit-pen" size="40" class="editImgIcon"></u-icon>
 			</view>
 		</view>
 		<u-form :model="infoForm" ref="infoForm" label-width="160" label-style={labelStyle}>

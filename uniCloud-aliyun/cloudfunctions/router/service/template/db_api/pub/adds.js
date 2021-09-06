@@ -28,7 +28,7 @@ module.exports = {
 			// 随机定位结束-----------------------------------------------------------
 			dataArr.push({
 				"money": Math.floor(Math.random() * 9 + 1),
-				"user_id": "001",
+				"user_id": "00"+Math.floor(Math.random() * 2 + 1),
 				"location":new db.Geo.Point(longitude, latitude),
 				"position":{
 					"longitude":longitude,

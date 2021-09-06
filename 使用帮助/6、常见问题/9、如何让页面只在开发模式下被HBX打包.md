@@ -87,7 +87,7 @@
       }
     },
     {
-      "path": "vuex/vuex",
+      "path": "vk-vuex/vk-vuex",
       "style": {
         "navigationBarTitleText": "vuex演示示例"
       }

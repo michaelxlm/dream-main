@@ -6,6 +6,7 @@ module.exports = {
 	 * data 请求参数 说明
 	 * @param {String} code 微信登录返回的code
 	 * @param {String} platform 客户端类型：mp-weixin、app-plus，默认uni-id会自动取客户端类型，但是在云函数url化等场景无法取到客户端类型，可以使用此参数指定
+	 * @param {String} type login:登录 register:注册
 	 * res 返回参数说明
 	 * @param {Number} code 错误码，0表示成功
 	 * @param {String} msg 详细信息
@@ -18,11 +19,7 @@ module.exports = {
 		let { uid } = data;
 		let res = {};
 		// 业务逻辑开始-----------------------------------------------------------
-		// 微信登录(未绑定任何账号时,会新建账号)
-		let { code, needPermission } = data;
-		res = await uniID.loginByWeixin({
-			code, needPermission
-		});
+		res = await uniID.loginByWeixin(data);
 		if(res.token){
 			// 日志服务
 			const loginLogService = vk.require("service/user/util/login_log");

@@ -10,16 +10,17 @@ var util = {};
  */
 util.timeFormat = function(time, fmt = 'yyyy-MM-dd hh:mm:ss', targetTimezone = 8) {
 	try {
-		if(!time){
+		if (!time) {
 			return "";
 		}
+    if(typeof time === "string" && !isNaN(time)) time = Number(time);
 		// 其他更多是格式化有如下:
 		// yyyy-MM-dd hh:mm:ss|yyyy年MM月dd日 hh时MM分等,可自定义组合
 		let date;
-		if(typeof time === "number"){
+		if (typeof time === "number") {
 			if (time.toString().length == 10) time *= 1000;
 			date = new Date(time);
-		}else{
+		} else {
 			date = time;
 		}
 
@@ -29,24 +30,24 @@ util.timeFormat = function(time, fmt = 'yyyy-MM-dd hh:mm:ss', targetTimezone = 8
 
 		date = new Date(east8time);
 		let opt = {
-			"M+" : date.getMonth()+1,                 //月份
-			"d+" : date.getDate(),                    //日
-			"h+" : date.getHours(),                   //小时
-			"m+" : date.getMinutes(),                 //分
-			"s+" : date.getSeconds(),                 //秒
-			"q+" : Math.floor((date.getMonth()+3)/3), //季度
-			"S"  : date.getMilliseconds()             //毫秒
+			"M+": date.getMonth() + 1, //月份
+			"d+": date.getDate(), //日
+			"h+": date.getHours(), //小时
+			"m+": date.getMinutes(), //分
+			"s+": date.getSeconds(), //秒
+			"q+": Math.floor((date.getMonth() + 3) / 3), //季度
+			"S": date.getMilliseconds() //毫秒
 		};
-		if(/(y+)/.test(fmt)){
-			fmt = fmt.replace(RegExp.$1, (date.getFullYear()+"").substr(4 - RegExp.$1.length));
+		if (/(y+)/.test(fmt)) {
+			fmt = fmt.replace(RegExp.$1, (date.getFullYear() + "").substr(4 - RegExp.$1.length));
 		}
-		for(let k in opt){
-			if(new RegExp("("+ k +")").test(fmt)){
-				fmt = fmt.replace(RegExp.$1, (RegExp.$1.length==1) ? (opt[k]) : (("00"+ opt[k]).substr((""+ opt[k]).length)));
+		for (let k in opt) {
+			if (new RegExp("(" + k + ")").test(fmt)) {
+				fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (opt[k]) : (("00" + opt[k]).substr(("" + opt[k]).length)));
 			}
 		}
 		return fmt;
-	}catch(err){
+	} catch (err) {
 		// 若格式错误,则原值显示
 		return time;
 	}
@@ -61,11 +62,12 @@ util.timeFormat = function(time, fmt = 'yyyy-MM-dd hh:mm:ss', targetTimezone = 8
  * type = 2 返回 { YYYY, MM, DD, hh, mm, ss }
  * vk.pubfn.getFullTime(new Date());
  */
-util.getFullTime = function(date, type=0, targetTimezone = 8) {
-	if(!date){
+util.getFullTime = function(date, type = 0, targetTimezone = 8) {
+	if (!date) {
 		return "";
 	}
-	if(typeof date == "number"){
+  if(typeof date === "string" && !isNaN(date)) date = Number(date);
+	if (typeof date == "number") {
 		if (date.toString().length == 10) date *= 1000;
 		date = new Date(date);
 	}
@@ -75,31 +77,31 @@ util.getFullTime = function(date, type=0, targetTimezone = 8) {
 	date = new Date(east8time);
 
 	let YYYY = date.getFullYear() + '';
-	let MM = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1);
-	let DD = (date.getDate() < 10 ? '0'+(date.getDate()) : date.getDate());
-	let hh = (date.getHours() < 10 ? '0'+(date.getHours()) : date.getHours());
-	let mm = (date.getMinutes() < 10 ? '0'+(date.getMinutes()) : date.getMinutes());
-	let ss = (date.getSeconds() < 10 ? '0'+(date.getSeconds()) : date.getSeconds());
-	if(type === 2){
+	let MM = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1);
+	let DD = (date.getDate() < 10 ? '0' + (date.getDate()) : date.getDate());
+	let hh = (date.getHours() < 10 ? '0' + (date.getHours()) : date.getHours());
+	let mm = (date.getMinutes() < 10 ? '0' + (date.getMinutes()) : date.getMinutes());
+	let ss = (date.getSeconds() < 10 ? '0' + (date.getSeconds()) : date.getSeconds());
+	if (type === 2) {
 		return {
-			YYYY : Number(YYYY),
-			MM : Number(MM),
-			DD : Number(DD),
-			hh : Number(hh),
-			mm : Number(mm),
-			ss : Number(ss),
+			YYYY: Number(YYYY),
+			MM: Number(MM),
+			DD: Number(DD),
+			hh: Number(hh),
+			mm: Number(mm),
+			ss: Number(ss),
 
-			year : Number(YYYY),
-			month : Number(MM),
-			day : Number(DD),
-			hour : Number(hh),
-			minute : Number(mm),
-			second : Number(ss),
+			year: Number(YYYY),
+			month: Number(MM),
+			day: Number(DD),
+			hour: Number(hh),
+			minute: Number(mm),
+			second: Number(ss),
 		};
-	}else if(type === 1){
-		return YYYY +""+ MM +""+ DD +""+ hh +""+ mm +""+ ss;
-	}else{
-		return YYYY +"-"+ MM +"-"+ DD +" "+ hh +":"+ mm +":"+ ss;
+	} else if (type === 1) {
+		return YYYY + "" + MM + "" + DD + "" + hh + "" + mm + "" + ss;
+	} else {
+		return YYYY + "-" + MM + "-" + DD + " " + hh + ":" + mm + ":" + ss;
 	}
 };
 
@@ -126,8 +128,8 @@ util.getWeekStartAndEnd = function(addWeekCount = 0, date = new Date(), targetTi
 	let minusDay = week != 0 ? week - 1 : 6;
 	let weekStart = new Date(date.getTime() - (oneDayMillisecond * minusDay));
 	let weekEnd = new Date(weekStart.getTime() + (oneDayMillisecond * 6));
-	let weekStartObj = util.getFullTime(weekStart,2);
-	let weekEndObj = util.getFullTime(weekEnd,2);
+	let weekStartObj = util.getFullTime(weekStart, 2);
+	let weekEndObj = util.getFullTime(weekEnd, 2);
 	// 获得当前周的第一天
 	res.weekStart = new Date(`${weekStartObj.year}/${weekStartObj.month}/${weekStartObj.day}`).getTime() - timeDif;
 	// 获得当前周的最后一天
@@ -162,7 +164,12 @@ util.getCommonTime = function(date = new Date(), targetTimezone = 8) {
 	const { year, month, day, hour, minute, second } = util.getFullTime(date, 2);
 	// 现在的时间
 	res.now = {
-		year, month, day, hour, minute, second
+		year,
+		month,
+		day,
+		hour,
+		minute,
+		second
 	};
 	// 获取本月最大天数
 	let month_last_day = new Date(year, month, 0).getDate();
@@ -185,7 +192,7 @@ util.getCommonTime = function(date = new Date(), targetTimezone = 8) {
 	// 计算上月开始-----------------------------------------------------------
 	let year_last = year;
 	let month_last = month - 1;
-	if(month_last === 0){
+	if (month_last === 0) {
 		month_last = 12;
 		year_last = year - 1;
 	}
@@ -193,8 +200,10 @@ util.getCommonTime = function(date = new Date(), targetTimezone = 8) {
 	// 上月开始时间
 	res.lastMonthStart = new Date(`${year_last}/${month_last}/1`).getTime() - timeDif;
 	// 上月结束时间
-	res.lastMonthEnd = new Date(`${year_last}/${month_last}/${month_last_day_last}`).getTime() + (24 * 60 * 60 * 1000 - 1) - timeDif;
+	res.lastMonthEnd = new Date(`${year_last}/${month_last}/${month_last_day_last}`).getTime() + (24 * 60 * 60 *
+		1000 - 1) - timeDif;
 	// 计算上月结束-----------------------------------------------------------
+
 	let weekObj = util.getWeekStartAndEnd(0, date);
 	// 本周开始时间
 	res.weekStart = weekObj.weekStart;
@@ -203,10 +212,10 @@ util.getCommonTime = function(date = new Date(), targetTimezone = 8) {
 	// 本年1-12月的起止时间
 	res.months = [];
 	res.months[0] = {
-		monthStart : res.monthStart,
-		monthEnd : res.monthEnd
+		monthStart: res.monthStart,
+		monthEnd: res.monthEnd
 	};
-	for(let i = 1;i<=12;i++){
+	for (let i = 1; i <= 12; i++) {
 		// 获取此月最大天数
 		let month_last_day = new Date(year, i, 0).getDate();
 		// 此月开始时间
@@ -235,11 +244,11 @@ vk.pubfn.getMonthStartAndEnd({
  */
 util.getMonthStartAndEnd = function(obj, targetTimezone = 8) {
 	let res = {
-		startTime:null,
-		endTime:null
+		startTime: null,
+		endTime: null
 	};
 	let { year, month } = obj;
-	if(year>0 && month>0){
+	if (year > 0 && month > 0) {
 		const dif = new Date().getTimezoneOffset();
 		const timeDif = dif * 60 * 1000 + (targetTimezone * 60 * 60 * 1000);
 		let month_last_day = new Date(year, month, 0).getDate();
@@ -252,6 +261,110 @@ util.getMonthStartAndEnd = function(obj, targetTimezone = 8) {
 }
 
 
+/**
+ * 获得相对当前时间的偏移 count 天的起止日期(日的开始和结束)
+ * @params {Number} count  默认0 (0代表今日 为-1代表昨日 为1代表明日以此类推)
+ * @params {Date || Number} date 指定从那天开始计算
+ * vk.pubfn.getDayOffsetTime(0);
+ */
+util.getDayOffsetStartAndEnd = function(count = 0, time, targetTimezone = 8) {
+	let res = {};
+  if(typeof time === "string" && !isNaN(time)) time = Number(time);
+	let date;
+	if (time) {
+		if (typeof time === "number") {
+			if (time.toString().length == 10) time *= 1000;
+			date = new Date(time);
+		} else {
+			date = time;
+		}
+	} else {
+		date = new Date();
+	}
+	const dif = date.getTimezoneOffset();
+	const timeDif = dif * 60 * 1000 + (targetTimezone * 60 * 60 * 1000);
+	// 一天的毫秒数
+	let oneDayMillisecond = 1000 * 60 * 60 * 24;
+	// 相对于当前日期count个天的日期
+	date = new Date(date.getTime() + (oneDayMillisecond * 1 * count));
+	let dateObj = util.getFullTime(date, 2);
+	// 获得当天的起始时间
+	res.startTime = new Date(`${dateObj.year}/${dateObj.month}/${dateObj.day}`).getTime() - timeDif;
+	// 获得当天的结束时间
+	res.endTime = new Date(`${dateObj.year}/${dateObj.month}/${dateObj.day}`).getTime() + (24 * 60 * 60 * 1000 - 1) - timeDif;
+	return res;
+}
+/**
+ * 获得相对当前时间的偏移 count 个月的起止日期(月的开始和结束)
+ * @params {Number} count  默认0 (0代表本月 为-1代表上月 为1代表下月以此类推)
+ * @params {Date || Number} date 指定从那天开始计算
+ * vk.pubfn.getMonthOffsetStartAndEnd(0);
+ */
+util.getMonthOffsetStartAndEnd = function(count = 0, time, targetTimezone = 8) {
+	let res = {};
+  if(typeof time === "string" && !isNaN(time)) time = Number(time);
+	let date;
+	if (time) {
+		if (typeof time === "number") {
+			if (time.toString().length == 10) time *= 1000;
+			date = new Date(time);
+		} else {
+			date = time;
+		}
+	} else {
+		date = new Date();
+	}
+	const dif = date.getTimezoneOffset();
+	const timeDif = dif * 60 * 1000 + (targetTimezone * 60 * 60 * 1000);
+	let dateObj = util.getFullTime(date, 2);
+	let month = dateObj.month + count;
+	let year = dateObj.year;
+	if (month > 12) {
+		year = year + Math.floor(month / 12);
+		month = Math.abs(month) % 12;
+	} else if (month <= 0) {
+		year = year - 1 - Math.floor(Math.abs(month) / 12);
+		month = 12 - Math.abs(month) % 12;
+	}
+	let month_last_day = new Date(year, month, 0).getDate();
+	// 开始时间
+	res.startTime = new Date(`${year}/${month}/1`).getTime() - timeDif;
+	// 结束时间
+	res.endTime = new Date(`${year}/${month}/${month_last_day}`).getTime() + (24 * 60 * 60 * 1000 - 1) - timeDif;
+	return res;
+}
+
+/**
+ * 获得相对当前时间的偏移 count 年的起止日期(年的开始和结束)
+ * @params {Number} count  默认0 (0代表今年 为-1代表去年 为1代表明年以此类推)
+ * @params {Date || Number} date 指定从那天开始计算
+ * vk.pubfn.getYearOffsetStartAndEnd(0);
+ */
+util.getYearOffsetStartAndEnd = function(count = 0, time, targetTimezone = 8) {
+	let res = {};
+  if(typeof time === "string" && !isNaN(time)) time = Number(time);
+	let date;
+	if (time) {
+		if (typeof time === "number") {
+			if (time.toString().length == 10) time *= 1000;
+			date = new Date(time);
+		} else {
+			date = time;
+		}
+	} else {
+		date = new Date();
+	}
+	const dif = date.getTimezoneOffset();
+	const timeDif = dif * 60 * 1000 + (targetTimezone * 60 * 60 * 1000);
+	let dateObj = util.getFullTime(date, 2);
+	let year = dateObj.year + count;
+	// 开始时间
+	res.startTime = new Date(`${year}/1/1`).getTime() - timeDif;
+	// 结束时间
+	res.endTime = new Date(`${year}/12/31`).getTime() + (24 * 60 * 60 * 1000 - 1) - timeDif;
+	return res;
+};
+
 
 /**
  * 判断是否是闰年
@@ -259,19 +372,20 @@ util.getMonthStartAndEnd = function(obj, targetTimezone = 8) {
  * vk.pubfn.timeUtil.isLeapYear(year);
  */
 util.isLeapYear = function(year) {
-	if(typeof year === "undefined"){
+	if (typeof year === "undefined") {
 		let { now } = util.getCommonTime();
 		year = now.year;
-	}else if(typeof year === "object"){
+	} else if (typeof year === "object") {
 		let { now } = util.getCommonTime(year);
 		year = now.year;
 	}
-	if (((year % 4)==0) && ((year % 100)!=0) || ((year % 400)==0)) {
+	if (((year % 4) == 0) && ((year % 100) != 0) || ((year % 400) == 0)) {
 		return true;
 	} else {
 		return false;
 	}
 }
+
 
 /**
  * 判断是否是清明节
@@ -283,12 +397,12 @@ util.isQingming = function(data = new Date()) {
 	let { year, month, day } = now;
 	let key = false;
 	// 清明节的日期是不固定的，规律是：闰年开始的前2年是4月4日，闰年开始的第3年和第4年是4月5日
-	if(util.isLeapYear(year) || util.isLeapYear(year - 1)){
-		if(month === 4 && day === 4){
+	if (util.isLeapYear(year) || util.isLeapYear(year - 1)) {
+		if (month === 4 && day === 4) {
 			key = true;
 		}
-	}else{
-		if(month === 4 && day === 5){
+	} else {
+		if (month === 4 && day === 5) {
 			key = true;
 		}
 	}
@@ -296,5 +410,4 @@ util.isQingming = function(data = new Date()) {
 }
 
 
-
-module.exports = util;
+export default util;

@@ -18,11 +18,34 @@ module.exports = {
 		let { uid } = data;
 		let res = { code: 0, msg: '' };
 		// 业务逻辑开始-----------------------------------------------------------
+		let { dcloud_appid, appids } = data.formData || {};
+		let whereJson = {};
+		if (dcloud_appid) {
+			if (dcloud_appid === "___empty-array___") {
+				whereJson["dcloud_appid"] = [];
+			} else if (dcloud_appid === "___error___") {
+				whereJson["dcloud_appid"] = _.and(_.exists(true), _.nin(appids));
+			} else if (dcloud_appid === "___non-existent___") {
+				whereJson["dcloud_appid"] = _.exists(false);
+			} else {
+				whereJson["dcloud_appid"] = _.or(_.eq(dcloud_appid), _.exists(false));
+			}
+		}
 		let dbName = "uni-id-users";
 		res = await vk.baseDao.getTableData({
 			dbName,
 			data,
-			sortArr: [{ "name": "register_date", "type": "desc" }]
+			whereJson,
+			sortArr: [{ "name": "register_date", "type": "desc" }],
+			// 副表列表
+			foreignDB: [{
+				dbName: "opendb-app-list",
+				localKey: "dcloud_appid",
+				foreignKey: "appid",
+				localKeyType: "array",
+				as: "appList",
+				limit: 500
+			}],
 		});
 		// 业务逻辑结束-----------------------------------------------------------
 		return res;

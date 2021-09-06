@@ -48,7 +48,7 @@ vk.vuex.dispatch('$user/addFootprint', data);
 #### /store/modules/
 
 ### 2、演示vuex功能示例页面：
-#### /pages_template/vuex/vuex.vue
+#### /pages_template/vk-vuex/vk-vuex.vue
 
 ### 3、为什么新版本去除了全局混入的方式？
 #### 此处需重点说明

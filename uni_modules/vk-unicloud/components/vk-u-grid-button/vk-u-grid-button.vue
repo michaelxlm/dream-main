@@ -49,6 +49,7 @@
 <script>
 	export default {
 		name: "vk-u-grid-button",
+    emits: ["click"],
 		props: {
 			dataId:{
 				type: String,
@@ -106,10 +107,6 @@
 				}
 				return value;
 			}
-		},
-		// 过滤器
-		filters: {
-		
 		},
 		// 计算属性
 		computed: {

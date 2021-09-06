@@ -7,10 +7,11 @@
 					@click="pageTo('/pages/mine/info?from=mine')">
 					<block>
 						<u-avatar class="userinfo-avatar u-skeleton-circle u-m-r-36" :src="userInfo.avatar || mainLogo"
-							size="120" :show-sex="userInfo.gender!=='0'" :sex-icon="userInfo.gender===1?'man':'woman'"/>
+							size="120" :show-sex="userInfo.gender!=='0'&&userInfo.gender&&userInfo.gender!==''"
+							:sex-icon="userInfo.gender===1?'man':'woman'" />
 						<view class="u-skeleton-fillet u-flex-1">
 							<view class="u-font-18 u-p-b-20">
-								<text>{{ userInfo.nickname|| userInfo.username ||"游客" }}</text>
+								<text>{{useName}}</text>
 							</view>
 							<view class="u-font-14 u-tips-color">{{userInfo.intro }}</view>
 						</view>
@@ -59,7 +60,6 @@
 		components: {},
 		data() {
 			return {
-				sessionKey: "",
 				options: {},
 			}
 		},
@@ -71,35 +71,20 @@
 					padding: '0'
 				}
 			},
+			useName() {
+				return this.userInfo.nickname || this.userInfo.username || this.vk.pubfn.hidden(this.userInfo.mobile, 3, 4) || '游客';
+			},
 			userInfo() {
 				return this.vk.getVuex('$user.userInfo') || {}
 			},
 			miniProgramData() {
-				return this.vk.getVuex('$app.componentsDynamic.miniProgramData.list')|| []
+				return this.vk.getVuex('$app.componentsDynamic.miniProgramData.list') || []
 			},
 			mainLogo() {
 				return config.staticUrl.logo
 			}
 		},
 		watch: {
-			userInfo: {
-				handler(oldVal, newVal) {
-					console.log(oldVal)
-					console.log(newVal)
-					if (this.vk.pubfn.isNotNull(newVal.mobile)) {
-						vk.userCenter.code2SessionWeixin({
-							data: {
-								needCache: true
-							},
-							success: function(data) {
-								that.sessionKey = data.sessionKey
-							},
-						});
-
-					}
-				},
-				deep: true
-			}
 		},
 		onLoad(options = {}) {
 			that = this;
@@ -131,27 +116,32 @@
 				if (!encryptedData || !iv) {
 					return false;
 				}
-				vk.userCenter.getPhoneNumber({
+				vk.userCenter.code2SessionWeixin({
 					data: {
-						encryptedData,
-						iv,
-						sessionKey: that.sessionKey
+						needCache: true
 					},
-					success(phone) {
-						console.log(phone.data)
-						vk.userCenter.bindMobile({
+					success: function(data) {
+						vk.userCenter.getPhoneNumber({
 							data: {
-								uid: vk.getVuex('$user.userInfo._id'),
-								mobile: phone.mobile
+								encryptedData,
+								iv,
+								sessionKey: data.sessionKey
 							},
-							success(data) {
-								that.vk.setVuex('$user.userInfo', data.userInfo || {});
-								that.getList()
+							success(phone) {
+								console.log(phone.data)
+								vk.userCenter.bindMobile({
+									data: {
+										uid: vk.getVuex('$user.userInfo._id'),
+										mobile: phone.mobile
+									},
+									success(res) {
+										that.vk.setVuex('$user.userInfo', res.userInfo || {});
+									}
+								});
 							}
 						});
-					}
+					},
 				});
-
 			},
 			pageTo(path) {
 				vk.navigateTo(path);

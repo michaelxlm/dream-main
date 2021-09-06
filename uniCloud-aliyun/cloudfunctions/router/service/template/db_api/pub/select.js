@@ -18,7 +18,7 @@ module.exports = {
 			pageIndex:1,
 			pageSize:100,
 			whereJson:{
-				user_id:"001"
+				
 			},
 		});
 		// 对应的sql:

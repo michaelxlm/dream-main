@@ -1,21 +1,30 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+import $app from './modules/$app.js'
+import $user from './modules/$user.js'
 
-Vue.use(Vuex)
-
+const modules = {
+  $app,
+  $user
+};
 // 定义不需要永久存储的目录，即下次APP启动数据会自动清空，值为在modules目录下的文件名
 let notSaveStateKeys = ['$error'];
 
 let lifeData = uni.getStorageSync('lifeData') || {};
 
-const modulesFiles = require.context('./modules', true, /\.js$/);
+// const modulesFiles = require.context('./modules', true, /\.js$/);
 
-modulesFiles.keys().map((modulePath, index) => {
-	let moduleName = modulePath.replace(/^\.\/(.*)\.\w+$/, '$1')
-	if(notSaveStateKeys.indexOf(moduleName) === -1) {
-		if(!lifeData[moduleName]) lifeData[moduleName] = {};
-	}
-});
+// modulesFiles.keys().map((modulePath, index) => {
+// 	let moduleName = modulePath.replace(/^\.\/(.*)\.\w+$/, '$1')
+//   console.log(1,moduleName);
+// 	if(notSaveStateKeys.indexOf(moduleName) === -1) {
+// 		if(!lifeData[moduleName]) lifeData[moduleName] = {};
+// 	}
+// });
+for(let moduleName in modules){
+  if(notSaveStateKeys.indexOf(moduleName) === -1) {
+    if(!lifeData[moduleName]) lifeData[moduleName] = {};
+  }
+}
+
 uni.setStorageSync('lifeData', lifeData);
 
 // 保存变量到本地存储中
@@ -33,12 +42,20 @@ const saveLifeData = function(key, value){
 }
 
 // 加载modules目录下所有文件(分模块)
-const modules = modulesFiles.keys().reduce((modules, modulePath) => {
-	const moduleName = modulePath.replace(/^\.\/(.*)\.\w+$/, '$1')
-	const value = modulesFiles(modulePath)
-	modules[moduleName] = value.default
-	return modules
-}, {});
+// const modules = modulesFiles.keys().reduce((modules, modulePath) => {
+// 	const moduleName = modulePath.replace(/^\.\/(.*)\.\w+$/, '$1')
+// 	const value = modulesFiles(modulePath)
+// 	modules[moduleName] = value.default
+// 	return modules
+// }, {});
+
+
+// #ifndef VUE3
+import Vue from 'vue'
+import Vuex from 'vuex'
+
+Vue.use(Vuex)
+
 const store = new Vuex.Store({
 	modules,
 	// 如果是开发环境,则开启严格模式
@@ -70,5 +87,41 @@ const store = new Vuex.Store({
 		}
 	}
 })
+// #endif
+
+// #ifdef VUE3
+import { createStore } from 'vuex'
+const store = createStore({
+	modules,
+  // 如果是开发环境,则开启严格模式
+  strict: process.env.NODE_ENV === 'development',
+  // 公共 mutations
+  mutations: {
+  	updateStore(state, payload) {
+  		// 判断是否多层级调用，state中为对象存在的情况，诸如user.info.score = 1
+  		if(typeof payload.value === "undefined") payload.value = "";
+  		let nameArr = payload.name.split('.');
+  		let saveKey = '';
+  		let len = nameArr.length;
+  		if(len >= 2) {
+  			let obj = state[nameArr[0]];
+  			for(let i = 1; i < len - 1; i ++) {
+  				let keyName = nameArr[i];
+  				if(typeof obj[keyName] !== "object") obj[keyName] = {};
+  				obj = obj[keyName];
+  			}
+  			obj[nameArr[len - 1]] = JSON.parse(JSON.stringify(payload.value));
+  			saveKey = nameArr[0];
+  		} else {
+  			// 单层级变量，在state就是一个普通变量的情况
+  			state[payload.name] = JSON.parse(JSON.stringify(payload.value));
+  			saveKey = payload.name;
+  		}
+  		// 保存变量到本地，见顶部函数定义
+  		saveLifeData(saveKey, state[saveKey])
+  	}
+  }
+})
+// #endif
 
 export default store

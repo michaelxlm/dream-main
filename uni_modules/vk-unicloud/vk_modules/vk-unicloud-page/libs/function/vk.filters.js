@@ -56,4 +56,4 @@ util.sizeFilter = function (...obj){
 	return res.title;
 };
 
-module.exports = util;
+export default util;

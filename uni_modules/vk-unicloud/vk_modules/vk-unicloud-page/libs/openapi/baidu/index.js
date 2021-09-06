@@ -167,4 +167,4 @@ function request(obj={}){
 	});
 }
 
-module.exports = baidu;
+export default baidu;

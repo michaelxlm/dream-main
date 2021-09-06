@@ -1,4 +1,4 @@
-### 全局Vue 过滤器
+### 全局Vue 过滤器（由于vue3开始不支持全局过滤器，因此直接调用方法即可）
 
 #### 时间对象、时间戳转字符串
 ```js
@@ -6,21 +6,21 @@
  * 时间对象、时间戳转字符串
  * 最终转成 2020-08-01 12:12:12
  */
-{{ number | timeFilter }}
+{{ vk.pubfn.timeFormat(number) }}
 /**
  * 时间对象、时间戳转字符串
  * 最终转成 2020年08月01日
  */
-{{ number | timeFilter('yyyy年MM月dd日') }}
+{{ vk.pubfn.timeFormat(number,'yyyy年MM月dd日') }}
 ```
 
 #### 将时间显示成1秒前、1天前
 ```js
 // 将时间显示成距离当前时间已过了1秒前、1天前
-{{ time | dateDiff }}
+{{ vk.pubfn.dateDiff(time) }}
 
 // 将时间显示成当前时间距离time剩余时间为：3天
-{{ time | dateDiff2 }}
+{{ vk.pubfn.dateDiff2(time) }}
 ```
 
 #### 将大数字转中文，如15234120转成1千万
@@ -35,7 +35,7 @@
  * 1523412 -> 1百万
  * 15234120 ->1千万
  */
-{{ number | numStr }}
+{{ vk.pubfn.numStr(number) }}
 ```
 
 #### 金额过滤器
@@ -43,13 +43,13 @@
 /**
  * 金额转换 100 转成 1 （值时以分为单位，显示时以元为单位）
  */
-{{ money | priceFilter}}
+{{ vk.pubfn.priceFilter(money) }}
 
 // 金额过滤器 - 只显示小数点左边 （值时以分为单位，显示时以元为单位）
-{{ money | priceLeftFilter }} 
+{{ vk.pubfn.priceLeftFilter(money) }} 
 
 // 金额过滤器 - 只显示小数点右边（值时以分为单位，显示时以元为单位）
-{{ money | priceRightFilter }}
+{{ vk.pubfn.priceRightFilter(money) }}
 ```
 
 
@@ -58,7 +58,15 @@
 /**
  * 百分比转换 1 转成 100% 0.1 转成 10%
  */
-{{ value | percentageFilter}}
+{{ vk.pubfn.percentageFilter(value) }}
+```
+
+#### 计量单位过滤器
+```js
+/**
+ * 大小过滤器 
+ */
+{{ vk.pubfn.calcSize(value,["B","KB","MB","GB"],1024,3).title }}
 ```
 
 

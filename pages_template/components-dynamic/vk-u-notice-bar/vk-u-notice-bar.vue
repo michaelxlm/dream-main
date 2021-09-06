@@ -4,7 +4,7 @@
 		<view class="u-demo-wrap">
 			<view class="u-demo-title">演示效果</view>
 			<view class="u-demo-area">
-				<u-toast :type="type" ref="uToast"></u-toast>
+				<u-toast ref="uToast"></u-toast>
 				<vk-u-notice-bar :datas='componentsDynamic["vk-test-notice-bar-01"]' :custom-datas="customDatas" @click="click" @getMore="getMore"></vk-u-notice-bar>
 				<vk-u-notice-bar :datas='componentsDynamic["vk-test-notice-bar-02"]' :custom-datas="customDatas" @click="click" @getMore="getMore"></vk-u-notice-bar>
 				<vk-u-notice-bar :datas='componentsDynamic["vk-test-notice-bar-03"]' :custom-datas="customDatas" @click="click" @getMore="getMore"></vk-u-notice-bar>
@@ -172,10 +172,6 @@
 			end() {
 				// console.log('end');
 			}
-		},
-		// 过滤器
-		filters:{
-			
 		},
 		// 计算属性
 		computed:{
